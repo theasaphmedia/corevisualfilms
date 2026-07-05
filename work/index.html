@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Corevisualfilms</title>
+  <meta name="description" content="Browse our full portfolio of cinematic productions — weddings, commercial, music videos, real estate, documentary and corporate work.">
+  <link rel="canonical" href="https://corevisualfilms.com/work/">
+  <meta property="og:title"       content="Work — Corevisualfilms">
+  <meta property="og:description" content="Full portfolio of cinematic productions.">
+
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/global.css">
+
+  <style>
+    /* ── Filter Tabs ──────────────────────────────────────── */
+    .filter-bar {
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 10;
+      background: rgba(8,8,8,0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--color-border);
+      padding-block: var(--space-4);
+    }
+    .filter-bar__inner {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-inline: var(--gutter);
+    }
+    .filter-bar__inner::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      flex-shrink: 0;
+      padding: 0.45em 1.2em;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      cursor: none;
+      transition: background var(--dur-fast) var(--ease-out),
+                  color var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out);
+      white-space: nowrap;
+    }
+    .filter-btn:hover { color: var(--color-off-white); border-color: var(--color-muted); }
+    .filter-btn.is-active {
+      background: var(--color-amber);
+      color: var(--color-void);
+      border-color: var(--color-amber);
+    }
+
+    /* ── Portfolio Grid ───────────────────────────────────── */
+    .portfolio { padding-top: var(--space-10); padding-bottom: var(--section-pad-y); }
+    .portfolio__count {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-wide);
+      margin-bottom: var(--space-8);
+      padding-inline: var(--gutter);
+    }
+    .portfolio__count span { color: var(--color-amber); }
+
+    /* Masonry-style: 3 columns, variable row spans */
+    .portfolio__grid {
+      padding-inline: var(--gutter);
+      columns: 3;
+      column-gap: var(--gap);
+    }
+    .portfolio-card {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      cursor: none;
+      break-inside: avoid;
+      margin-bottom: var(--gap);
+      transition: transform var(--dur-base) var(--ease-out),
+                  box-shadow var(--dur-base) var(--ease-out);
+    }
+    .portfolio-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    /* Alternate aspect ratios for visual interest */
+    .portfolio-card[data-size="tall"] .vid-slot,
+    .portfolio-card[data-size="tall"] .card-media { aspect-ratio: 9/14; }
+    .portfolio-card[data-size="wide"] .vid-slot,
+    .portfolio-card[data-size="wide"] .card-media { aspect-ratio: 16/9; }
+    .portfolio-card[data-size="sq"]   .vid-slot,
+    .portfolio-card[data-size="sq"]   .card-media { aspect-ratio: 1/1; }
+    .card-media { overflow: hidden; background: #000; }
+    .card-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .portfolio-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+        rgba(8,8,8,0.95) 0%,
+        rgba(8,8,8,0.3) 45%,
+        transparent 75%
+      );
+      z-index: 1;
+      opacity: 0;
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+    .portfolio-card:hover .portfolio-card__overlay { opacity: 1; }
+
+    .portfolio-card__info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: var(--space-5);
+      z-index: 2;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: transform var(--dur-base) var(--ease-out),
+                  opacity var(--dur-base) var(--ease-out);
+    }
+    .portfolio-card:hover .portfolio-card__info { transform: translateY(0); opacity: 1; }
+
+    .portfolio-card__tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+    .portfolio-card__title {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.2;
+    }
+    .portfolio-card__year {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      margin-top: var(--space-2);
+    }
+
+    /* Filtered-out cards */
+    .portfolio-card[data-hidden="true"] {
+      display: none;
+    }
+
+    /* Empty state */
+    .portfolio__empty {
+      display: none;
+      padding: var(--space-20) var(--gutter);
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-wide);
+    }
+
+    /* ── Mobile ───────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .portfolio__grid { columns: 2; }
+    }
+    @media (max-width: 600px) {
+      .portfolio__grid { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="grain" aria-hidden="true"></canvas>
+
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+    <span class="cursor__label">PLAY</span>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav nav--scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="../" class="nav__logo" aria-label="Corevisualfilms — Home">COREVISUALFILMS</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navOverlay">
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+    </button>
+    <div class="nav__overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav__overlay-inner">
+        <ul class="nav__links">
+          <li class="nav__link-item"><a href="../"          class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
+          <li class="nav__link-item"><a href="../work/"     class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Work</span></a></li>
+          <li class="nav__link-item"><a href="../services/" class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
+          <li class="nav__link-item"><a href="../about/"    class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">About</span></a></li>
+          <li class="nav__link-item"><a href="../process/"  class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Process</span></a></li>
+          <li class="nav__link-item"><a href="../reel/"     class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">Reel</span></a></li>
+          <li class="nav__link-item"><a href="../contact/"  class="nav__link"><span class="nav__link-num">06</span><span class="nav__link-text">Contact</span></a></li>
+        </ul>
+      </nav>
+      <div class="nav__overlay-footer">
+        <div class="nav__contact-info"><p>hello@corevisualfilms.com</p><p>+234 706 275 9706</p></div>
+        <div class="nav__social">
+          <a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- Page hero -->
+    <header class="page-hero container" aria-label="Portfolio page header">
+      <div>
+        <p class="page-hero__eyebrow">Portfolio</p>
+        <h1 class="page-hero__title">Our <em>Work</em></h1>
+        <p class="page-hero__sub">Every frame here is the result of a genuine conversation, a real story, and a team that refuses to settle.</p>
+      </div>
+    </header>
+
+    <!-- Filter bar -->
+    <div class="filter-bar" role="navigation" aria-label="Filter portfolio by category">
+      <div class="filter-bar__inner">
+        <button class="filter-btn is-active" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-btn" data-filter="weddings"    aria-pressed="false">Events</button>
+        <button class="filter-btn" data-filter="commercial"  aria-pressed="false">Commercial</button>
+        <button class="filter-btn" data-filter="realestate"  aria-pressed="false">Real Estate</button>
+        <button class="filter-btn" data-filter="documentary" aria-pressed="false">Documentary</button>
+        <button class="filter-btn" data-filter="corporate"   aria-pressed="false">Corporate</button>
+      </div>
+    </div>
+
+    <!-- Portfolio grid -->
+    <section class="portfolio" aria-label="Portfolio grid">
+      <p class="portfolio__count"><span id="visibleCount">12</span> projects</p>
+      <div class="portfolio__grid" id="portfolioGrid">
+
+        <!-- 1 — Events -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="weddings" data-size="tall" data-tilt aria-label="ABCF — Children's Party Event">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/abcf-party.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/abcf-party.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Weddings &amp; Events</p>
+            <h2 class="portfolio-card__title">ABCF — Children's Gala Event</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 2 — Commercial -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="commercial" data-size="wide" data-tilt aria-label="Instanlabe Pop-Up Fashion Market">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/instanlabe.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/instanlabe.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Commercial &amp; Brand</p>
+            <h2 class="portfolio-card__title">Instanlabe — Pop-Up Fashion Market</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 3 — Brand/Commercial -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="commercial" data-size="sq" data-tilt aria-label="Yetti Juice Brand Ad">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/yetti-juice.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/yetti-juice.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Commercial &amp; Brand</p>
+            <h2 class="portfolio-card__title">Yetti Juice — Brand Commercial</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 4 — Real Estate -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="realestate" data-size="wide" data-tilt aria-label="Neo Homes Luxury Property Campaign">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/neo-homes.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/neo-homes.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Real Estate</p>
+            <h2 class="portfolio-card__title">Neo Homes — Luxury Property Campaign</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 5 — Documentary -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="documentary" data-size="tall" data-tilt aria-label="ABBA Charity Foundation Brand Story">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/abba-charity.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/abba-charity.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Documentary &amp; Corporate</p>
+            <h2 class="portfolio-card__title">ABBA Charity Foundation — Brand Story</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 6 — Corporate -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="corporate" data-size="wide" data-tilt aria-label="FH Corporate Update Film">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/fh-update.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/fh-update.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Corporate &amp; Training</p>
+            <h2 class="portfolio-card__title">FH — Corporate Update Film</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 7 — Real Estate -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="realestate" data-size="wide" data-tilt aria-label="Jasmine Villas Luxury Property">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/jasmine-villas.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/jasmine-villas.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Real Estate</p>
+            <h2 class="portfolio-card__title">Jasmine Villas — Luxury 4K Showcase</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 8 — Commercial/Studio -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="commercial" data-size="tall" data-tilt aria-label="TWN Studios Commercial">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/twn-studios.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/twn-studios.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Commercial &amp; Brand</p>
+            <h2 class="portfolio-card__title">TWN Studios — Brand Commercial</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 9 — Real Estate -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="realestate" data-size="sq" data-tilt aria-label="HR Properties Real Estate Film">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/hr-properties.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/hr-properties.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Real Estate</p>
+            <h2 class="portfolio-card__title">HR Properties — Real Estate Film</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 10 — Commercial -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="commercial" data-size="tall" data-tilt aria-label="Dainty Bud School Commercial">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/dainty-bud.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/dainty-bud.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Commercial &amp; Brand</p>
+            <h2 class="portfolio-card__title">Dainty Bud — School Commercial</h2>
+            <p class="portfolio-card__year">2024</p>
+          </div>
+        </a>
+
+        <!-- 11 — Documentary/Event -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="documentary" data-size="wide" data-tilt aria-label="SASCON 2025 Conference Film">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/sascon-2025.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/sascon-2025.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Documentary &amp; Events</p>
+            <h2 class="portfolio-card__title">SASCON 2025 — Conference Film</h2>
+            <p class="portfolio-card__year">2025</p>
+          </div>
+        </a>
+
+        <!-- 12 — Corporate -->
+        <a href="project-template/" class="portfolio-card reveal" data-category="corporate" data-size="wide" data-tilt aria-label="RSA Corporate Leadership Film">
+          <div class="card-media">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/rsa-ad.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/rsa-ad.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="portfolio-card__overlay"></div>
+          <div class="portfolio-card__info">
+            <p class="portfolio-card__tag">Corporate &amp; Leadership</p>
+            <h2 class="portfolio-card__title">RSA — Corporate Leadership Film</h2>
+            <p class="portfolio-card__year">2025</p>
+          </div>
+        </a>
+
+      </div>
+      <p class="portfolio__empty" id="portfolioEmpty">No projects in this category yet.</p>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <p class="footer__brand-name">Corevisualfilms</p>
+          <p class="footer__brand-desc">Full-spectrum visual production studio crafting cinematic stories across every medium.</p>
+        </div>
+        <div>
+          <p class="footer__col-title">Work</p>
+          <ul class="footer__links">
+            <li><a href="./?cat=weddings">Weddings</a></li>
+            <li><a href="./?cat=commercial">Commercial</a></li>
+            <li><a href="./?cat=music">Music Videos</a></li>
+            <li><a href="./?cat=realestate">Real Estate</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Studio</p>
+          <ul class="footer__links">
+            <li><a href="../about/">About</a></li>
+            <li><a href="../process/">Process</a></li>
+            <li><a href="../reel/">Showreel</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Start a Project</p>
+          <ul class="footer__links">
+            <li><a href="../contact/">Book a Call</a></li>
+            <li><a href="mailto:hello@corevisualfilms.com">Email Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">&copy; 2026 Corevisualfilms. All rights reserved. Lagos, Nigeria.</p>
+        <p class="footer__tagline">Where Vision Becomes Legacy</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="../js/core.js" defer></script>
+
+  <script>
+  (function(){
+    function initFilter() {
+      const buttons = document.querySelectorAll('.filter-btn');
+      const cards   = document.querySelectorAll('.portfolio-card');
+      const count   = document.getElementById('visibleCount');
+      const empty   = document.getElementById('portfolioEmpty');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+
+          buttons.forEach(b => {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-pressed', 'false');
+          });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
+
+          let visible = 0;
+          cards.forEach(card => {
+            const match = filter === 'all' || card.dataset.category === filter;
+            if (typeof gsap !== 'undefined') {
+              if (match) {
+                card.removeAttribute('data-hidden');
+                gsap.fromTo(card, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' });
+                visible++;
+              } else {
+                card.setAttribute('data-hidden', 'true');
+              }
+            } else {
+              card.setAttribute('data-hidden', String(!match));
+              if (match) visible++;
+            }
+          });
+
+          count.textContent = visible;
+          empty.style.display = visible === 0 ? 'block' : 'none';
+        });
+      });
+
+      /* Handle URL param e.g. work/?cat=weddings */
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('cat');
+      if (cat) {
+        const target = document.querySelector(`[data-filter="${cat}"]`);
+        if (target) target.click();
+      }
+    }
+
+    window.addEventListener('load', initFilter);
+  })();
+  </script>
+</body>
+</html>

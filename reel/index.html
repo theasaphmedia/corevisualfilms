@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Showreel — Corevisualfilms</title>
+  <meta name="description" content="Watch the Corevisualfilms showreel — full-spectrum visual production across weddings, commercial, music, documentary and more.">
+  <link rel="canonical" href="https://corevisualfilms.com/reel/">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <style>
+    /* Reel page is intentionally minimal — the reel IS the page */
+    body { overflow-x: hidden; }
+
+    .reel-page {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Reel Stage ───────────────────────────────────────── */
+    .reel-stage {
+      position: relative;
+      flex: 1;
+      min-height: 80svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #000;
+    }
+    .reel-stage__placeholder {
+      width: 100%;
+      max-width: 1200px;
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+    .reel-stage__placeholder .vid-slot {
+      aspect-ratio: 21/9;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      .reel-stage__placeholder .vid-slot { aspect-ratio: 16/9; }
+    }
+
+    /* Reel stage clears standard nav */
+    .reel-stage { margin-top: var(--nav-height); }
+
+    /* ── Reel Info below ──────────────────────────────────── */
+    .reel-info {
+      padding-block: var(--space-10);
+      border-top: 1px solid var(--color-border);
+    }
+    .reel-info__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: var(--space-6);
+    }
+    .reel-info__meta {
+      display: flex;
+      gap: var(--space-10);
+      flex-wrap: wrap;
+    }
+    .reel-meta-item__label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-1);
+    }
+    .reel-meta-item__value {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-off-white);
+    }
+    .reel-info__cta { text-align: right; }
+    .reel-info__cta p {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      margin-bottom: var(--space-3);
+      max-width: none;
+    }
+
+    /* Widescreen annotation */
+    .reel-stage__label {
+      position: absolute;
+      bottom: var(--space-5);
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: rgba(200,169,110,0.45);
+      letter-spacing: var(--tracking-widest);
+      text-align: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .reel-stage__year {
+      position: absolute;
+      bottom: var(--space-5);
+      right: var(--gutter);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: rgba(200,169,110,0.3);
+      letter-spacing: var(--tracking-widest);
+    }
+  </style>
+</head>
+<body class="reel-page">
+  <canvas id="grain" aria-hidden="true"></canvas>
+  <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div><span class="cursor__label">PLAY</span></div>
+
+  <!-- Standard navigation -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="../" class="nav__logo" aria-label="Corevisualfilms — Home">COREVISUALFILMS</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navOverlay">
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+    </button>
+    <div class="nav__overlay" id="navOverlay" aria-hidden="true" role="dialog" aria-label="Navigation menu">
+      <nav class="nav__overlay-inner">
+        <ul class="nav__links">
+          <li class="nav__link-item"><a href="../"          class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
+          <li class="nav__link-item"><a href="../work/"     class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Work</span></a></li>
+          <li class="nav__link-item"><a href="../services/" class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
+          <li class="nav__link-item"><a href="../about/"    class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">About</span></a></li>
+          <li class="nav__link-item"><a href="../reel/"     class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Reel</span></a></li>
+          <li class="nav__link-item"><a href="../contact/"  class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">Contact</span></a></li>
+        </ul>
+      </nav>
+      <div class="nav__overlay-footer">
+        <div class="nav__contact-info">
+          <p>hello@corevisualfilms.com</p>
+          <p>+234 706 275 9706</p>
+        </div>
+        <div class="nav__social">
+          <a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- The reel itself -->
+    <section class="reel-stage" id="reelStage" aria-label="Corevisualfilms Showreel">
+      <div class="reel-stage__placeholder">
+        <video controls preload="metadata" playsinline poster="../assets/posters/showreel.jpg"
+               style="width:100%;aspect-ratio:16/9;display:block;background:#000;">
+          <source src="../assets/videos/showreel.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <p class="reel-stage__label">COREVISUALFILMS — SHOWREEL 2025</p>
+      <p class="reel-stage__year">© 2025</p>
+    </section>
+
+    <!-- Reel info -->
+    <div class="reel-info container">
+      <div class="reel-info__inner">
+        <div class="reel-info__meta">
+          <div class="reel-meta-item">
+            <p class="reel-meta-item__label">Reel</p>
+            <p class="reel-meta-item__value">Showreel 2025</p>
+          </div>
+          <div class="reel-meta-item">
+            <p class="reel-meta-item__label">Duration</p>
+            <p class="reel-meta-item__value">1:00 min</p>
+          </div>
+          <div class="reel-meta-item">
+            <p class="reel-meta-item__label">Covers</p>
+            <p class="reel-meta-item__value">All Disciplines · 2022–2025</p>
+          </div>
+          <div class="reel-meta-item">
+            <p class="reel-meta-item__label">Music</p>
+            <p class="reel-meta-item__value">Licensed Music</p>
+          </div>
+        </div>
+        <div class="reel-info__cta">
+          <p>Like what you see?</p>
+          <a href="../contact/" class="btn btn--amber">Start a Project</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category reels -->
+    <section class="section container" aria-labelledby="cat-reels-heading" style="border-top:1px solid var(--color-border);">
+      <p class="section-label">By Category</p>
+      <h2 id="cat-reels-heading" style="font-size:var(--text-h2);font-weight:var(--weight-light);color:var(--color-white);margin-bottom:var(--space-10);">Category Reels</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);">
+        <div>
+          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius-md);background:#000;">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/abcf-party.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/abcf-party.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-amber);letter-spacing:var(--tracking-widest);text-transform:uppercase;margin-top:var(--space-4);">Weddings &amp; Events</p>
+        </div>
+        <div>
+          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius-md);background:#000;">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/dainty-bud.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/dainty-bud.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-amber);letter-spacing:var(--tracking-widest);text-transform:uppercase;margin-top:var(--space-4);">Commercial &amp; Brand</p>
+        </div>
+        <div>
+          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius-md);background:#000;">
+            <video autoplay muted loop playsinline preload="metadata" poster="../assets/posters/yetti-juice.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="../assets/videos/yetti-juice.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-amber);letter-spacing:var(--tracking-widest);text-transform:uppercase;margin-top:var(--space-4);">Music Videos</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:var(--space-10);">
+        <a href="../work/" class="btn btn--outline">Browse All Work</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo"><div class="container"><div class="footer__grid"><div><p class="footer__brand-name">Corevisualfilms</p><p class="footer__brand-desc">Full-spectrum visual production studio.</p></div><div><p class="footer__col-title">Work</p><ul class="footer__links"><li><a href="../work/">Portfolio</a></li><li><a href="../services/">Services</a></li></ul></div><div><p class="footer__col-title">Studio</p><ul class="footer__links"><li><a href="../about/">About</a></li><li><a href="../process/">Process</a></li></ul></div><div><p class="footer__col-title">Contact</p><ul class="footer__links"><li><a href="../contact/">Book a Call</a></li></ul></div></div><div class="footer__bottom"><p class="footer__legal">&copy; 2026 Corevisualfilms. All rights reserved. Lagos, Nigeria.</p><p class="footer__tagline">Where Vision Becomes Legacy</p></div></div></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="../js/core.js" defer></script>
+  <script>
+  window.addEventListener('load', function() {
+    if (typeof gsap === 'undefined') return;
+    gsap.from('.reel-stage__placeholder', { opacity: 0, scale: 0.97, duration: 1.2, ease: 'power3.out', delay: 0.3 });
+    gsap.from('.reel-stage__label', { opacity: 0, duration: 1, delay: 1 });
+  });
+  </script>
+</body>
+</html>

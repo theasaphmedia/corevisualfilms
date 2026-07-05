@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Corevisualfilms</title>
+  <meta name="description" content="Start a conversation with Corevisualfilms. Tell us about your project — we respond within 24 hours.">
+  <link rel="canonical" href="https://corevisualfilms.com/contact/">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <style>
+    .contact-layout {
+      padding-block: var(--section-pad-y);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+
+    /* ── Form ─────────────────────────────────────────────── */
+    .contact-form { }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+    .form-field {
+      margin-bottom: var(--space-5);
+    }
+    .form-field label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      padding: var(--space-4) 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-white);
+      font-family: var(--font-body);
+      font-size: var(--text-body);
+      outline: none;
+      border-radius: 0;
+      transition: border-color var(--dur-fast) var(--ease-out);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: var(--color-muted-light); }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: var(--color-amber);
+    }
+    .form-field textarea { resize: vertical; min-height: 120px; padding-top: var(--space-4); }
+    .form-field select { cursor: none; }
+    .form-field select option { background: var(--color-surface); color: var(--color-white); }
+
+    /* Select arrow */
+    .form-field--select { position: relative; }
+    .form-field--select::after {
+      content: '↓';
+      position: absolute;
+      right: 0;
+      bottom: var(--space-4);
+      color: var(--color-amber);
+      font-size: var(--text-sm);
+      pointer-events: none;
+    }
+
+    .form-submit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-5);
+      margin-top: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border);
+    }
+    .form-submit__note {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-wide);
+    }
+    .form-submit__note span { color: var(--color-amber); }
+
+    /* Success state */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: var(--space-12) var(--space-8);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .form-success.is-visible { display: block; }
+    .form-success__icon {
+      width: 60px; height: 60px;
+      border: 1px solid var(--color-amber);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-amber);
+      font-size: 1.5rem;
+      margin: 0 auto var(--space-6);
+    }
+    .form-success__title {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      margin-bottom: var(--space-4);
+    }
+    .form-success__body { font-size: var(--text-body); color: var(--color-muted); max-width: 40ch; margin-inline: auto; }
+
+    /* ── Contact Sidebar ──────────────────────────────────── */
+    .contact-sidebar { }
+    .contact-info-block {
+      padding: var(--space-6) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .contact-info-block:first-child { padding-top: 0; }
+    .contact-info-block__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-3);
+    }
+    .contact-info-block__val {
+      font-family: var(--font-display);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.4;
+    }
+    .contact-info-block__val a {
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .contact-info-block__val a:hover { color: var(--color-amber); }
+    .contact-info-block__sub {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      margin-top: var(--space-2);
+      line-height: var(--leading-loose);
+    }
+
+    .response-promise {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      background: var(--color-amber-glow);
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: var(--radius-md);
+      margin-top: var(--space-8);
+    }
+    .response-promise__icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--color-amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-amber);
+      flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+    .response-promise__text {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-off-white);
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+    .response-promise__text strong { color: var(--color-amber); display: block; margin-bottom: 2px; font-size: 0.75rem; letter-spacing: var(--tracking-widest); text-transform: uppercase; }
+
+    .social-links {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-wide);
+      padding: 0.5em 1em;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+    }
+    .social-link:hover { color: var(--color-amber); border-color: var(--color-amber-dim); }
+
+    /* Required field indicator */
+    .req { color: var(--color-amber); margin-left: 2px; }
+
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: 1fr; gap: var(--space-12); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grain" aria-hidden="true"></canvas>
+  <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div><span class="cursor__label">PLAY</span></div>
+
+  <nav class="nav nav--scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="../" class="nav__logo">COREVISUALFILMS</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navOverlay"><span class="nav__toggle-bar"></span><span class="nav__toggle-bar"></span></button>
+    <div class="nav__overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav__overlay-inner"><ul class="nav__links">
+        <li class="nav__link-item"><a href="../"          class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
+        <li class="nav__link-item"><a href="../work/"     class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Work</span></a></li>
+        <li class="nav__link-item"><a href="../services/" class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
+        <li class="nav__link-item"><a href="../about/"    class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">About</span></a></li>
+        <li class="nav__link-item"><a href="../process/"  class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Process</span></a></li>
+        <li class="nav__link-item"><a href="../reel/"     class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">Reel</span></a></li>
+        <li class="nav__link-item"><a href="../contact/"  class="nav__link"><span class="nav__link-num">06</span><span class="nav__link-text">Contact</span></a></li>
+      </ul></nav>
+      <div class="nav__overlay-footer"><div class="nav__contact-info"><p>hello@corevisualfilms.com</p><p>+234 706 275 9706</p></div><div class="nav__social"><a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer">Instagram</a></div></div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="page-hero container">
+      <div>
+        <p class="page-hero__eyebrow">Get In Touch</p>
+        <h1 class="page-hero__title">Let's <em>Talk</em></h1>
+        <p class="page-hero__sub">Tell us what you're working on. Even if you're not sure what you need yet — that's what the first conversation is for.</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- Form -->
+        <section aria-labelledby="form-heading">
+          <h2 id="form-heading" class="visually-hidden">Inquiry Form</h2>
+
+          <!-- Success message (hidden until submit) -->
+          <div class="form-success" id="formSuccess" role="alert" aria-live="polite">
+            <div class="form-success__icon" aria-hidden="true">✓</div>
+            <h3 class="form-success__title">Message received.</h3>
+            <p class="form-success__body">Thank you — we'll be in touch within 24 hours. In the meantime, feel free to explore the portfolio.</p>
+            <a href="../work/" class="btn btn--outline" style="margin-top:var(--space-6);">Browse Our Work</a>
+          </div>
+
+          <form class="contact-form" id="contactForm" novalidate aria-label="Contact inquiry form">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="name">Full Name<span class="req" aria-label="required">*</span></label>
+                <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="name" required>
+              </div>
+              <div class="form-field">
+                <label for="email">Email<span class="req" aria-label="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="+234 706 275 9706" autocomplete="tel">
+              </div>
+              <div class="form-field form-field--select">
+                <label for="service">Service Type<span class="req" aria-label="required">*</span></label>
+                <select id="service" name="service" required>
+                  <option value="" disabled selected>Select a service</option>
+                  <option value="weddings">Weddings &amp; Events</option>
+                  <option value="commercial">Commercial &amp; Brand</option>
+                  <option value="music">Music Videos</option>
+                  <option value="realestate">Real Estate</option>
+                  <option value="documentary">Documentary &amp; Film</option>
+                  <option value="corporate">Corporate &amp; Training</option>
+                  <option value="other">Not sure yet</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="date">Event / Project Date</label>
+                <input type="text" id="date" name="date" placeholder="DD / MM / YYYY or approx. timeframe">
+              </div>
+              <div class="form-field form-field--select">
+                <label for="budget">Budget Range</label>
+                <select id="budget" name="budget">
+                  <option value="" disabled selected>Select a range</option>
+                  <option value="under2k">Under $2,000</option>
+                  <option value="2-5k">$2,000 – $5,000</option>
+                  <option value="5-10k">$5,000 – $10,000</option>
+                  <option value="10-25k">$10,000 – $25,000</option>
+                  <option value="25-50k">$25,000 – $50,000</option>
+                  <option value="50k+">$50,000+</option>
+                  <option value="flexible">Flexible / Let's discuss</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="description">Project Description<span class="req" aria-label="required">*</span></label>
+              <textarea id="description" name="description" placeholder="Tell us about your project — the more detail, the better. What do you want this film to do? Who will watch it? What's the occasion or brief?" required></textarea>
+            </div>
+
+            <div class="form-field form-field--select">
+              <label for="source">How did you hear about us?</label>
+              <select id="source" name="source">
+                <option value="" disabled selected>Select an option</option>
+                <option value="google">Google Search</option>
+                <option value="instagram">Instagram</option>
+
+                <option value="referral">Referral / Word of mouth</option>
+                <option value="previous">Previous client</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-submit">
+              <p class="form-submit__note"><span>*</span> Required fields. We respond within 24 hours.</p>
+              <button type="submit" class="btn btn--amber" id="submitBtn">Send Message</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="contact-sidebar reveal" aria-label="Contact information">
+          <div class="contact-info-block">
+            <p class="contact-info-block__label">Email</p>
+            <p class="contact-info-block__val"><a href="mailto:hello@corevisualfilms.com">hello@corevisualfilms.com</a></p>
+          </div>
+          <div class="contact-info-block">
+            <p class="contact-info-block__label">Phone</p>
+            <p class="contact-info-block__val"><a href="tel:+2347062759706">+234 706 275 9706</a></p>
+            <p class="contact-info-block__sub">Available Mon–Fri, 9am–6pm WAT (UTC+1)</p>
+          </div>
+          <div class="contact-info-block">
+            <p class="contact-info-block__label">Studio Location</p>
+            <p class="contact-info-block__val">Lagos, Nigeria</p>
+            <p class="contact-info-block__sub">Available for projects worldwide.<br>We travel to you.</p>
+          </div>
+
+          <div class="response-promise" role="status">
+            <div class="response-promise__icon" aria-hidden="true">⏱</div>
+            <div class="response-promise__text">
+              <strong>Response Guarantee</strong>
+              Every inquiry receives a personal response within 24 hours. No auto-replies. No forms that disappear into a void.
+            </div>
+          </div>
+
+          <div class="social-links" aria-label="Social media links">
+            <a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer" class="social-link">@Corevisualfilms</a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo"><div class="container"><div class="footer__grid"><div><p class="footer__brand-name">Corevisualfilms</p><p class="footer__brand-desc">Full-spectrum visual production studio.</p></div><div><p class="footer__col-title">Work</p><ul class="footer__links"><li><a href="../work/">Portfolio</a></li><li><a href="../services/">Services</a></li></ul></div><div><p class="footer__col-title">Studio</p><ul class="footer__links"><li><a href="../about/">About</a></li><li><a href="../process/">Process</a></li></ul></div><div><p class="footer__col-title">Connect</p><ul class="footer__links"><li><a href="mailto:hello@corevisualfilms.com">hello@corevisualfilms.com</a></li><li><a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener">@Corevisualfilms</a></li><li><a href="tel:+2347062759706">+234 706 275 9706</a></li></ul></div></div><div class="footer__bottom"><p class="footer__legal">&copy; 2026 Corevisualfilms. All rights reserved. Lagos, Nigeria.</p><p class="footer__tagline">Where Vision Becomes Legacy</p></div></div></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="../js/core.js" defer></script>
+  <script>
+  (function(){
+    const form    = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+    const btn     = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      /* Basic validation */
+      const required = form.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(field => {
+        if (!field.value.trim()) {
+          field.style.borderColor = '#c0392b';
+          valid = false;
+        } else {
+          field.style.borderColor = '';
+        }
+      });
+      if (!valid) return;
+
+      /* Simulate submission */
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.classList.add('is-visible');
+        if (typeof gsap !== 'undefined') {
+          gsap.from(success, { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' });
+        }
+      }, 1200);
+    });
+
+    /* Label float effect */
+    form.querySelectorAll('input, textarea, select').forEach(field => {
+      field.addEventListener('focus', () => field.closest('.form-field').classList.add('is-focused'));
+      field.addEventListener('blur',  () => field.closest('.form-field').classList.remove('is-focused'));
+    });
+
+    window.addEventListener('load', function() {
+      if (typeof gsap === 'undefined') return;
+      gsap.from('.contact-sidebar .contact-info-block', {
+        scrollTrigger: { trigger: '.contact-sidebar', start: 'top 80%' },
+        opacity: 0, x: 30, stagger: 0.1, duration: 0.7, ease: 'power3.out'
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

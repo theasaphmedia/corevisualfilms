@@ -1,0 +1,129 @@
+/* ============================================================
+   COREVISUALFILMS — Design Tokens
+   All visual decisions live here. Change here, changes everywhere.
+   ============================================================ */
+
+:root {
+
+  /* ── Colour ─────────────────────────────────────────────── */
+  --color-void:        #080808;   /* Primary background */
+  --color-depth:       #0E0E0E;   /* Card / section bg  */
+  --color-surface:     #141414;   /* Elevated surfaces  */
+  --color-border:      #1E1E1E;   /* Borders, dividers  */
+  --color-border-dim:  #161616;
+
+  --color-amber:       #C8A96E;   /* Primary accent — cinematic gold */
+  --color-amber-dim:   #8B7248;   /* Hover / muted amber */
+  --color-amber-glow:  rgba(200, 169, 110, 0.12);
+  --color-amber-glow-strong: rgba(200, 169, 110, 0.22);
+
+  --color-white:       #FFFFFF;
+  --color-off-white:   #E8E0D0;   /* Warm body text */
+  --color-muted:       #6B6B6B;   /* Metadata, captions */
+  --color-muted-light: #4A4A4A;
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body:    'DM Sans', 'system-ui', sans-serif;
+  --font-mono:    'Space Mono', 'Courier New', monospace;
+
+  /* Fluid type scale — clamp(min, preferred, max) */
+  --text-hero:    clamp(3.2rem, 9.5vw, 9.5rem);
+  --text-display: clamp(2.4rem, 6vw, 6rem);
+  --text-h1:      clamp(1.9rem, 3.8vw, 3.8rem);
+  --text-h2:      clamp(1.5rem, 2.8vw, 2.5rem);
+  --text-h3:      clamp(1.2rem, 1.8vw, 1.6rem);
+  --text-body:    clamp(0.95rem, 1.2vw, 1.05rem);
+  --text-sm:      clamp(0.75rem, 0.9vw, 0.85rem);
+  --text-xs:      0.7rem;
+
+  /* Line heights */
+  --leading-tight:  1.0;
+  --leading-snug:   1.2;
+  --leading-normal: 1.5;
+  --leading-loose:  1.7;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.06em;
+  --tracking-widest:  0.18em;
+
+  /* Font weights */
+  --weight-light:   300;
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semi:    600;
+
+  /* ── Spacing scale ───────────────────────────────────────── */
+  --space-1:   0.25rem;   /*  4px */
+  --space-2:   0.5rem;    /*  8px */
+  --space-3:   0.75rem;   /* 12px */
+  --space-4:   1rem;      /* 16px */
+  --space-5:   1.5rem;    /* 24px */
+  --space-6:   2rem;      /* 32px */
+  --space-8:   3rem;      /* 48px */
+  --space-10:  4rem;      /* 64px */
+  --space-12:  5rem;      /* 80px */
+  --space-16:  7rem;      /* 112px */
+  --space-20:  9rem;      /* 144px */
+  --space-24:  11rem;     /* 176px */
+
+  /* Fluid section padding */
+  --section-pad-y: clamp(4rem, 8vw, 8rem);
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --max-width:   1440px;
+  --gutter:      clamp(1.25rem, 5vw, 4rem);
+  --nav-height:  clamp(3.5rem, 5vw, 5rem);
+
+  /* Grid columns */
+  --cols-12:  repeat(12, 1fr);
+  --gap:      clamp(1rem, 2vw, 1.5rem);
+
+  /* ── Border radius ───────────────────────────────────────── */
+  --radius-sm:   2px;
+  --radius-md:   4px;
+  --radius-lg:   8px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-card:  0 8px 40px rgba(0, 0, 0, 0.6);
+  --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.8);
+  --shadow-amber: 0 0 40px rgba(200, 169, 110, 0.15);
+
+  /* ── Animation ───────────────────────────────────────────── */
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:    cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-inout: cubic-bezier(0.85, 0, 0.15, 1);
+  --ease-spring:cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --dur-instant: 0.1s;
+  --dur-fast:    0.22s;
+  --dur-base:    0.4s;
+  --dur-slow:    0.7s;
+  --dur-xslow:   1.2s;
+
+  /* ── Z-index stack ───────────────────────────────────────── */
+  --z-grain:     9000;
+  --z-cursor:    9100;
+  --z-nav:       9200;
+  --z-letterbox: 9300;
+  --z-overlay:   9400;
+
+}
+
+/* ── Dark-mode is default. Light mode override if ever needed ── */
+@media (prefers-color-scheme: light) {
+  /* Intentionally empty — site is designed for dark. */
+}
+
+/* ── Reduced motion — strip animations for accessibility ─────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast:  0.01s;
+    --dur-base:  0.01s;
+    --dur-slow:  0.01s;
+    --dur-xslow: 0.01s;
+  }
+}

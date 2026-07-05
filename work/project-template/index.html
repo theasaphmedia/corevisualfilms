@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Morrisons — A Coastal Love Story · Corevisualfilms</title>
+  <meta name="description" content="Four continents. One love. A cinematic wedding film shot across Santorini, New York, Lagos and London — by Corevisualfilms.">
+  <link rel="canonical" href="https://corevisualfilms.com/work/project-template/">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <style>
+    /* ── Project Hero ─────────────────────────────────────── */
+    .project-hero {
+      position: relative;
+      height: 85vh;
+      min-height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .project-hero__video {
+      position: absolute;
+      inset: 0;
+    }
+    .project-hero__gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.35) 50%, rgba(8,8,8,0.1) 100%);
+      z-index: 1;
+    }
+    .project-hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: var(--space-12);
+      width: 100%;
+    }
+    .project-hero__category {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+    .project-hero__title {
+      font-size: var(--text-display);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.0;
+      margin-bottom: var(--space-5);
+      max-width: 14ch;
+    }
+    .project-hero__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    .meta-item__label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+    }
+    .meta-item__value {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-off-white);
+    }
+
+    /* ── Project Body ─────────────────────────────────────── */
+    .project-body {
+      padding-top: var(--space-16);
+      padding-bottom: var(--section-pad-y);
+    }
+    .project-body__layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: var(--space-16);
+      align-items: start;
+    }
+    .project-story__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-6);
+    }
+    .project-story__text {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.55;
+      margin-bottom: var(--space-6);
+      max-width: 100%;
+    }
+    .project-story__body {
+      font-size: var(--text-body);
+      color: var(--color-muted);
+      line-height: var(--leading-loose);
+      max-width: 60ch;
+    }
+
+    /* Sidebar */
+    .project-sidebar { position: sticky; top: calc(var(--nav-height) + var(--space-6)); }
+    .sidebar-block {
+      padding: var(--space-6);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-5);
+    }
+    .sidebar-block__title {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .tag {
+      padding: 0.3em 0.9em;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-wide);
+      white-space: nowrap;
+    }
+    .sidebar-cta {
+      display: block;
+      padding: var(--space-4);
+      background: var(--color-amber-glow);
+      border: 1px solid rgba(200,169,110,0.25);
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+    }
+    .sidebar-cta:hover { background: var(--color-amber-glow-strong); border-color: var(--color-amber); }
+    .sidebar-cta__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--space-2);
+    }
+    .sidebar-cta__text {
+      font-family: var(--font-display);
+      font-size: var(--text-h3);
+      color: var(--color-white);
+      font-weight: var(--weight-light);
+    }
+
+    /* ── Related ──────────────────────────────────────────── */
+    .related { padding-block: var(--section-pad-y); border-top: 1px solid var(--color-border); }
+    .related__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: var(--space-10);
+    }
+    .related__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+    }
+
+    /* ── Mobile ───────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .project-body__layout { grid-template-columns: 1fr; }
+      .project-sidebar { position: static; }
+      .related__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .project-hero { height: 70vh; }
+      .project-hero__title { font-size: var(--text-h1); }
+      .related__grid { grid-template-columns: 1fr; }
+      .project-hero__meta { gap: var(--space-4); }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="grain" aria-hidden="true"></canvas>
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+    <span class="cursor__label">PLAY</span>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="../../" class="nav__logo">COREVISUALFILMS</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navOverlay">
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+    </button>
+    <div class="nav__overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav__overlay-inner">
+        <ul class="nav__links">
+          <li class="nav__link-item"><a href="../../"          class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
+          <li class="nav__link-item"><a href="../../work/"     class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Work</span></a></li>
+          <li class="nav__link-item"><a href="../../services/" class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
+          <li class="nav__link-item"><a href="../../about/"    class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">About</span></a></li>
+          <li class="nav__link-item"><a href="../../process/"  class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Process</span></a></li>
+          <li class="nav__link-item"><a href="../../reel/"     class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">Reel</span></a></li>
+          <li class="nav__link-item"><a href="../../contact/"  class="nav__link"><span class="nav__link-num">06</span><span class="nav__link-text">Contact</span></a></li>
+        </ul>
+      </nav>
+      <div class="nav__overlay-footer">
+        <div class="nav__contact-info"><p>hello@corevisualfilms.com</p><p>+234 706 275 9706</p></div>
+        <div class="nav__social">
+          <a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- Project hero -->
+    <section class="project-hero" aria-label="Project hero">
+      <div class="project-hero__video vid-slot" data-video-slot="project-hero" data-aspect="cover" aria-label="Project video placeholder">
+        <div class="vid-slot__bg"></div>
+        <div class="vid-slot__corners"><span data-corner="tl"></span><span data-corner="tr"></span><span data-corner="bl"></span><span data-corner="br"></span></div>
+        <div class="vid-slot__center">
+          <div class="vid-slot__icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div>
+          <p class="vid-slot__label">Project Film</p>
+          <p class="vid-slot__specs">Hosted MP4 · 16:9 · Autoplay muted</p>
+        </div>
+      </div>
+      <div class="project-hero__gradient"></div>
+      <div class="project-hero__content container">
+        <p class="project-hero__category">Weddings &amp; Events</p>
+        <h1 class="project-hero__title">The Morrisons — A Coastal Love Story</h1>
+        <div class="project-hero__meta">
+          <div class="meta-item">
+            <span class="meta-item__label">Client</span>
+            <span class="meta-item__value">The Morrisons</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-item__label">Year</span>
+            <span class="meta-item__value">2024</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-item__label">Location</span>
+            <span class="meta-item__value">Santorini, Greece</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-item__label">Duration</span>
+            <span class="meta-item__value">12 min</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project body -->
+    <article class="project-body section container" aria-labelledby="project-story-heading">
+      <div class="project-body__layout">
+
+        <!-- Story -->
+        <div class="project-story">
+          <p class="project-story__label">The Story</p>
+          <p class="project-story__text" id="project-story-heading">
+            "Four continents. One love. A film that earns its place in a family's story forever."
+          </p>
+          <p class="project-story__body">
+            When The Morrisons approached us, they had one request: make it feel like the best film they'd ever seen — and it happens to be about us. No pressure.
+          </p>
+          <p class="project-story__body" style="margin-top:var(--space-5);">
+            We spent three days in Santorini, two in New York, and a final weekend capturing the quiet moments — the ones that don't make it onto mood boards but end up being the shots you never stop watching. The golden hour at the cliffside. The hotel corridor at 2am. The father's face during the first dance.
+          </p>
+          <p class="project-story__body" style="margin-top:var(--space-5);">
+            The grade leans warm and slightly lifted — a nod to analogue film. Score: licensed original composition. Audio captured with dual-system sound.
+          </p>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="project-sidebar" aria-label="Project details">
+          <div class="sidebar-block">
+            <p class="sidebar-block__title">Deliverables</p>
+            <div class="tag-list">
+              <span class="tag">Feature Film (12 min)</span>
+              <span class="tag">Highlight Reel (3 min)</span>
+              <span class="tag">Instagram Teaser (60s)</span>
+              <span class="tag">Raw Footage Archive</span>
+              <span class="tag">Ceremony Cut</span>
+              <span class="tag">Speeches Edit</span>
+            </div>
+          </div>
+          <div class="sidebar-block">
+            <p class="sidebar-block__title">Production</p>
+            <div class="tag-list">
+              <span class="tag">Sony FX9</span>
+              <span class="tag">DJI Mavic 3 Pro</span>
+              <span class="tag">2-Camera Setup</span>
+              <span class="tag">Lenses: 24–70 / 85mm</span>
+              <span class="tag">Colour Grade: DaVinci</span>
+              <span class="tag">Audio: Zoom F6</span>
+            </div>
+          </div>
+          <a href="../../contact/" class="sidebar-cta">
+            <span class="sidebar-cta__label">Book a similar project</span>
+            <span class="sidebar-cta__text">Start a Conversation</span>
+          </a>
+        </aside>
+
+      </div>
+    </article>
+
+    <!-- Related projects -->
+    <section class="related section container" aria-labelledby="related-heading">
+      <div class="related__header">
+        <div>
+          <p class="section-label">More Work</p>
+          <h2 id="related-heading" style="font-size:var(--text-h2);font-weight:var(--weight-light);color:var(--color-white);">Related Projects</h2>
+        </div>
+        <a href="../../work/" class="btn btn--ghost">View All Work</a>
+      </div>
+      <div class="related__grid">
+        <a href="../project-template/" class="work-card" data-tilt aria-label="View: Apex Brand Campaign">
+          <div class="vid-slot" data-video-slot="related-1" data-aspect="16:9"><div class="vid-slot__bg"></div><div class="vid-slot__corners"><span data-corner="tl"></span><span data-corner="tr"></span><span data-corner="bl"></span><span data-corner="br"></span></div><div class="vid-slot__center"><div class="vid-slot__icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div><p class="vid-slot__label">Apex Brand Campaign</p></div></div>
+          <div class="work-card__overlay"></div>
+          <div class="work-card__info"><p class="work-card__tag">Commercial</p><h3 class="work-card__title">Apex Brand Campaign</h3></div>
+        </a>
+        <a href="../project-template/" class="work-card" data-tilt aria-label="View: Lyric Midnight Signal">
+          <div class="vid-slot" data-video-slot="related-2" data-aspect="16:9"><div class="vid-slot__bg"></div><div class="vid-slot__corners"><span data-corner="tl"></span><span data-corner="tr"></span><span data-corner="bl"></span><span data-corner="br"></span></div><div class="vid-slot__center"><div class="vid-slot__icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div><p class="vid-slot__label">Lyric — Midnight Signal</p></div></div>
+          <div class="work-card__overlay"></div>
+          <div class="work-card__info"><p class="work-card__tag">Music Videos</p><h3 class="work-card__title">Lyric — "Midnight Signal"</h3></div>
+        </a>
+        <a href="../project-template/" class="work-card" data-tilt aria-label="View: Chen and Park Wedding">
+          <div class="vid-slot" data-video-slot="related-3" data-aspect="16:9"><div class="vid-slot__bg"></div><div class="vid-slot__corners"><span data-corner="tl"></span><span data-corner="tr"></span><span data-corner="bl"></span><span data-corner="br"></span></div><div class="vid-slot__center"><div class="vid-slot__icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div><p class="vid-slot__label">Chen &amp; Park — Mountain Ceremony</p></div></div>
+          <div class="work-card__overlay"></div>
+          <div class="work-card__info"><p class="work-card__tag">Weddings</p><h3 class="work-card__title">Chen &amp; Park — Mountain Ceremony</h3></div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div><p class="footer__brand-name">Corevisualfilms</p><p class="footer__brand-desc">Full-spectrum visual production studio. Where vision becomes legacy.</p></div>
+        <div><p class="footer__col-title">Work</p><ul class="footer__links"><li><a href="../../work/">All Projects</a></li><li><a href="../../work/?cat=weddings">Weddings</a></li><li><a href="../../work/?cat=commercial">Commercial</a></li></ul></div>
+        <div><p class="footer__col-title">Studio</p><ul class="footer__links"><li><a href="../../about/">About</a></li><li><a href="../../process/">Process</a></li><li><a href="../../reel/">Showreel</a></li></ul></div>
+        <div><p class="footer__col-title">Contact</p><ul class="footer__links"><li><a href="../../contact/">Book a Call</a></li><li><a href="mailto:hello@corevisualfilms.com">Email Us</a></li></ul></div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">&copy; 2026 Corevisualfilms. All rights reserved. Lagos, Nigeria.</p>
+        <p class="footer__tagline">Where Vision Becomes Legacy</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="../../js/core.js" defer></script>
+  <script>
+  window.addEventListener('load', function() {
+    if (typeof gsap === 'undefined') return;
+    gsap.from('.project-hero__category', { opacity: 0, y: 20, duration: 0.7, ease: 'power3.out', delay: 0.2 });
+    gsap.from('.project-hero__title',    { opacity: 0, y: 40, duration: 0.9, ease: 'power3.out', delay: 0.35 });
+    gsap.from('.project-hero__meta .meta-item', { opacity: 0, y: 20, stagger: 0.08, duration: 0.6, ease: 'power3.out', delay: 0.55 });
+    gsap.from('.project-story__text', {
+      scrollTrigger: { trigger: '.project-story', start: 'top 80%' },
+      opacity: 0, y: 40, duration: 1, ease: 'power3.out'
+    });
+    gsap.from('.related__grid .work-card', {
+      scrollTrigger: { trigger: '.related__grid', start: 'top 80%' },
+      opacity: 0, y: 50, stagger: 0.15, duration: 0.8, ease: 'power3.out'
+    });
+  });
+  </script>
+</body>
+</html>

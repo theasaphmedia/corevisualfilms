@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — Corevisualfilms</title>
+  <meta name="description" content="From intimate weddings to global brand campaigns — explore every service Corevisualfilms offers.">
+  <link rel="canonical" href="https://corevisualfilms.com/services/">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <style>
+    .service-block {
+      padding-block: var(--section-pad-y);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .service-block:last-child { border-bottom: none; }
+    .service-block__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+    }
+    .service-block:nth-child(even) .service-block__visual { order: -1; }
+    .service-block__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-5);
+    }
+    .service-block__title {
+      font-size: var(--text-h2);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.1;
+      margin-bottom: var(--space-5);
+    }
+    .service-block__title em { font-style: italic; color: var(--color-amber); }
+    .service-block__desc {
+      font-size: var(--text-body);
+      color: var(--color-muted);
+      line-height: var(--leading-loose);
+      margin-bottom: var(--space-6);
+    }
+    .service-block__includes {
+      margin-bottom: var(--space-8);
+    }
+    .service-block__includes-title {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-3);
+    }
+    .includes-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .includes-list li {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-off-white);
+      padding: 0.35em 0.9em;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+    }
+    .includes-list li:hover { border-color: var(--color-amber-dim); color: var(--color-amber); }
+    @media (max-width: 900px) {
+      .service-block__inner { grid-template-columns: 1fr; gap: var(--space-8); }
+      .service-block:nth-child(even) .service-block__visual { order: 0; }
+    }
+
+    /* ── Service video presentation ─────────────────────── */
+    .svc-video-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background: #000;
+      aspect-ratio: 16 / 9;
+    }
+    .svc-video-wrap--portrait { aspect-ratio: 9 / 16; max-width: 360px; }
+    .svc-video-wrap--wide     { aspect-ratio: 21 / 9; }
+    .svc-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .svc-video-wrap:hover .svc-video { transform: scale(1.03); }
+    .svc-video-label {
+      position: absolute;
+      bottom: var(--space-4);
+      left: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: rgba(200,169,110,0.75);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    /* Subtle vignette on service videos */
+    .svc-video-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.5) 0%, transparent 40%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grain" aria-hidden="true"></canvas>
+  <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div><span class="cursor__label">PLAY</span></div>
+
+  <nav class="nav nav--scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="../" class="nav__logo">COREVISUALFILMS</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navOverlay"><span class="nav__toggle-bar"></span><span class="nav__toggle-bar"></span></button>
+    <div class="nav__overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav__overlay-inner"><ul class="nav__links">
+        <li class="nav__link-item"><a href="../"          class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
+        <li class="nav__link-item"><a href="../work/"     class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Work</span></a></li>
+        <li class="nav__link-item"><a href="../services/" class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
+        <li class="nav__link-item"><a href="../about/"    class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">About</span></a></li>
+        <li class="nav__link-item"><a href="../process/"  class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Process</span></a></li>
+        <li class="nav__link-item"><a href="../reel/"     class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">Reel</span></a></li>
+        <li class="nav__link-item"><a href="../contact/"  class="nav__link"><span class="nav__link-num">06</span><span class="nav__link-text">Contact</span></a></li>
+      </ul></nav>
+      <div class="nav__overlay-footer"><div class="nav__contact-info"><p>hello@corevisualfilms.com</p><p>+234 706 275 9706</p></div><div class="nav__social"><a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer">Instagram</a></div></div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="page-hero container">
+      <div>
+        <p class="page-hero__eyebrow">What We Do</p>
+        <h1 class="page-hero__title">Our <em>Services</em></h1>
+        <p class="page-hero__sub">Six disciplines. One standard. Every production is treated as if it's the most important thing we've ever made — because for you, it is.</p>
+      </div>
+    </header>
+
+    <div class="container">
+
+      <!-- Weddings -->
+      <div class="service-block reveal" aria-labelledby="svc-weddings">
+        <div class="service-block__inner">
+          <div class="service-block__copy">
+            <p class="service-block__label">01</p>
+            <h2 class="service-block__title" id="svc-weddings">Weddings<br>&amp; <em>Events</em></h2>
+            <p class="service-block__desc">Your wedding day happens once. The film plays forever. We approach every wedding like a short documentary — finding the real moments, the unrepeatable light, the look that says everything without a word.</p>
+            <div class="service-block__includes">
+              <p class="service-block__includes-title">What's Included</p>
+              <ul class="includes-list">
+                <li>Feature Film (8–15 min)</li><li>Highlight Reel (3–5 min)</li><li>Ceremony Edit</li><li>Speeches Cut</li><li>Same-Day Edit (optional)</li><li>Instagram Teaser</li><li>Raw Footage Archive</li><li>Drone Aerials</li>
+              </ul>
+            </div>
+            <a href="../contact/" class="btn btn--amber">Enquire About Your Wedding</a>
+          </div>
+          <div class="service-block__visual">
+            <div class="svc-video-wrap">
+              <video autoplay muted loop playsinline preload="metadata"
+                     poster="../assets/posters/abcf-party.jpg"
+                     class="svc-video">
+                <source src="../assets/videos/abcf-party.mp4" type="video/mp4">
+              </video>
+              <span class="svc-video-label">Weddings &amp; Events</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commercial -->
+      <div class="service-block reveal" aria-labelledby="svc-commercial">
+        <div class="service-block__inner">
+          <div class="service-block__copy">
+            <p class="service-block__label">02</p>
+            <h2 class="service-block__title" id="svc-commercial">Commercial<br>&amp; <em>Brand</em></h2>
+            <p class="service-block__desc">Brands that move people, move product. We create hero spots, brand films, product launches, and campaign content built to stop a scroll and start a conversation.</p>
+            <div class="service-block__includes">
+              <p class="service-block__includes-title">What's Included</p>
+              <ul class="includes-list">
+                <li>Hero Brand Film</li><li>30 / 60 / 90s Cuts</li><li>Social Media Edits</li><li>Product Visuals</li><li>Motion Graphics</li><li>Campaign Strategy</li><li>Licensed Music</li>
+              </ul>
+            </div>
+            <a href="../contact/" class="btn btn--amber">Discuss Your Campaign</a>
+          </div>
+          <div class="service-block__visual">
+            <div class="svc-video-wrap">
+              <video autoplay muted loop playsinline preload="metadata"
+                     poster="../assets/posters/dainty-bud.jpg"
+                     class="svc-video">
+                <source src="../assets/videos/dainty-bud.mp4" type="video/mp4">
+              </video>
+              <span class="svc-video-label">Commercial &amp; Brand</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Music Videos -->
+      <div class="service-block reveal" aria-labelledby="svc-music">
+        <div class="service-block__inner">
+          <div class="service-block__copy">
+            <p class="service-block__label">03</p>
+            <h2 class="service-block__title" id="svc-music">Music<br><em>Videos</em></h2>
+            <p class="service-block__desc">The best music videos don't illustrate a song — they amplify it. We work closely with artists to build a visual world that makes the music feel even bigger.</p>
+            <div class="service-block__includes">
+              <p class="service-block__includes-title">What's Included</p>
+              <ul class="includes-list">
+                <li>Concept Development</li><li>Full Production</li><li>Performance &amp; Narrative</li><li>Colour Grade</li><li>VFX &amp; Titles</li><li>YouTube / Streaming Masters</li><li>Behind-the-Scenes</li>
+              </ul>
+            </div>
+            <a href="../contact/" class="btn btn--amber">Start Your Video</a>
+          </div>
+          <div class="service-block__visual">
+            <div class="svc-video-wrap svc-video-wrap--portrait">
+              <video autoplay muted loop playsinline preload="metadata"
+                     poster="../assets/posters/yetti-juice.jpg"
+                     class="svc-video">
+                <source src="../assets/videos/yetti-juice.mp4" type="video/mp4">
+              </video>
+              <span class="svc-video-label">Music Videos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Estate -->
+      <div class="service-block reveal" aria-labelledby="svc-realestate">
+        <div class="service-block__inner">
+          <div class="service-block__copy">
+            <p class="service-block__label">04</p>
+            <h2 class="service-block__title" id="svc-realestate">Real<br><em>Estate</em></h2>
+            <p class="service-block__desc">Properties sell emotions first, square footage second. Our real estate films make buyers feel at home before they've walked through the door.</p>
+            <div class="service-block__includes">
+              <p class="service-block__includes-title">What's Included</p>
+              <ul class="includes-list">
+                <li>Property Walkthrough Film</li><li>Aerial Drone</li><li>Twilight Shoot</li><li>Virtual Tour</li><li>Lifestyle Footage</li><li>Agent Promo Video</li><li>Fast Turnaround Available</li>
+              </ul>
+            </div>
+            <a href="../contact/" class="btn btn--amber">List Your Property</a>
+          </div>
+          <div class="service-block__visual">
+            <div class="svc-video-wrap">
+              <video autoplay muted loop playsinline preload="metadata"
+                     poster="../assets/posters/neo-homes.jpg"
+                     class="svc-video">
+                <source src="../assets/videos/neo-homes.mp4" type="video/mp4">
+              </video>
+              <span class="svc-video-label">Real Estate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Documentary -->
+      <div class="service-block reveal" aria-labelledby="svc-documentary">
+        <div class="service-block__inner">
+          <div class="service-block__copy">
+            <p class="service-block__label">05</p>
+            <h2 class="service-block__title" id="svc-documentary">Documentary<br>&amp; <em>Film</em></h2>
+            <p class="service-block__desc">Long-form storytelling is our deepest craft. Whether it's a passion project or a commissioned documentary, we approach it with the patience and rigour a true story deserves.</p>
+            <div class="service-block__includes">
+              <p class="service-block__includes-title">What's Included</p>
+              <ul class="includes-list">
+                <li>Full Pre-Production</li><li>Multi-Day Shoots</li><li>Interview Direction</li><li>Archive Research</li><li>Sound Design</li><li>Festival Masters</li><li>Streaming Delivery</li>
+              </ul>
+            </div>
+            <a href="../contact/" class="btn btn--amber">Discuss Your Story</a>
+          </div>
+          <div class="service-block__visual">
+            <div class="svc-video-wrap svc-video-wrap--wide">
+              <video autoplay muted loop playsinline preload="metadata"
+                     poster="../assets/posters/abba-charity.jpg"
+                     class="svc-video">
+                <source src="../assets/videos/abba-charity.mp4" type="video/mp4">
+              </video>
+              <span class="svc-video-label">Documentary &amp; Film</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Corporate -->
+      <div class="service-block reveal" aria-labelledby="svc-corporate">
+        <div class="service-block__inner">
+          <div class="service-block__copy">
+            <p class="service-block__label">06</p>
+            <h2 class="service-block__title" id="svc-corporate">Corporate<br>&amp; <em>Training</em></h2>
+            <p class="service-block__desc">Internal doesn't have to mean boring. We produce corporate films and training content that people actually want to watch — clear, compelling, and on-brand.</p>
+            <div class="service-block__includes">
+              <p class="service-block__includes-title">What's Included</p>
+              <ul class="includes-list">
+                <li>Corporate Brand Films</li><li>Training Modules</li><li>Event Coverage</li><li>Testimonial Videos</li><li>Explainer Films</li><li>Onboarding Content</li><li>Multi-Language Delivery</li>
+              </ul>
+            </div>
+            <a href="../contact/" class="btn btn--amber">Get a Quote</a>
+          </div>
+          <div class="service-block__visual">
+            <div class="svc-video-wrap">
+              <video autoplay muted loop playsinline preload="metadata"
+                     poster="../assets/posters/sascon-2025.jpg"
+                     class="svc-video">
+                <source src="../assets/videos/sascon-2025.mp4" type="video/mp4">
+              </video>
+              <span class="svc-video-label">Corporate &amp; Training</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <section class="footer-cta section" style="text-align:center;padding-block:var(--section-pad-y);border-top:1px solid var(--color-border);">
+      <div class="container">
+        <p class="section-label" style="justify-content:center;">Not sure which service fits?</p>
+        <h2 style="font-family:var(--font-display);font-size:var(--text-h2);font-weight:var(--weight-light);color:var(--color-white);margin-bottom:var(--space-8);line-height:1.15;">Let's <em style="font-style:italic;color:var(--color-amber);">talk it through.</em></h2>
+        <a href="../contact/" class="btn btn--amber">Book a Free Consultation</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo"><div class="container"><div class="footer__grid"><div><p class="footer__brand-name">Corevisualfilms</p><p class="footer__brand-desc">Full-spectrum visual production studio.</p></div><div><p class="footer__col-title">Services</p><ul class="footer__links"><li><a href="#svc-weddings">Weddings</a></li><li><a href="#svc-commercial">Commercial</a></li><li><a href="#svc-music">Music Videos</a></li><li><a href="#svc-realestate">Real Estate</a></li><li><a href="#svc-documentary">Documentary</a></li><li><a href="#svc-corporate">Corporate</a></li></ul></div><div><p class="footer__col-title">Studio</p><ul class="footer__links"><li><a href="../about/">About</a></li><li><a href="../process/">Process</a></li><li><a href="../work/">Portfolio</a></li></ul></div><div><p class="footer__col-title">Contact</p><ul class="footer__links"><li><a href="../contact/">Book a Call</a></li><li><a href="mailto:hello@corevisualfilms.com">Email Us</a></li></ul></div></div><div class="footer__bottom"><p class="footer__legal">&copy; 2026 Corevisualfilms. All rights reserved. Lagos, Nigeria.</p><p class="footer__tagline">Where Vision Becomes Legacy</p></div></div></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="../js/core.js" defer></script>
+  <script>
+  window.addEventListener('load', function() {
+    if (typeof gsap === 'undefined') return;
+    document.querySelectorAll('.service-block').forEach((block, i) => {
+      gsap.from(block.querySelector('.service-block__copy'), {
+        scrollTrigger: { trigger: block, start: 'top 78%', once: true },
+        opacity: 0, x: i % 2 === 0 ? -40 : 40, duration: 1, ease: 'power3.out'
+      });
+      gsap.from(block.querySelector('.service-block__visual'), {
+        scrollTrigger: { trigger: block, start: 'top 78%', once: true },
+        opacity: 0, x: i % 2 === 0 ? 40 : -40, duration: 1, ease: 'power3.out', delay: 0.15
+      });
+    });
+  });
+  </script>
+</body>
+</html>

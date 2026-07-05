@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Process — Corevisualfilms</title>
+  <meta name="description" content="From the first conversation to final delivery — how Corevisualfilms approaches every production.">
+  <link rel="canonical" href="https://corevisualfilms.com/process/">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <style>
+    .process-steps { padding-block: var(--section-pad-y); }
+    .process-step-full {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: var(--space-10);
+      padding-block: var(--space-10);
+      border-bottom: 1px solid var(--color-border);
+      align-items: start;
+    }
+    .process-step-full:last-child { border-bottom: none; }
+    .process-step-full__num {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 8vw, 7rem);
+      font-weight: var(--weight-light);
+      color: var(--color-border);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      transition: color var(--dur-slow) var(--ease-out);
+    }
+    .process-step-full:hover .process-step-full__num { color: rgba(200,169,110,0.35); }
+    .process-step-full__body {}
+    .process-step-full__phase {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+    .process-step-full__title {
+      font-size: var(--text-h2);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.1;
+      margin-bottom: var(--space-5);
+    }
+    .process-step-full__title em { font-style: italic; color: var(--color-amber); }
+    .process-step-full__desc {
+      font-size: var(--text-body);
+      color: var(--color-muted);
+      line-height: var(--leading-loose);
+      max-width: 60ch;
+      margin-bottom: var(--space-6);
+    }
+    .process-step-full__details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .process-step-full__details span {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      padding: 0.3em 0.9em;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      letter-spacing: var(--tracking-wide);
+    }
+
+    /* Timeline connector */
+    .process-step-full__num-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .process-connector {
+      flex: 1;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--color-amber-dim), transparent);
+      min-height: 40px;
+      margin-top: var(--space-3);
+    }
+
+    /* FAQ -->  */
+    .faq { padding-block: var(--section-pad-y); border-top: 1px solid var(--color-border); }
+    .faq__list { margin-top: var(--space-10); max-width: 740px; }
+    .faq-item { border-bottom: 1px solid var(--color-border); }
+    .faq-item__q {
+      width: 100%;
+      text-align: left;
+      padding: var(--space-5) 0;
+      font-family: var(--font-display);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-5);
+      cursor: none;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .faq-item__q:hover { color: var(--color-amber); }
+    .faq-item__icon {
+      width: 24px; height: 24px;
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+      color: var(--color-amber);
+      transition: transform var(--dur-base) var(--ease-spring), background var(--dur-base) var(--ease-out);
+    }
+    .faq-item.is-open .faq-item__icon { transform: rotate(45deg); background: var(--color-amber-glow); }
+    .faq-item__a {
+      font-size: var(--text-body);
+      color: var(--color-muted);
+      line-height: var(--leading-loose);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s var(--ease-out), padding 0.45s var(--ease-out);
+    }
+    .faq-item.is-open .faq-item__a { max-height: 400px; padding-bottom: var(--space-6); }
+
+    @media (max-width: 700px) {
+      .process-step-full { grid-template-columns: 60px 1fr; gap: var(--space-5); }
+      .process-step-full__num { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grain" aria-hidden="true"></canvas>
+  <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div><span class="cursor__label">PLAY</span></div>
+
+  <nav class="nav nav--scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="../" class="nav__logo">COREVISUALFILMS</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navOverlay"><span class="nav__toggle-bar"></span><span class="nav__toggle-bar"></span></button>
+    <div class="nav__overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav__overlay-inner"><ul class="nav__links">
+        <li class="nav__link-item"><a href="../"          class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
+        <li class="nav__link-item"><a href="../work/"     class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Work</span></a></li>
+        <li class="nav__link-item"><a href="../services/" class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
+        <li class="nav__link-item"><a href="../about/"    class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">About</span></a></li>
+        <li class="nav__link-item"><a href="../process/"  class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Process</span></a></li>
+        <li class="nav__link-item"><a href="../reel/"     class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">Reel</span></a></li>
+        <li class="nav__link-item"><a href="../contact/"  class="nav__link"><span class="nav__link-num">06</span><span class="nav__link-text">Contact</span></a></li>
+      </ul></nav>
+      <div class="nav__overlay-footer"><div class="nav__contact-info"><p>hello@corevisualfilms.com</p><p>+234 706 275 9706</p></div><div class="nav__social"><a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer">Instagram</a></div></div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="page-hero container">
+      <div>
+        <p class="page-hero__eyebrow">How We Work</p>
+        <h1 class="page-hero__title">Our <em>Process</em></h1>
+        <p class="page-hero__sub">Every great film starts before a camera is turned on. Here's how we approach every project, from the first email to final delivery.</p>
+      </div>
+    </header>
+
+    <section class="process-steps section container" aria-label="Process steps">
+
+      <div class="process-step-full reveal">
+        <div class="process-step-full__num-wrap">
+          <span class="process-step-full__num">01</span>
+          <div class="process-connector"></div>
+        </div>
+        <div class="process-step-full__body">
+          <p class="process-step-full__phase">Discovery</p>
+          <h2 class="process-step-full__title">The <em>Conversation</em></h2>
+          <p class="process-step-full__desc">Before anything else, we listen. A 30-minute call or meeting where we try to understand not just what you want, but why you want it — and what the film needs to do in the world. We ask the questions no brief ever asks.</p>
+          <p class="process-step-full__desc">This conversation shapes everything that follows. We'd rather turn down a project than start without understanding it.</p>
+          <div class="process-step-full__details">
+            <span>Free initial consultation</span><span>30–60 min call</span><span>No obligation</span><span>Within 24 hours</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step-full reveal">
+        <div class="process-step-full__num-wrap">
+          <span class="process-step-full__num">02</span>
+          <div class="process-connector"></div>
+        </div>
+        <div class="process-step-full__body">
+          <p class="process-step-full__phase">Pre-Production</p>
+          <h2 class="process-step-full__title">The <em>Blueprint</em></h2>
+          <p class="process-step-full__desc">Once we're aligned, we build the production plan: locations, shot lists, call sheets, gear lists, crew, and a creative brief that everyone can point to. No surprises on shoot day.</p>
+          <p class="process-step-full__desc">For larger projects, this includes storyboards, mood boards, and a detailed timeline with clear milestones and approval gates.</p>
+          <div class="process-step-full__details">
+            <span>Creative brief</span><span>Shot list</span><span>Location scouting</span><span>Crew coordination</span><span>Mood boards</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step-full reveal">
+        <div class="process-step-full__num-wrap">
+          <span class="process-step-full__num">03</span>
+          <div class="process-connector"></div>
+        </div>
+        <div class="process-step-full__body">
+          <p class="process-step-full__phase">Production</p>
+          <h2 class="process-step-full__title">The <em>Shoot</em></h2>
+          <p class="process-step-full__desc">Shoot day. We arrive over-prepared and stay flexible. Every frame is motivated. We move fast when we need to and slow down when something worth capturing is happening in the room.</p>
+          <p class="process-step-full__desc">We are obsessively quiet on set. Not because we're distant — but because the best moments require silence around them to breathe.</p>
+          <div class="process-step-full__details">
+            <span>Dual camera where needed</span><span>Drone aerials</span><span>Natural light prioritised</span><span>Audio capture</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step-full reveal">
+        <div class="process-step-full__num-wrap">
+          <span class="process-step-full__num">04</span>
+          <div class="process-connector"></div>
+        </div>
+        <div class="process-step-full__body">
+          <p class="process-step-full__phase">Post-Production</p>
+          <h2 class="process-step-full__title">The <em>Edit</em></h2>
+          <p class="process-step-full__desc">Where the film is actually made. Our editors build a first cut, then we refine it together through a structured feedback process. Two rounds of revisions are included as standard. The final cut goes to colour grade and sound mix.</p>
+          <p class="process-step-full__desc">We colour in DaVinci Resolve with a custom LUT developed over years of work. The grade isn't a filter — it's a decision about how this specific story should feel.</p>
+          <div class="process-step-full__details">
+            <span>2 revision rounds</span><span>DaVinci Resolve grade</span><span>Sound design</span><span>Licensed music</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step-full reveal">
+        <span class="process-step-full__num">05</span>
+        <div class="process-step-full__body">
+          <p class="process-step-full__phase">Delivery</p>
+          <h2 class="process-step-full__title">The <em>Handover</em></h2>
+          <p class="process-step-full__desc">Delivery in every format you need: broadcast masters, web-optimised H.264, social crops, and an archived ProRes copy. We don't disappear after delivery — questions about how to share, embed, or use the film are always welcome.</p>
+          <div class="process-step-full__details">
+            <span>H.264 web-optimised</span><span>ProRes archive</span><span>Social formats</span><span>Broadcast masters (on request)</span><span>Private Vimeo review link</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq section container" aria-labelledby="faq-heading">
+      <p class="section-label">Common Questions</p>
+      <h2 id="faq-heading" style="font-size:var(--text-h2);font-weight:var(--weight-light);color:var(--color-white);">FAQ</h2>
+      <div class="faq__list" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__q" aria-expanded="false">How far in advance should I book?<span class="faq-item__icon" aria-hidden="true">+</span></button>
+          <div class="faq-item__a" role="region">For weddings, we recommend at least 6–12 months. For commercial work, 4–8 weeks for smaller projects and 3–6 months for larger campaigns. That said — reach out regardless of timing. We do our best to accommodate urgent projects.</div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__q" aria-expanded="false">Do you travel for projects?<span class="faq-item__icon" aria-hidden="true">+</span></button>
+          <div class="faq-item__a" role="region">Yes. We've filmed across six continents. Travel costs are included in the project quote, and we're genuinely excited by work that takes us somewhere unfamiliar. Destination projects are some of our most rewarding.</div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__q" aria-expanded="false">How long does post-production take?<span class="faq-item__icon" aria-hidden="true">+</span></button>
+          <div class="faq-item__a" role="region">Typically 4–8 weeks for a wedding film, 2–4 weeks for commercial projects. Rush delivery is available for an additional fee. We'll always be honest about timelines before you book.</div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__q" aria-expanded="false">Can I be involved in the edit?<span class="faq-item__icon" aria-hidden="true">+</span></button>
+          <div class="faq-item__a" role="region">Absolutely — within the process. The two revision rounds are structured specifically to incorporate your feedback. We share a private Vimeo link for each cut, along with a simple brief for notes. We're collaborative, not precious.</div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__q" aria-expanded="false">What's your pricing?<span class="faq-item__icon" aria-hidden="true">+</span></button>
+          <div class="faq-item__a" role="region">Every project is scoped individually. We don't publish fixed rates because the right production for your project depends on factors we'd rather discuss with you directly. Contact us for a tailored quote — we respond within 24 hours.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <section style="padding-block:var(--section-pad-y);border-top:1px solid var(--color-border);text-align:center;">
+      <div class="container">
+        <p class="section-label" style="justify-content:center;">Ready to begin?</p>
+        <h2 style="font-family:var(--font-display);font-size:var(--text-h2);font-weight:var(--weight-light);color:var(--color-white);margin-bottom:var(--space-8);">Step one is always <em style="font-style:italic;color:var(--color-amber);">a conversation.</em></h2>
+        <a href="../contact/" class="btn btn--amber">Book a Free Call</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo"><div class="container"><div class="footer__grid"><div><p class="footer__brand-name">Corevisualfilms</p><p class="footer__brand-desc">Full-spectrum visual production studio.</p></div><div><p class="footer__col-title">Work</p><ul class="footer__links"><li><a href="../work/">Portfolio</a></li><li><a href="../services/">Services</a></li></ul></div><div><p class="footer__col-title">Studio</p><ul class="footer__links"><li><a href="../about/">About</a></li><li><a href="../reel/">Showreel</a></li></ul></div><div><p class="footer__col-title">Contact</p><ul class="footer__links"><li><a href="../contact/">Book a Call</a></li></ul></div></div><div class="footer__bottom"><p class="footer__legal">&copy; 2026 Corevisualfilms. All rights reserved. Lagos, Nigeria.</p><p class="footer__tagline">Where Vision Becomes Legacy</p></div></div></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="../js/core.js" defer></script>
+  <script>
+  (function(){
+    /* FAQ accordion */
+    document.querySelectorAll('.faq-item__q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('is-open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('is-open'));
+        document.querySelectorAll('.faq-item__q').forEach(b => b.setAttribute('aria-expanded','false'));
+        if (!isOpen) {
+          item.classList.add('is-open');
+          btn.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+
+    /* Process steps animate in */
+    window.addEventListener('load', function() {
+      if (typeof gsap === 'undefined') return;
+      document.querySelectorAll('.process-step-full').forEach((step, i) => {
+        gsap.from(step, {
+          scrollTrigger: { trigger: step, start: 'top 82%', once: true },
+          opacity: 0, y: 40, duration: 0.9, ease: 'power3.out', delay: 0.1 * i
+        });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

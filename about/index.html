@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Corevisualfilms</title>
+  <meta name="description" content="Meet the team behind Corevisualfilms — a full-spectrum visual production studio driven by a singular obsession with the perfect frame.">
+  <link rel="canonical" href="https://corevisualfilms.com/about/">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <style>
+    /* ── About Hero ───────────────────────────────────────── */
+    .about-hero {
+      position: relative;
+      height: 70vh;
+      min-height: 460px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .about-hero__gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.3) 60%, rgba(8,8,8,0.1) 100%);
+      z-index: 1;
+    }
+    .about-hero__content { position: relative; z-index: 2; padding-bottom: var(--space-12); }
+
+    /* ── Story ────────────────────────────────────────────── */
+    .story { padding-block: var(--section-pad-y); }
+    .story__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+    .story__pull-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.3;
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--color-border);
+    }
+    .story__pull-quote span { color: var(--color-amber); }
+    .story__body { font-size: var(--text-body); color: var(--color-muted); line-height: var(--leading-loose); }
+    .story__body p + p { margin-top: var(--space-5); }
+
+    /* ── Team ─────────────────────────────────────────────── */
+    .team { padding-block: var(--section-pad-y); border-top: 1px solid var(--color-border); }
+    .team__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      margin-top: var(--space-10);
+    }
+    .team-card { text-align: center; }
+    .team-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--color-depth);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      position: relative;
+      transition: border-color var(--dur-base) var(--ease-out);
+    }
+    .team-photo-placeholder:hover { border-color: var(--color-amber-dim); }
+    .team-photo-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(200,169,110,0.07) 0%, transparent 70%);
+    }
+    .team-photo-placeholder__icon {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-muted);
+    }
+    .team-photo-placeholder__icon svg { width: 28px; height: 28px; }
+    .team-photo-placeholder__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted-light);
+      letter-spacing: 0.06em;
+    }
+    .team-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      margin-bottom: var(--space-1);
+    }
+    .team-card__role {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+    }
+
+    /* ── Gear ─────────────────────────────────────────────── */
+    .gear { padding-block: var(--section-pad-y); border-top: 1px solid var(--color-border); }
+    .gear__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--gap);
+      margin-top: var(--space-10);
+    }
+    .gear-cat { padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--radius-md); transition: border-color var(--dur-base) var(--ease-out); }
+    .gear-cat:hover { border-color: var(--color-amber-dim); }
+    .gear-cat__title {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-5);
+    }
+    .gear-list { list-style: none; }
+    .gear-list li {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      line-height: 1.9;
+      border-bottom: 1px solid var(--color-border-dim);
+      padding-bottom: var(--space-1);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .gear-list li:last-child { border-bottom: none; }
+    .gear-list li:hover { color: var(--color-off-white); }
+
+    /* ── Values ───────────────────────────────────────────── */
+    .values { padding-block: var(--section-pad-y); border-top: 1px solid var(--color-border); }
+    .values__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      margin-top: var(--space-10);
+    }
+    .value-card {
+      padding: var(--space-8) var(--space-6);
+      border-top: 2px solid var(--color-border);
+      transition: border-color var(--dur-base) var(--ease-out);
+    }
+    .value-card:hover { border-top-color: var(--color-amber); }
+    .value-card__num {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      margin-bottom: var(--space-4);
+    }
+    .value-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      margin-bottom: var(--space-3);
+    }
+    .value-card__desc { font-size: var(--text-sm); color: var(--color-muted); line-height: var(--leading-loose); }
+
+    @media (max-width: 1024px) {
+      .gear__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .story__layout { grid-template-columns: 1fr; gap: var(--space-8); }
+      .team__grid { grid-template-columns: repeat(2, 1fr); }
+      .values__grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .team__grid { grid-template-columns: 1fr; }
+      .gear__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="grain" aria-hidden="true"></canvas>
+  <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div><span class="cursor__label">PLAY</span></div>
+
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="../" class="nav__logo">COREVISUALFILMS</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navOverlay"><span class="nav__toggle-bar"></span><span class="nav__toggle-bar"></span></button>
+    <div class="nav__overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav__overlay-inner"><ul class="nav__links">
+        <li class="nav__link-item"><a href="../"          class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
+        <li class="nav__link-item"><a href="../work/"     class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Work</span></a></li>
+        <li class="nav__link-item"><a href="../services/" class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
+        <li class="nav__link-item"><a href="../about/"    class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">About</span></a></li>
+        <li class="nav__link-item"><a href="../process/"  class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Process</span></a></li>
+        <li class="nav__link-item"><a href="../reel/"     class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">Reel</span></a></li>
+        <li class="nav__link-item"><a href="../contact/"  class="nav__link"><span class="nav__link-num">06</span><span class="nav__link-text">Contact</span></a></li>
+      </ul></nav>
+      <div class="nav__overlay-footer"><div class="nav__contact-info"><p>hello@corevisualfilms.com</p><p>+234 706 275 9706</p></div><div class="nav__social"><a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer">Instagram</a></div></div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- About hero -->
+    <section class="about-hero" aria-label="About hero">
+      <div class="vid-slot" data-video-slot="about-hero" data-aspect="cover" style="position:absolute;inset:0" aria-label="About hero placeholder">
+        <div class="vid-slot__bg"></div>
+        <div class="vid-slot__corners"><span data-corner="tl"></span><span data-corner="tr"></span><span data-corner="bl"></span><span data-corner="br"></span></div>
+        <div class="vid-slot__center"><div class="vid-slot__icon"><svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg></div><p class="vid-slot__label">Studio &amp; Behind-the-Scenes</p><p class="vid-slot__specs">16:9 · Coming Soon</p></div>
+      </div>
+      <div class="about-hero__gradient"></div>
+      <div class="about-hero__content container">
+        <p class="page-hero__eyebrow">The Studio</p>
+        <h1 class="page-hero__title">We Are<br><em>Corevisualfilms</em></h1>
+      </div>
+    </section>
+
+    <!-- Story -->
+    <section class="story section container" aria-labelledby="story-heading">
+      <div class="story__layout">
+        <div>
+          <p class="section-label">Our Story</p>
+          <h2 class="story__pull-quote" id="story-heading">
+            "We didn't set out to build a studio.<br>We set out to <span>tell the truth</span> in pictures."
+          </h2>
+        </div>
+        <div class="story__body">
+          <p>Corevisualfilms was founded on a simple conviction: that the most powerful thing a film can do is make someone feel less alone in their experience. That a frame, held long enough on the right face, can say what years of conversation never quite manage.</p>
+          <p>We started with weddings — the highest-stakes single day of most people's lives — and learned everything about light, timing, and the art of being invisible in the room while capturing everything. That discipline shaped every other kind of work we do.</p>
+          <p>Today the studio produces across six disciplines, on six continents. The team is small by choice. Every project is handled by people who care about it personally. We don't have departments. We have collaborators.</p>
+          <p>The name says it: <em style="color:var(--color-amber);">core visual</em>. The essential truth, in pictures. That's the only brief we accept.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team section container" aria-labelledby="team-heading">
+      <p class="section-label">The People</p>
+      <h2 id="team-heading" style="font-size:var(--text-h2);font-weight:var(--weight-light);color:var(--color-white);">The Team</h2>
+      <div class="team__grid">
+        <div class="team-card reveal">
+          <div class="team-photo-placeholder" aria-label="Director of Photography">
+            <div class="team-photo-placeholder__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+          </div>
+          <p class="team-card__role">Founder · Director of Photography</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-photo-placeholder" aria-label="Lead Editor">
+            <div class="team-photo-placeholder__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+          </div>
+          <p class="team-card__role">Lead Editor · Colourist</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-photo-placeholder" aria-label="Creative Director">
+            <div class="team-photo-placeholder__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+          </div>
+          <p class="team-card__role">Producer · Creative Director</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gear -->
+    <section class="gear section container" aria-labelledby="gear-heading">
+      <p class="section-label">The Kit</p>
+      <h2 id="gear-heading" style="font-size:var(--text-h2);font-weight:var(--weight-light);color:var(--color-white);">Our Equipment</h2>
+      <div class="gear__grid">
+        <div class="gear-cat reveal">
+          <p class="gear-cat__title">Cameras</p>
+          <ul class="gear-list">
+            <li>Sony FX9 (Primary)</li><li>Sony FX3 (B-Camera)</li><li>Sony A7S III (Run &amp; Gun)</li><li>Blackmagic URSA 12K</li>
+          </ul>
+        </div>
+        <div class="gear-cat reveal">
+          <p class="gear-cat__title">Lenses</p>
+          <ul class="gear-list">
+            <li>Sony 24–70mm f/2.8 GM II</li><li>Sony 85mm f/1.4 GM</li><li>Sigma 35mm f/1.4 Art</li><li>Laowa 12mm f/2.8 Zero-D</li>
+          </ul>
+        </div>
+        <div class="gear-cat reveal">
+          <p class="gear-cat__title">Aerial</p>
+          <ul class="gear-list">
+            <li>DJI Mavic 3 Pro (Primary)</li><li>DJI Mini 3 Pro (Travel)</li><li>FAA Licensed Pilots</li><li>Restricted Airspace Approvals</li>
+          </ul>
+        </div>
+        <div class="gear-cat reveal">
+          <p class="gear-cat__title">Audio &amp; Stabilisation</p>
+          <ul class="gear-list">
+            <li>Zoom F6 Field Recorder</li><li>Sennheiser MKH 416</li><li>DJI Ronin 4D Stabiliser</li><li>DJI RS3 Pro Gimbal</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values section container" aria-labelledby="values-heading">
+      <p class="section-label">What We Believe</p>
+      <h2 id="values-heading" style="font-size:var(--text-h2);font-weight:var(--weight-light);color:var(--color-white);">Our Philosophy</h2>
+      <div class="values__grid">
+        <div class="value-card reveal">
+          <p class="value-card__num">01</p>
+          <h3 class="value-card__title">Truth Over Aesthetics</h3>
+          <p class="value-card__desc">A beautiful lie is still a lie. We pursue the authentic moment first, and trust that the light will follow.</p>
+        </div>
+        <div class="value-card reveal">
+          <p class="value-card__num">02</p>
+          <h3 class="value-card__title">Craft Is Non-Negotiable</h3>
+          <p class="value-card__desc">Every decision — the lens, the grade, the cut — is made with intention. Nothing is accidental. Nothing is good enough.</p>
+        </div>
+        <div class="value-card reveal">
+          <p class="value-card__num">03</p>
+          <h3 class="value-card__title">The Frame Belongs to You</h3>
+          <p class="value-card__desc">We make the film for the person watching it — not the awards reel. Their response is the only review that matters.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo"><div class="container"><div class="footer__grid"><div><p class="footer__brand-name">Corevisualfilms</p><p class="footer__brand-desc">Full-spectrum visual production studio.</p></div><div><p class="footer__col-title">Work</p><ul class="footer__links"><li><a href="../work/">Portfolio</a></li><li><a href="../services/">Services</a></li></ul></div><div><p class="footer__col-title">Studio</p><ul class="footer__links"><li><a href="../process/">Process</a></li><li><a href="../reel/">Showreel</a></li></ul></div><div><p class="footer__col-title">Contact</p><ul class="footer__links"><li><a href="../contact/">Book a Call</a></li></ul></div></div><div class="footer__bottom"><p class="footer__legal">&copy; 2026 Corevisualfilms. All rights reserved. Lagos, Nigeria.</p><p class="footer__tagline">Where Vision Becomes Legacy</p></div></div></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="../js/core.js" defer></script>
+  <script>
+  window.addEventListener('load', function() {
+    if (typeof gsap === 'undefined') return;
+    gsap.from('.about-hero__content > *', { opacity: 0, y: 30, stagger: 0.15, duration: 0.9, ease: 'power3.out', delay: 0.3 });
+    gsap.from('.story__pull-quote', { scrollTrigger: { trigger: '.story', start: 'top 78%' }, opacity: 0, y: 40, duration: 1, ease: 'power3.out' });
+    gsap.from('.team-card', { scrollTrigger: { trigger: '.team__grid', start: 'top 80%' }, opacity: 0, y: 40, stagger: 0.15, duration: 0.8, ease: 'power3.out' });
+    gsap.from('.gear-cat',  { scrollTrigger: { trigger: '.gear__grid',  start: 'top 80%' }, opacity: 0, y: 30, stagger: 0.1,  duration: 0.7, ease: 'power3.out' });
+    gsap.from('.value-card',{ scrollTrigger: { trigger: '.values__grid',start: 'top 80%' }, opacity: 0, y: 30, stagger: 0.12, duration: 0.8, ease: 'power3.out' });
+  });
+  </script>
+</body>
+</html>

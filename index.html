@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corevisualfilms — Where Vision Becomes Legacy</title>
+  <meta name="description" content="Full-spectrum visual production studio based in Lagos, Nigeria. Weddings, Commercial, Music Videos, Real Estate, Documentary and Corporate work. Where vision becomes legacy.">
+  <meta name="theme-color" content="#080808">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Corevisualfilms — Where Vision Becomes Legacy">
+  <meta property="og:description" content="Full-spectrum visual production studio based in Lagos, Nigeria. Weddings · Commercial · Music Videos · Real Estate · Documentary · Corporate.">
+  <meta property="og:url"         content="https://corevisualfilms.com/">
+  <meta property="og:image"       content="https://corevisualfilms.com/assets/og-home.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Corevisualfilms — Where Vision Becomes Legacy">
+  <meta name="twitter:description" content="Full-spectrum visual production studio based in Lagos, Nigeria.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://corevisualfilms.com/">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+
+  <style>
+    /* ── Hero — Split Editorial ──────────────────────────── */
+    .hero {
+      height: 100svh;
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 42fr 58fr;
+      padding-top: var(--nav-height);
+      overflow: hidden;
+    }
+
+    /* ── Left: Editorial identity panel ───────────────────── */
+    .hero__editorial {
+      background: var(--color-void);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(2rem, 3.5vw, 4rem) var(--gutter);
+      position: relative;
+      border-right: 1px solid rgba(200,169,110,0.12);
+      overflow: hidden;
+    }
+    /* Atmospheric ghost number — architectural depth */
+    .hero__editorial::after {
+      content: '01';
+      position: absolute;
+      bottom: -0.12em;
+      left: -0.04em;
+      font-family: var(--font-display);
+      font-size: clamp(12rem, 22vw, 22rem);
+      font-weight: var(--weight-light);
+      color: rgba(200,169,110,0.035);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+    .hero__editorial-top,
+    .hero__editorial-mid,
+    .hero__editorial-bottom { position: relative; z-index: 1; }
+
+    .hero__index {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .hero__index::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--color-amber);
+      flex-shrink: 0;
+    }
+    .hero__eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: rgba(232,224,208,0.45);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+      opacity: 0;
+    }
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(3.8rem, 6.5vw, 9rem);
+      font-weight: var(--weight-light);
+      line-height: 0.87;
+      color: var(--color-white);
+      letter-spacing: -0.03em;
+    }
+    .hero__line { display: block; overflow: hidden; }
+    .hero__line-inner { display: block; transform: translateY(110%); }
+    .hero__line--em {
+      font-style: italic;
+      color: var(--color-amber);
+    }
+    .hero__descriptor {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: rgba(232,224,208,0.38);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      line-height: 2.4;
+      margin-bottom: var(--space-6);
+      opacity: 0;
+    }
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    /* Timecode sits inside the editorial panel, bottom-right */
+    .hero__timecode {
+      position: absolute;
+      bottom: clamp(1rem, 1.5vw, 1.5rem);
+      right: var(--space-5);
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: rgba(200,169,110,0.28);
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero__timecode-label {
+      font-size: 0.52rem;
+      letter-spacing: var(--tracking-widest);
+      color: rgba(200,169,110,0.16);
+    }
+
+    /* ── Right: Video panel ─────────────────────────────── */
+    .hero__reel-stage {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+    }
+    .hero__reel-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Left edge blends into editorial panel; subtle top/bottom feathers */
+    .hero__reel-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(8,8,8,0.55) 0%, transparent 22%),
+        linear-gradient(to bottom, rgba(8,8,8,0.18) 0%, transparent 14%, transparent 86%, rgba(8,8,8,0.45) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* Broadcast tag — top-right corner of video */
+    .hero__reel-tag {
+      position: absolute;
+      top: var(--space-5);
+      right: var(--gutter);
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: rgba(200,169,110,0.38);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    .hero__reel-rec {
+      color: rgba(220,60,40,0.72);
+      animation: recBlink 1.8s ease-in-out infinite;
+    }
+    @keyframes recBlink {
+      0%, 45% { opacity: 1; }
+      55%, 100% { opacity: 0.08; }
+    }
+    .hero__scroll {
+      position: absolute;
+      bottom: clamp(1.5rem, 3vw, 3rem);
+      right: var(--gutter);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .hero__scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: linear-gradient(to bottom, transparent, var(--color-amber));
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
+      50%      { opacity: 1;   transform: scaleY(1);   transform-origin: top; }
+    }
+    .hero__scroll-text {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: var(--tracking-widest);
+      color: var(--color-muted);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+
+    /* ── Location Pulse dot ───────────────────────────────── */
+    .location-pulse {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--color-amber);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: locPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes locPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.2; transform: scale(0.7); }
+    }
+
+    /* ── Services Marquee ─────────────────────────────────── */
+    .services-strip {
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding-block: var(--space-5);
+      overflow: hidden;
+    }
+    .services-strip .marquee__inner {
+      align-items: center;
+    }
+    .services-strip .service-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      font-weight: var(--weight-light);
+      color: var(--color-muted);
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+      transition: color var(--dur-base) var(--ease-out);
+    }
+    .services-strip .service-item:hover { color: var(--color-off-white); }
+    .services-strip .diamond {
+      color: var(--color-amber);
+      font-size: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Studio Intro ─────────────────────────────────────── */
+    .studio-intro {
+      padding-block: var(--section-pad-y);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .studio-intro__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 8vw, 8rem);
+      align-items: center;
+    }
+    .studio-intro__location {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-6);
+    }
+    .studio-intro__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 5.5vw, 5.5rem);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .studio-intro__heading em {
+      font-style: italic;
+      color: var(--color-amber);
+      display: block;
+    }
+    .studio-intro__body {
+      font-size: clamp(1rem, 1.3vw, 1.15rem);
+      color: var(--color-off-white);
+      line-height: var(--leading-loose);
+      max-width: 42ch;
+    }
+    .studio-intro__body--sub {
+      margin-top: var(--space-4);
+      color: var(--color-muted);
+    }
+    .studio-intro__right {
+      padding-top: clamp(0rem, 3vw, 3rem);
+    }
+
+    /* ── Featured Work ────────────────────────────────────── */
+    .featured-work { padding-block: var(--section-pad-y); }
+    .featured-work__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: var(--space-10);
+      gap: var(--space-6);
+    }
+    .featured-work__title {
+      font-size: var(--text-display);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1;
+    }
+    .featured-work__title em {
+      display: block;
+      font-style: italic;
+      color: var(--color-amber);
+    }
+    /* New flex-column layout */
+    .featured-work__grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+    }
+    .featured-work__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+    }
+    .work-card {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+      border-radius: var(--radius-md);
+    }
+    .work-card__media {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #000;
+    }
+    .work-card__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Wide hero card — 21:9 cinematic ratio */
+    .work-card--wide .work-card__media {
+      aspect-ratio: 21/9;
+    }
+    .work-card--wide .work-card__title {
+      font-size: clamp(1.5rem, 3vw, 2.8rem);
+    }
+    .work-card--wide .work-card__info {
+      padding: var(--space-8);
+    }
+    .work-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.1) 50%, transparent 100%);
+      z-index: 1;
+      transition: background var(--dur-slow) var(--ease-out);
+    }
+    .work-card:hover .work-card__overlay {
+      background: linear-gradient(to top, rgba(8,8,8,0.96) 0%, rgba(8,8,8,0.3) 60%, rgba(8,8,8,0.1) 100%);
+    }
+    .work-card__info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--space-6);
+      z-index: 2;
+    }
+    .work-card__tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+      transform: translateY(6px);
+      opacity: 0.7;
+      transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+    }
+    .work-card__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.1;
+    }
+    .work-card__desc {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      margin-top: var(--space-2);
+      max-width: 35ch;
+      transform: translateY(10px);
+      opacity: 0;
+      transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+      transition-delay: 0.05s;
+    }
+    .work-card:hover .work-card__tag  { transform: translateY(0); opacity: 1; }
+    .work-card:hover .work-card__desc { transform: translateY(0); opacity: 1; }
+
+    /* ── Manifesto — Cream/Light Section ─────────────────── */
+    .manifesto {
+      background: #F2EDE4;
+      padding-block: var(--section-pad-y);
+    }
+    .manifesto .container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: clamp(3rem, 8vw, 8rem);
+      align-items: center;
+    }
+    .manifesto__quote-text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.8rem, 3.8vw, 3.8rem);
+      font-weight: var(--weight-light);
+      color: #0D0D0D;
+      line-height: 1.22;
+      letter-spacing: -0.01em;
+    }
+    .manifesto__source {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: #9B7A2A;
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-top: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .manifesto__source::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: #9B7A2A;
+    }
+    .manifesto__facts {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .manifesto__fact {
+      padding-block: var(--space-6);
+      border-top: 1px solid rgba(13,13,13,0.1);
+    }
+    .manifesto__fact:first-child { border-top: none; }
+    .manifesto__num {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      font-weight: var(--weight-light);
+      color: #0D0D0D;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .manifesto__plus {
+      color: #9B7A2A;
+    }
+    .manifesto__fact-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: #8B7248;
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-top: var(--space-2);
+    }
+
+    /* ── Poster Reel Strip ───────────────────────────────── */
+    .poster-reel {
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      overflow: hidden;
+    }
+    .poster-reel .marquee__inner {
+      gap: 4px !important;
+      align-items: flex-end;
+    }
+    .poster-reel__item {
+      display: block;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .poster-reel__img {
+      height: clamp(140px, 18vw, 220px);
+      width: auto;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%) contrast(1.05) brightness(0.88);
+      transition: filter 0.5s ease, transform 0.5s ease;
+    }
+    .poster-reel__item:hover .poster-reel__img {
+      filter: grayscale(0%) contrast(1) brightness(1);
+      transform: scale(1.03);
+    }
+
+    /* ── Clients — name strip ────────────────────────────── */
+    .clients { padding-block: var(--section-pad-y); }
+    .clients__label {
+      text-align: center;
+      margin-bottom: var(--space-10);
+    }
+    .clients__strip {
+      overflow: hidden;
+    }
+    .clients__strip .marquee__inner {
+      align-items: center;
+      gap: var(--space-8);
+    }
+    .client-name-text {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.8vw, 1.5rem);
+      font-weight: var(--weight-light);
+      color: var(--color-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color var(--dur-base) var(--ease-out);
+    }
+    .client-name-text:hover { color: var(--color-off-white); }
+    .client-sep {
+      color: var(--color-amber);
+      font-size: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Testimonial ──────────────────────────────────────── */
+    .testimonial {
+      padding-block: var(--section-pad-y);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .testimonial__inner {
+      max-width: 820px;
+      margin-inline: auto;
+      text-align: center;
+    }
+    .testimonial__quote-mark {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      line-height: 0.5;
+      color: var(--color-amber);
+      opacity: 0.3;
+      margin-bottom: var(--space-6);
+      display: block;
+    }
+    .testimonial__text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.35;
+      margin-bottom: var(--space-8);
+      max-width: 100%;
+    }
+    .testimonial__author {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+    }
+    .testimonial__role {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-wide);
+      margin-top: var(--space-2);
+    }
+
+    /* ── Footer CTA ───────────────────────────────────────── */
+    .footer-cta {
+      padding-block: var(--section-pad-y);
+      text-align: center;
+      background: linear-gradient(to bottom, var(--color-void), var(--color-depth) 50%, var(--color-void));
+    }
+    .footer-cta__sub {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-5);
+    }
+    .footer-cta__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5.5vw, 5rem);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.1;
+      margin-bottom: var(--space-8);
+    }
+    .footer-cta__title em {
+      font-style: italic;
+      color: var(--color-amber);
+    }
+
+    /* ── Mobile ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .studio-intro__grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+      .studio-intro__right { padding-top: 0; }
+      .featured-work__row { grid-template-columns: 1fr; }
+      .work-card--wide .work-card__media { aspect-ratio: 16/9; }
+      .manifesto .container { grid-template-columns: 1fr; }
+      .featured-work__header { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: 55svh auto;
+        min-height: 100svh;
+      }
+      .hero__reel-stage { order: -1; }
+      .hero__editorial {
+        padding: var(--space-6) var(--gutter) var(--space-8);
+        border-right: none;
+        border-top: 1px solid rgba(200,169,110,0.12);
+        justify-content: flex-start;
+        gap: var(--space-6);
+      }
+      .hero__editorial::after { display: none; }
+      .hero__headline { font-size: clamp(2.8rem, 10vw, 4rem); }
+      .hero__timecode { display: none; }
+      .hero__scroll { display: none; }
+    }
+    @media (max-width: 480px) {
+      .hero__actions { flex-wrap: wrap; gap: var(--space-3); }
+      .poster-reel__img { height: 110px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Film grain -->
+  <canvas id="grain" aria-hidden="true"></canvas>
+
+  <!-- Cinematic letterbox bars -->
+  <div id="letterbox-top"    aria-hidden="true"></div>
+  <div id="letterbox-bottom" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+    <span class="cursor__label">PLAY</span>
+  </div>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="/" class="nav__logo" aria-label="Corevisualfilms — Home">COREVISUALFILMS</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navOverlay">
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+    </button>
+    <div class="nav__overlay" id="navOverlay" aria-hidden="true" role="dialog" aria-label="Navigation menu">
+      <nav class="nav__overlay-inner">
+        <ul class="nav__links">
+          <li class="nav__link-item"><a href="/"         class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
+          <li class="nav__link-item"><a href="work/"     class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Work</span></a></li>
+          <li class="nav__link-item"><a href="services/" class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
+          <li class="nav__link-item"><a href="about/"    class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">About</span></a></li>
+          <li class="nav__link-item"><a href="reel/"     class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Reel</span></a></li>
+          <li class="nav__link-item"><a href="contact/"  class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">Contact</span></a></li>
+        </ul>
+      </nav>
+      <div class="nav__overlay-footer">
+        <div class="nav__contact-info">
+          <p>hello@corevisualfilms.com</p>
+          <p>+234 706 275 9706</p>
+        </div>
+        <div class="nav__social">
+          <a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ── Hero — Split Editorial ───────────────────────── -->
+    <section class="hero" id="hero" aria-label="Hero">
+
+      <!-- LEFT: Studio identity — architectural type, never touches the video -->
+      <div class="hero__editorial">
+        <div class="hero__editorial-top">
+          <p class="hero__index" aria-hidden="true">Full-Spectrum Visual Production</p>
+          <p class="hero__eyebrow">
+            <span class="location-pulse"></span>
+            Lagos, Nigeria
+          </p>
+        </div>
+
+        <div class="hero__editorial-mid">
+          <h1 class="hero__headline" aria-label="Where Vision Becomes Legacy">
+            <span class="hero__line"><span class="hero__line-inner">Where</span></span>
+            <span class="hero__line"><span class="hero__line-inner">Vision</span></span>
+            <em class="hero__line hero__line--em"><span class="hero__line-inner">Becomes</span></em>
+            <span class="hero__line"><span class="hero__line-inner">Legacy</span></span>
+          </h1>
+        </div>
+
+        <div class="hero__editorial-bottom">
+          <p class="hero__descriptor">Weddings · Commercial · Music<br>Real Estate · Documentary · Corporate</p>
+          <div class="hero__actions">
+            <a href="work/"  class="btn btn--amber">See Our Work</a>
+            <a href="reel/"  class="btn btn--outline">Watch Reel</a>
+          </div>
+        </div>
+
+        <div class="hero__timecode" aria-hidden="true">
+          <span class="hero__timecode-label">TC</span>
+          <span id="timecode">00:00:00:00</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Showreel plays clean — video's own graphics run unobstructed -->
+      <div class="hero__reel-stage">
+        <video autoplay muted loop playsinline preload="metadata"
+               poster="assets/posters/instanlabe.jpg"
+               class="hero__reel-video">
+          <source src="assets/videos/showreel.mp4" type="video/mp4">
+        </video>
+        <div class="hero__reel-vignette" aria-hidden="true"></div>
+
+        <div class="hero__reel-tag" aria-hidden="true">
+          <span>SHOWREEL 2025</span>
+          <span class="hero__reel-rec">● REC</span>
+        </div>
+
+        <div class="hero__scroll" id="heroScroll" aria-label="Scroll to explore">
+          <div class="hero__scroll-line"></div>
+          <span class="hero__scroll-text">Scroll</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── Services Marquee ────────────────────────────────── -->
+    <div class="services-strip" aria-label="Services">
+      <div class="marquee" data-marquee data-speed="0.10">
+        <div class="marquee__inner">
+          <span class="service-item">Weddings &amp; Events<span class="diamond">◆</span></span>
+          <span class="service-item">Commercial &amp; Brand<span class="diamond">◆</span></span>
+          <span class="service-item">Music Videos<span class="diamond">◆</span></span>
+          <span class="service-item">Real Estate<span class="diamond">◆</span></span>
+          <span class="service-item">Documentary &amp; Film<span class="diamond">◆</span></span>
+          <span class="service-item">Corporate &amp; Training<span class="diamond">◆</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Studio Intro ───────────────────────────────────── -->
+    <section class="studio-intro section" aria-labelledby="studio-intro-heading">
+      <div class="container">
+        <div class="studio-intro__grid">
+          <div class="studio-intro__left reveal">
+            <div class="studio-intro__location">
+              <span class="location-pulse"></span>
+              Lagos, Nigeria · Est. 2014
+            </div>
+            <h2 class="studio-intro__heading" id="studio-intro-heading">
+              We make films<br>
+              the world<br>
+              <em>keeps watching.</em>
+            </h2>
+          </div>
+          <div class="studio-intro__right reveal">
+            <p class="studio-intro__body">
+              Corevisualfilms is a full-spectrum visual production studio based in Lagos, Nigeria. From intimate weddings that move you to bold commercial campaigns that convert — we bring cinematic precision to every frame, every project, every story.
+            </p>
+            <p class="studio-intro__body studio-intro__body--sub">
+              Our work spans six continents. Our standard never drops: if it's worth filming, it deserves to be filmed beautifully.
+            </p>
+            <a href="about/" class="btn btn--ghost" style="margin-top:var(--space-8)">About the Studio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Featured Work ───────────────────────────────────── -->
+    <section class="featured-work section" aria-labelledby="work-heading">
+      <div class="container">
+        <div class="featured-work__header">
+          <div>
+            <p class="section-label">Selected Work</p>
+            <h2 class="featured-work__title" id="work-heading">
+              Stories that<br>
+              <em>live forever</em>
+            </h2>
+          </div>
+          <a href="work/" class="btn btn--ghost">View All Work</a>
+        </div>
+
+        <div class="featured-work__grid">
+
+          <!-- Hero card — full width, 21:9 cinematic -->
+          <a href="work/project-template/" class="work-card work-card--wide" data-tilt aria-label="View: Instanlabe Pop-Up Fashion Market">
+            <div class="work-card__media">
+              <video autoplay muted loop playsinline preload="metadata" poster="assets/posters/instanlabe.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+                <source src="assets/videos/instanlabe.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="work-card__overlay"></div>
+            <div class="work-card__info">
+              <p class="work-card__tag">Events &amp; Commercial · Lagos</p>
+              <h3 class="work-card__title">Instanlabe — Pop-Up Fashion Market</h3>
+              <p class="work-card__desc">A kinetic, colour-soaked commercial shoot at a Lagos fashion pop-up. Energy, style, and story in motion.</p>
+            </div>
+          </a>
+
+          <!-- Two smaller cards side by side -->
+          <div class="featured-work__row">
+
+            <a href="work/project-template/" class="work-card" data-tilt aria-label="View: Neo Homes — Real Estate Campaign">
+              <div class="work-card__media">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/posters/neo-homes.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+                  <source src="assets/videos/neo-homes.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="work-card__overlay"></div>
+              <div class="work-card__info">
+                <p class="work-card__tag">Real Estate</p>
+                <h3 class="work-card__title">Neo Homes — Luxury Property Campaign</h3>
+                <p class="work-card__desc">Sweeping aerial drone footage and cinematic walk-throughs for a premium Lagos real estate brand.</p>
+              </div>
+            </a>
+
+            <a href="work/project-template/" class="work-card" data-tilt aria-label="View: ABBA Charity Foundation">
+              <div class="work-card__media">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/posters/abba-charity.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+                  <source src="assets/videos/abba-charity.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="work-card__overlay"></div>
+              <div class="work-card__info">
+                <p class="work-card__tag">Documentary &amp; Corporate</p>
+                <h3 class="work-card__title">ABBA Foundation — Brand Story</h3>
+                <p class="work-card__desc">An intimate documentary portrait of Tosin Ogunbanjo and the foundation changing lives across Nigeria.</p>
+              </div>
+            </a>
+
+          </div><!-- /.featured-work__row -->
+        </div><!-- /.featured-work__grid -->
+      </div>
+    </section>
+
+    <!-- ── Manifesto — Light / Cream Section ─────────────── -->
+    <section class="manifesto" aria-label="Studio statement">
+      <div class="container">
+        <div class="manifesto__quote">
+          <p class="manifesto__quote-text">"The best films aren't just watched — they're felt long after the screen goes dark."</p>
+          <p class="manifesto__source">Corevisualfilms · Lagos, Nigeria</p>
+        </div>
+        <div class="manifesto__facts">
+          <div class="manifesto__fact reveal">
+            <span class="manifesto__num">200<span class="manifesto__plus">+</span></span>
+            <span class="manifesto__fact-label">Productions Completed</span>
+          </div>
+          <div class="manifesto__fact reveal">
+            <span class="manifesto__num">6</span>
+            <span class="manifesto__fact-label">Continents Reached</span>
+          </div>
+          <div class="manifesto__fact reveal">
+            <span class="manifesto__num">10<span class="manifesto__plus">+</span></span>
+            <span class="manifesto__fact-label">Years in the Craft</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Poster Reel ────────────────────────────────────── -->
+    <section class="poster-reel" aria-label="Project reel — view all work">
+      <div class="marquee" data-marquee data-speed="0.14">
+        <div class="marquee__inner">
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/instanlabe.jpg"    class="poster-reel__img" alt="Instanlabe"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/jasmine-villas.jpg" class="poster-reel__img" alt="Jasmine Villas"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/neo-homes.jpg"     class="poster-reel__img" alt="Neo Homes"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/abba-charity.jpg"  class="poster-reel__img" alt="ABBA Foundation"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/yetti-juice.jpg"   class="poster-reel__img" alt="Yetti Juice"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/twn-studios.jpg"   class="poster-reel__img" alt="TWN Studios"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/sascon-2025.jpg"   class="poster-reel__img" alt="SASCON 2025"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/fh-update.jpg"     class="poster-reel__img" alt="FH Update"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/hr-properties.jpg" class="poster-reel__img" alt="HR Properties"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/dainty-bud.jpg"    class="poster-reel__img" alt="Dainty Bud"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/rsa-ad.jpg"        class="poster-reel__img" alt="RSA Films"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/abcf-party.jpg"    class="poster-reel__img" alt="ABCF Party"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/jp-agency.jpg"     class="poster-reel__img" alt="JP Agency"></a>
+          <a href="work/" class="poster-reel__item"><img src="assets/posters/showreel.jpg"      class="poster-reel__img" alt="Showreel"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Clients ────────────────────────────────────────── -->
+    <section class="clients section" aria-label="Clients">
+      <div class="clients__label">
+        <p class="section-label" style="justify-content:center">Trusted By</p>
+      </div>
+      <div class="clients__strip">
+        <div class="marquee" data-marquee data-speed="0.08" data-dir="right">
+          <div class="marquee__inner">
+            <span class="client-name-text">Instanlabe</span><span class="client-sep">◆</span>
+            <span class="client-name-text">Neo Homes</span><span class="client-sep">◆</span>
+            <span class="client-name-text">ABBA Foundation</span><span class="client-sep">◆</span>
+            <span class="client-name-text">Jasmine Villas</span><span class="client-sep">◆</span>
+            <span class="client-name-text">TWN Studios</span><span class="client-sep">◆</span>
+            <span class="client-name-text">HR Properties</span><span class="client-sep">◆</span>
+            <span class="client-name-text">Dainty Bud</span><span class="client-sep">◆</span>
+            <span class="client-name-text">Yetti Juice</span><span class="client-sep">◆</span>
+            <span class="client-name-text">JP Agency</span><span class="client-sep">◆</span>
+            <span class="client-name-text">RSA Films</span><span class="client-sep">◆</span>
+            <span class="client-name-text">ABCF Events</span><span class="client-sep">◆</span>
+            <span class="client-name-text">SASCON</span><span class="client-sep">◆</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Testimonial ─────────────────────────────────────── -->
+    <section class="testimonial section" aria-label="Client testimonial">
+      <div class="container">
+        <div class="testimonial__inner reveal">
+          <span class="testimonial__quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>
+            <p class="testimonial__text">
+              Working with Corevisualfilms wasn't a transaction — it was a collaboration. They found light in places we didn't know existed, and turned our wedding into something that still makes us cry every time we watch it.
+            </p>
+            <footer>
+              <cite class="testimonial__author">— Adaeze &amp; Emeka Okafor</cite>
+              <p class="testimonial__role">Wedding Clients · Lagos, Nigeria</p>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Footer CTA ──────────────────────────────────────── -->
+    <section class="footer-cta section" aria-label="Call to action">
+      <div class="container">
+        <p class="footer-cta__sub">Start a Project</p>
+        <h2 class="footer-cta__title reveal">
+          Have a story<br>
+          worth telling?<br>
+          <em>Let's make it unforgettable.</em>
+        </h2>
+        <div style="display:flex;justify-content:center;gap:var(--space-5);flex-wrap:wrap;">
+          <a href="contact/" class="btn btn--amber">Book a Call</a>
+          <a href="work/"    class="btn btn--outline">Explore Our Work</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <p class="footer__brand-name">Corevisualfilms</p>
+          <p class="footer__brand-desc">Full-spectrum visual production studio based in Lagos, Nigeria. Cinematic stories across weddings, commercial, music, real estate, documentary, and corporate work.</p>
+        </div>
+        <div>
+          <p class="footer__col-title">Work</p>
+          <ul class="footer__links">
+            <li><a href="work/?cat=weddings">Weddings &amp; Events</a></li>
+            <li><a href="work/?cat=commercial">Commercial</a></li>
+            <li><a href="work/?cat=music">Music Videos</a></li>
+            <li><a href="work/?cat=realestate">Real Estate</a></li>
+            <li><a href="work/?cat=documentary">Documentary</a></li>
+            <li><a href="work/?cat=corporate">Corporate</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Studio</p>
+          <ul class="footer__links">
+            <li><a href="about/">About</a></li>
+            <li><a href="process/">Our Process</a></li>
+            <li><a href="reel/">Showreel</a></li>
+            <li><a href="services/">Services</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Connect</p>
+          <ul class="footer__links">
+            <li><a href="contact/">Book a Call</a></li>
+            <li><a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener">@Corevisualfilms</a></li>
+            <li><a href="tel:+2347062759706">+234 706 275 9706</a></li>
+            <li><a href="mailto:hello@corevisualfilms.com">hello@corevisualfilms.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">&copy; 2026 Corevisualfilms. All rights reserved. Lagos, Nigeria.</p>
+        <p class="footer__tagline">Where Vision Becomes Legacy</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ─────────────────────────────────────────────── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js" defer></script>
+  <script src="js/core.js" defer></script>
+
+  <!-- Home page animations -->
+  <script>
+  (function(){
+    function homeAnimations() {
+      if (typeof gsap === 'undefined') return;
+
+      /* Hero entrance — fires after letterbox */
+      const heroTl = gsap.timeline({ delay: sessionStorage.getItem('cvf-seen') ? 0.1 : 1.6 });
+
+      heroTl
+        .to('.hero__index',    { opacity: 1, duration: 0.5, ease: 'power3.out' })
+        .to('.hero__eyebrow',  { opacity: 1, duration: 0.5, ease: 'power3.out' }, '-=0.2')
+        .to('.hero__line-inner', {
+          y: '0%', duration: 1.1, ease: 'power3.out',
+          stagger: 0.1
+        }, '-=0.2')
+        .to('.hero__descriptor', { opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.3')
+        .to('.hero__actions',  { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+        .to('#heroScroll',     { opacity: 1, duration: 0.5 }, '-=0.2');
+
+      /* Work cards stagger in */
+      gsap.from('.work-card', {
+        scrollTrigger: { trigger: '.featured-work__grid', start: 'top 78%' },
+        opacity: 0, y: 60,
+        stagger: 0.15,
+        duration: 1.0,
+        ease: 'power3.out'
+      });
+
+      /* Section clip-path wipes */
+      document.querySelectorAll('.section-label').forEach(el => {
+        gsap.fromTo(el,
+          { clipPath: 'inset(0 100% 0 0)' },
+          {
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 1.1, ease: 'power3.inOut',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+          }
+        );
+      });
+
+      /* Testimonial parallax */
+      gsap.to('.testimonial__text', {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.testimonial',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      });
+
+      /* Studio intro heading reveal */
+      if (typeof SplitType !== 'undefined') {
+        const introSplit = new SplitType('.studio-intro__heading', { types: 'lines' });
+        gsap.from(introSplit.lines, {
+          opacity: 0, y: 40,
+          stagger: 0.1,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '.studio-intro__heading', start: 'top 82%', once: true }
+        });
+
+        /* Footer CTA headline split */
+        const ctaSplit = new SplitType('.footer-cta__title', { types: 'lines' });
+        gsap.from(ctaSplit.lines, {
+          opacity: 0, y: 50,
+          stagger: 0.12,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '.footer-cta__title', start: 'top 82%', once: true }
+        });
+      }
+
+      /* Studio intro body text fade */
+      gsap.from('.studio-intro__body', {
+        opacity: 0, y: 24,
+        stagger: 0.15,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.studio-intro__right', start: 'top 82%', once: true }
+      });
+    }
+
+    if (document.readyState === 'complete') {
+      homeAnimations();
+    } else {
+      window.addEventListener('load', homeAnimations);
+    }
+  })();
+  </script>
+</body>
+</html>
