@@ -26,6 +26,9 @@ body {
 img, video { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 button { background: none; border: none; font: inherit; color: inherit; cursor: none; }
+/* Browsers don't always inherit cursor:none from body on form elements — force it */
+input, textarea, select { cursor: none; }
+@media (hover: none) { input, textarea, select { cursor: auto; } }
 ul, ol { list-style: none; }
 h1, h2, h3, h4, h5 { font-family: var(--font-display); font-weight: var(--weight-light); line-height: var(--leading-tight); color: var(--color-white); }
 p { max-width: 65ch; }
@@ -218,10 +221,16 @@ input, textarea, select {
   transform: translateY(-4.5px) rotate(-45deg);
 }
 
-/* Nav bar: solid bg + amber underline when overlay is open */
+/* Nav bar: solid bg + amber underline when overlay is open.
+   backdrop-filter: none — critical: backdrop-filter creates a CSS
+   containing block, which traps position:fixed children (the overlay)
+   inside the nav's own box instead of the viewport. Clearing it lets
+   the overlay expand to full screen correctly.                       */
 .nav--open {
   background: var(--color-void) !important;
   border-bottom: 1px solid rgba(200,169,110,0.3) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   transition: none;
 }
 
