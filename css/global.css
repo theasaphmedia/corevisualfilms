@@ -656,7 +656,7 @@ input, textarea, select {
 }
 .page-hero__title {
   font-size: var(--text-h1);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-regular);
   color: var(--color-white);
   line-height: var(--leading-snug);
   margin-bottom: var(--space-5);
