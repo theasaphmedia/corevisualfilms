@@ -143,15 +143,22 @@
     toggle.addEventListener('click', () => isOpen ? closeMenu() : openMenu());
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && isOpen) closeMenu(); });
 
-    /* Nav links — allow navigation to complete before cleanup */
+    /* Nav links — instant reset so page curtain takes over cleanly.
+       No slide-up animation when navigating — curtain covers it. */
     overlay.querySelectorAll('.nav__link').forEach(link => {
       link.addEventListener('click', () => {
+        /* Kill overlay transition instantly */
+        overlay.style.transition = 'none';
         nav.classList.remove('nav--open');
         overlay.setAttribute('aria-hidden', 'true');
         toggle.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
         try { if (lenis) lenis.start(); } catch (e) {}
         isOpen = false;
+        /* Restore transition after paint so next open animates normally */
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { overlay.style.transition = ''; });
+        });
       });
     });
 

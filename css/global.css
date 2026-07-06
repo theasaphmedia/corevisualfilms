@@ -183,32 +183,46 @@ input, textarea, select {
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  gap: 7px;
+  gap: 8px;
   cursor: none;
   opacity: 0.7;
   transition: opacity var(--dur-base) var(--ease-out);
 }
 .nav__toggle:hover { opacity: 1; }
+/* Fully visible when menu is open */
+.nav--open .nav__toggle { opacity: 1; }
+
 .nav__toggle-bar {
   display: block;
   height: 1px;
   background: var(--color-white);
   transition: transform var(--dur-base) var(--ease-inout),
               opacity var(--dur-base) var(--ease-inout),
-              width var(--dur-base) var(--ease-inout);
+              width var(--dur-base) var(--ease-inout),
+              height var(--dur-base) var(--ease-inout);
 }
 .nav__toggle-bar:first-child { width: 24px; }
 .nav__toggle-bar:last-child  { width: 14px; }
 .nav__toggle:hover .nav__toggle-bar:last-child { width: 24px; }
 
-/* Animated to X when open */
+/* Animated to X when open — bars thicken & cross precisely */
+.nav--open .nav__toggle-bar {
+  height: 1.5px;
+  width: 26px;
+  background: var(--color-white);
+}
 .nav--open .nav__toggle-bar:first-child {
-  transform: translateY(3.5px) rotate(45deg);
-  width: 28px;
+  transform: translateY(4.75px) rotate(45deg);
 }
 .nav--open .nav__toggle-bar:last-child {
-  transform: translateY(-3.5px) rotate(-45deg);
-  width: 28px;
+  transform: translateY(-4.75px) rotate(-45deg);
+}
+
+/* Nav bar gets a solid background when overlay is open
+   so the X is always readable */
+.nav--open {
+  background: var(--color-void) !important;
+  border-bottom: 1px solid rgba(200,169,110,0.1);
 }
 
 /* Full-screen overlay menu */
