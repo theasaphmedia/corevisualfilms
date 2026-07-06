@@ -1,10 +1,10 @@
-# Cowork Build Prompt — Corevisualfilms Website
+# Cowork Build Prompt — Corevisualmedia Website
 
 ---
 
 ## PROJECT OVERVIEW
 
-Build a **world-class, award-winning videography website** for **Corevisualfilms** — a full-spectrum visual production studio covering Weddings & Events, Commercial & Brand, Music Videos, Real Estate, Documentary & Film, and Corporate & Training.
+Build a **world-class, award-winning videography website** for **Corevisualmedia** — a full-spectrum visual production studio covering Weddings & Events, Commercial & Brand, Music Videos, Real Estate, Documentary & Film, and Corporate & Training.
 
 The site must feel like it belongs on Awwwards, CSS Design Awards, or FWA. It should be visually cinematic, technically excellent, and built to **convert visitors into inquiries** through a portfolio-first experience that commands trust and desire.
 
@@ -18,7 +18,7 @@ Before choosing any design direction, tech stack, page structure, or visual lang
 2. **Analyse the top-performing videographer websites globally** — identify patterns in navigation, hero sections, portfolio presentation, and CTAs that drive conversion.
 3. **Research the best tech stack** for a cinematic, animation-rich, SEO-optimised videography site. Consider Next.js, Astro, Nuxt, or plain HTML/CSS/JS with GSAP — choose what gives the best balance of performance, animation capability, and SEO.
 4. **Research ideal page structure** for a full-service videographer — what pages do award-winning competitors include? What converts best?
-5. **Research visual direction** — what aesthetic language works best for a studio called "Corevisualfilms" covering this range of services? Study cinematic, editorial, and luxury creative aesthetics. Commit to one clear visual direction based on findings.
+5. **Research visual direction** — what aesthetic language works best for a studio called "Corevisualmedia" covering this range of services? Study cinematic, editorial, and luxury creative aesthetics. Commit to one clear visual direction based on findings.
 
 Document your research decisions in a `RESEARCH.md` file before proceeding.
 
@@ -168,7 +168,7 @@ Produce a clean, well-organised codebase with:
 
 ## BRAND BASICS
 
-- **Studio Name:** Corevisualfilms
+- **Studio Name:** Corevisualmedia
 - **Tagline (placeholder — suggest a better one based on research):** *"Every Frame, A Story"*
 - **Services:** Weddings & Events · Commercial & Brand · Music Videos · Real Estate · Documentary & Film · Corporate & Training
 - **Primary CTA:** View Portfolio → Reach Out / Book a Call

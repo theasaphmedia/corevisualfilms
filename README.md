@@ -1,4 +1,4 @@
-# Corevisualfilms Website
+# Corevisualmedia Website
 
 **World-class, award-entry-grade videography website.**  
 Cinematic Noir + Amber aesthetic · Pure HTML/CSS/JS · No build step required.
@@ -23,7 +23,7 @@ Cinematic Noir + Amber aesthetic · Pure HTML/CSS/JS · No build step required.
 ## File Structure
 
 ```
-Corevisualfilms Website/
+Corevisualmedia Website/
 ├── index.html                    ← Home page
 ├── work/
 │   ├── index.html                ← Portfolio grid (12 projects, filterable)
@@ -137,7 +137,7 @@ The site is pure static HTML — deploy anywhere:
 **Production checklist before launch:**
 - [ ] Replace all `[PLACEHOLDER]` text with real content
 - [ ] Replace all video placeholders with real videos (see VIDEO_SLOTS.md)
-- [ ] Replace `hello@corevisualfilms.com` with real email
+- [ ] Replace `hello@corevisualmedia.com` with real email
 - [ ] Replace `+1 (555) 000-0000` with real phone
 - [ ] Update `[City, State/Country]` in contact page
 - [ ] Update all social links (`href="#"`) with real URLs
@@ -200,4 +200,4 @@ CSS `clamp()`, CSS custom properties, `aspect-ratio`, `clip-path`, and `Intersec
 
 ---
 
-*Built June 2025 · Corevisualfilms*
+*Built June 2025 · Corevisualmedia*

@@ -1,4 +1,4 @@
-# VIDEO_SLOTS.md — Corevisualfilms
+# VIDEO_SLOTS.md — Corevisualmedia
 ### Complete index of every video placeholder in the site. Replace with real videos here.
 
 ---

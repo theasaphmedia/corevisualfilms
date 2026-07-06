@@ -1,5 +1,5 @@
 /* ============================================================
-   COREVISUALFILMS — Core JS  v2
+   COREVISUALMEDIA — Core JS  v2
    Fixes: double Lenis RAF, cursor transform conflict,
    grain performance, marquee speed, nav reliability.
    ============================================================ */

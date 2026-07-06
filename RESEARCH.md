@@ -1,4 +1,4 @@
-# RESEARCH.md — Corevisualfilms Website
+# RESEARCH.md — Corevisualmedia Website
 ### Produced before any code is written. All build decisions flow from this document.
 
 ---
@@ -26,7 +26,7 @@
 
 ---
 
-## 2. WHAT COMPETITORS GET WRONG (The Gap Corevisualfilms Will Fill)
+## 2. WHAT COMPETITORS GET WRONG (The Gap Corevisualmedia Will Fill)
 
 Research across 80+ videographer websites reveals systemic weaknesses:
 

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact — Corevisualfilms</title>
-  <meta name="description" content="Start a conversation with Corevisualfilms. Tell us about your project — we respond within 24 hours.">
-  <link rel="canonical" href="https://corevisualfilms.com/contact/">
+  <title>Contact — Corevisualmedia</title>
+  <meta name="description" content="Start a conversation with Corevisualmedia. Tell us about your project — we respond within 24 hours.">
+  <link rel="canonical" href="https://corevisualmedia.com/contact/">
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/global.css">
   <style>
@@ -290,7 +290,7 @@
   <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div><span class="cursor__label">PLAY</span></div>
 
   <nav class="nav nav--scrolled" id="nav" role="navigation" aria-label="Main navigation">
-    <a href="../" class="nav__logo">COREVISUALFILMS</a>
+    <a href="../" class="nav__logo">COREVISUALMEDIA</a>
     <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navOverlay"><span class="nav__close-label">Close</span><span class="nav__toggle-bar"></span><span class="nav__toggle-bar"></span></button>
     <div class="nav__overlay" id="navOverlay" aria-hidden="true">
       <nav class="nav__overlay-inner"><ul class="nav__links">
@@ -302,7 +302,7 @@
         <li class="nav__link-item"><a href="../reel/"     class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">Reel</span></a></li>
         <li class="nav__link-item"><a href="../contact/"  class="nav__link"><span class="nav__link-num">06</span><span class="nav__link-text">Contact</span></a></li>
       </ul></nav>
-      <div class="nav__overlay-footer"><div class="nav__contact-info"><p>hello@corevisualfilms.com</p><p>+234 706 275 9706</p></div><div class="nav__social"><a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer">Instagram</a></div></div>
+      <div class="nav__overlay-footer"><div class="nav__contact-info"><p>hello@corevisualmedia.com</p><p>+234 706 275 9706</p></div><div class="nav__social"><a href="https://instagram.com/Corevisualmedia" target="_blank" rel="noopener noreferrer">Instagram</a></div></div>
     </div>
   </nav>
 
@@ -411,7 +411,7 @@
         <aside class="contact-sidebar reveal" aria-label="Contact information">
           <div class="contact-info-block">
             <p class="contact-info-block__label">Email</p>
-            <p class="contact-info-block__val"><a href="mailto:hello@corevisualfilms.com">hello@corevisualfilms.com</a></p>
+            <p class="contact-info-block__val"><a href="mailto:hello@corevisualmedia.com">hello@corevisualmedia.com</a></p>
           </div>
           <div class="contact-info-block">
             <p class="contact-info-block__label">Phone</p>
@@ -433,7 +433,7 @@
           </div>
 
           <div class="social-links" aria-label="Social media links">
-            <a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener noreferrer" class="social-link">@Corevisualfilms</a>
+            <a href="https://instagram.com/Corevisualmedia" target="_blank" rel="noopener noreferrer" class="social-link">@Corevisualmedia</a>
           </div>
         </aside>
 
@@ -441,144 +441,4 @@
     </div>
   </main>
 
-  <footer class="footer" role="contentinfo"><div class="container"><div class="footer__grid"><div><p class="footer__brand-name">Corevisualfilms</p><p class="footer__brand-desc">Full-spectrum visual production studio.</p></div><div><p class="footer__col-title">Work</p><ul class="footer__links"><li><a href="../work/">Portfolio</a></li><li><a href="../services/">Services</a></li></ul></div><div><p class="footer__col-title">Studio</p><ul class="footer__links"><li><a href="../about/">About</a></li><li><a href="../process/">Process</a></li></ul></div><div><p class="footer__col-title">Connect</p><ul class="footer__links"><li><a href="mailto:hello@corevisualfilms.com">hello@corevisualfilms.com</a></li><li><a href="https://instagram.com/Corevisualfilms" target="_blank" rel="noopener">@Corevisualfilms</a></li><li><a href="tel:+2347062759706">+234 706 275 9706</a></li></ul></div></div><div class="footer__bottom"><p class="footer__legal">&copy; 2026 Corevisualfilms. All rights reserved. Lagos, Nigeria.</p><p class="footer__tagline">Where Vision Becomes Legacy</p></div></div></footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
-  <script src="../js/core.js" defer></script>
-  <script>
-  (function(){
-    /* ── Custom Select Dropdowns ─────────────────────────── */
-    function initCustomSelects() {
-      document.querySelectorAll('.form-field--select select').forEach(function(nativeSel) {
-        var field  = nativeSel.closest('.form-field--select');
-        var placeholder = Array.from(nativeSel.options).find(function(o){ return o.disabled && o.selected; });
-
-        /* Build wrapper */
-        var wrap = document.createElement('div');
-        wrap.className = 'custom-select';
-
-        /* Trigger button */
-        var trigger = document.createElement('button');
-        trigger.type = 'button';
-        trigger.className = 'custom-select__trigger';
-
-        var valSpan = document.createElement('span');
-        valSpan.className = 'custom-select__value';
-        valSpan.textContent = placeholder ? placeholder.text : 'Select';
-
-        var arrow = document.createElement('span');
-        arrow.className = 'custom-select__arrow';
-        arrow.setAttribute('aria-hidden', 'true');
-        arrow.textContent = '▾';
-
-        trigger.appendChild(valSpan);
-        trigger.appendChild(arrow);
-
-        /* Options list */
-        var list = document.createElement('ul');
-        list.className = 'custom-select__list';
-        list.setAttribute('role', 'listbox');
-
-        Array.from(nativeSel.options).forEach(function(opt) {
-          if (opt.disabled) return;
-          var item = document.createElement('li');
-          item.className = 'custom-select__item';
-          item.setAttribute('role', 'option');
-          item.dataset.value = opt.value;
-          item.textContent = opt.text;
-
-          item.addEventListener('click', function() {
-            nativeSel.value = opt.value;
-            nativeSel.dispatchEvent(new Event('change'));
-            valSpan.textContent = opt.text;
-            trigger.classList.add('has-value');
-            list.querySelectorAll('.custom-select__item').forEach(function(i){ i.classList.remove('is-selected'); });
-            item.classList.add('is-selected');
-            wrap.classList.remove('is-open');
-          });
-          list.appendChild(item);
-        });
-
-        /* Open / close */
-        trigger.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var isOpen = wrap.classList.contains('is-open');
-          document.querySelectorAll('.custom-select.is-open').forEach(function(s){ s.classList.remove('is-open'); });
-          if (!isOpen) wrap.classList.add('is-open');
-        });
-
-        wrap.appendChild(trigger);
-        wrap.appendChild(list);
-        field.insertBefore(wrap, nativeSel);
-      });
-
-      /* Close all on outside click */
-      document.addEventListener('click', function() {
-        document.querySelectorAll('.custom-select.is-open').forEach(function(s){ s.classList.remove('is-open'); });
-      });
-    }
-
-    /* ── Form Validation & Submission ───────────────────── */
-    var form    = document.getElementById('contactForm');
-    var success = document.getElementById('formSuccess');
-    var btn     = document.getElementById('submitBtn');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      /* Validate required text/textarea inputs */
-      var inputs = form.querySelectorAll('input[required], textarea[required]');
-      var valid  = true;
-      inputs.forEach(function(field) {
-        if (!field.value.trim()) {
-          field.style.borderColor = 'rgba(192,57,43,0.7)';
-          field.style.boxShadow   = '0 0 0 3px rgba(192,57,43,0.12)';
-          valid = false;
-        } else {
-          field.style.borderColor = '';
-          field.style.boxShadow   = '';
-        }
-      });
-
-      /* Validate required native selects */
-      form.querySelectorAll('select[required]').forEach(function(sel) {
-        if (!sel.value) {
-          var trigger = sel.parentNode.querySelector('.custom-select__trigger');
-          if (trigger) { trigger.style.borderColor = 'rgba(192,57,43,0.7)'; trigger.style.boxShadow = '0 0 0 3px rgba(192,57,43,0.12)'; }
-          valid = false;
-        }
-      });
-
-      if (!valid) return;
-
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-
-      setTimeout(function() {
-        form.style.display = 'none';
-        success.classList.add('is-visible');
-        if (typeof gsap !== 'undefined') {
-          gsap.from(success, { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' });
-        }
-      }, 1200);
-    });
-
-    /* Focus states */
-    form.querySelectorAll('input, textarea').forEach(function(field) {
-      field.addEventListener('focus', function(){ field.closest('.form-field').classList.add('is-focused'); });
-      field.addEventListener('blur',  function(){ field.closest('.form-field').classList.remove('is-focused'); });
-    });
-
-    window.addEventListener('load', function() {
-      initCustomSelects();
-      if (typeof gsap === 'undefined') return;
-      gsap.from('.contact-sidebar .contact-info-block', {
-        scrollTrigger: { trigger: '.contact-sidebar', start: 'top 80%' },
-        opacity: 0, x: 30, stagger: 0.1, duration: 0.7, ease: 'power3.out'
-      });
-    });
-  })();
-  </script>
-</body>
-</html>
+  <footer class="footer" role="contentinfo"><div class="container"><div class="footer__grid"><div><p class="footer__brand-name">Corevisualmedia</p><p class="footer__brand-desc">Full-spectrum visual production studio.</p></div><div><p class="footer__col-title">Work</p><ul class="footer__links"><li><a href="../work/">Portfolio</a></li><li><a href="../services/"

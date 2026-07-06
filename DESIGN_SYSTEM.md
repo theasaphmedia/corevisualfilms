@@ -1,4 +1,4 @@
-# DESIGN_SYSTEM.md — Corevisualfilms
+# DESIGN_SYSTEM.md — Corevisualmedia
 ### The complete visual language of the site. Everything defined here.
 
 ---
@@ -248,7 +248,7 @@ A registration-mark crosshair element used as a brand signature:
 ## SEO Markup Patterns
 
 Every page includes:
-- `<title>` — Page name · Corevisualfilms
+- `<title>` — Page name · Corevisualmedia
 - `<meta name="description">` — Max 160 chars
 - Open Graph: `og:title`, `og:description`, `og:image`, `og:url`
 - Twitter Card: `summary_large_image`
