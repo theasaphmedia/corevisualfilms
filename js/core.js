@@ -399,8 +399,16 @@
     /* ── About (team/gear/values handled by page inline script) */
     stagger('.story__body > p',            '.story__body',        { s: 0.1,  y: 30 });
 
-    /* ── Services ───────────────────────────────────────────── */
-    stagger('.includes-list li',           null,                  { s: 0.07, y: 20, x: -14 });
+    /* ── Services — each includes-list triggers independently ── */
+    document.querySelectorAll('.includes-list').forEach(function(list) {
+      var items = list.querySelectorAll('li');
+      if (!items.length) return;
+      gsap.from(items, {
+        opacity: 0, y: 18, x: -14, duration: 0.7, ease: 'power3.out', stagger: 0.07,
+        clearProps: 'all',
+        scrollTrigger: { trigger: list, start: 'top 88%', once: true }
+      });
+    });
 
     /* ── Process (steps handled by page inline; FAQ is ours) ─ */
     stagger('.faq__item',                  '.faq__list',          { s: 0.10, y: 35 });

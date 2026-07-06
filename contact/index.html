@@ -492,5 +492,132 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
   <script src="../js/core.js" defer></script>
+
+  <script>
+  /* ── Contact page: custom selects + form ────────────────────── */
+  (function () {
+
+    /* Build custom select UI around each native <select> */
+    function initCustomSelects() {
+      document.querySelectorAll('.form-field--select select').forEach(function (sel) {
+        var field = sel.closest('.form-field');
+        if (!field) return;
+
+        var wrapper = document.createElement('div');
+        wrapper.className = 'custom-select';
+
+        var trigger = document.createElement('button');
+        trigger.type = 'button';
+        trigger.className = 'custom-select__trigger';
+        trigger.setAttribute('aria-haspopup', 'listbox');
+        trigger.setAttribute('aria-expanded', 'false');
+
+        /* Placeholder text = first disabled option */
+        var placeholder = sel.options[0] ? sel.options[0].text : 'Select…';
+        trigger.innerHTML =
+          '<span class="custom-select__val">' + placeholder + '</span>' +
+          '<span class="custom-select__arrow">▾</span>';
+
+        var list = document.createElement('ul');
+        list.className = 'custom-select__list';
+        list.setAttribute('role', 'listbox');
+
+        /* Build list items from options (skip disabled placeholder) */
+        Array.from(sel.options).forEach(function (opt) {
+          if (opt.disabled) return;
+          var li = document.createElement('li');
+          li.className = 'custom-select__item';
+          li.setAttribute('role', 'option');
+          li.dataset.value = opt.value;
+          li.textContent = opt.text;
+          list.appendChild(li);
+        });
+
+        wrapper.appendChild(trigger);
+        wrapper.appendChild(list);
+        field.appendChild(wrapper);
+
+        /* Toggle open */
+        trigger.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var opening = !wrapper.classList.contains('is-open');
+          closeAll();
+          if (opening) {
+            wrapper.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+          }
+        });
+
+        /* Select an item */
+        list.addEventListener('click', function (e) {
+          var item = e.target.closest('.custom-select__item');
+          if (!item) return;
+          list.querySelectorAll('.custom-select__item').forEach(function (i) {
+            i.classList.remove('is-selected');
+          });
+          item.classList.add('is-selected');
+          trigger.querySelector('.custom-select__val').textContent = item.textContent;
+          trigger.classList.add('has-value');
+          sel.value = item.dataset.value;
+          sel.dispatchEvent(new Event('change'));
+          closeAll();
+        });
+      });
+
+      /* Keyboard close */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeAll();
+      });
+
+      /* Click-outside close */
+      document.addEventListener('click', closeAll);
+    }
+
+    function closeAll() {
+      document.querySelectorAll('.custom-select.is-open').forEach(function (w) {
+        w.classList.remove('is-open');
+        var t = w.querySelector('.custom-select__trigger');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    /* Inline validation + success state */
+    function initContactForm() {
+      var form    = document.getElementById('contactForm');
+      var success = document.getElementById('formSuccess');
+      var btn     = document.getElementById('submitBtn');
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var ok = true;
+        form.querySelectorAll('[required]').forEach(function (el) {
+          var empty = !el.value.trim();
+          el.style.borderColor = empty ? 'rgba(220,70,70,0.65)' : '';
+          if (empty) ok = false;
+        });
+        if (!ok) return;
+
+        if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+        /* Show success (replace with real endpoint when ready) */
+        setTimeout(function () {
+          if (form)    form.style.display    = 'none';
+          if (success) success.classList.add('is-visible');
+        }, 800);
+      });
+
+      /* Clear red border on input */
+      form.addEventListener('input', function (e) {
+        if (e.target.style.borderColor) e.target.style.borderColor = '';
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      initCustomSelects();
+      initContactForm();
+    });
+  })();
+  </script>
 </body>
 </html>

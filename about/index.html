@@ -51,11 +51,24 @@
     .team { padding-block: var(--section-pad-y); border-top: 1px solid var(--color-border); }
     .team__grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: var(--gap);
       margin-top: var(--space-10);
     }
     .team-card { text-align: center; }
+    /* Real photo variant */
+    .team-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: var(--radius-md);
+      display: block;
+      margin-bottom: var(--space-5);
+      border: 1px solid var(--color-border);
+      transition: border-color var(--dur-base) var(--ease-out);
+    }
+    .team-card:hover .team-photo { border-color: var(--color-amber-dim); }
     .team-photo-placeholder {
       width: 100%;
       aspect-ratio: 3/4;
@@ -211,9 +224,11 @@
     @media (max-width: 1024px) {
       .gear__grid { grid-template-columns: repeat(2, 1fr); }
     }
+    @media (max-width: 1100px) {
+      .team__grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 900px) {
       .story__layout { grid-template-columns: 1fr; gap: var(--space-8); }
-      .team__grid { grid-template-columns: repeat(2, 1fr); }
       .values__grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
@@ -313,6 +328,14 @@
             <div class="team-photo-placeholder__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
           </div>
           <p class="team-card__role">Producer · Creative Director</p>
+        </div>
+        <div class="team-card reveal" data-tilt>
+          <img src="../assets/images/chukwuma-eke.jpg"
+               alt="Chukwuma Eke"
+               class="team-photo"
+               loading="lazy">
+          <p class="team-card__name">Chukwuma Eke</p>
+          <p class="team-card__role">Cinematographer</p>
         </div>
       </div>
     </section>
