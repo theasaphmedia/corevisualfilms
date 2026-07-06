@@ -36,44 +36,110 @@
       text-transform: uppercase;
       margin-bottom: var(--space-2);
     }
+    /* ── Form Inputs — full-bordered, rounded corners ─────── */
     .form-field input,
-    .form-field select,
     .form-field textarea {
       width: 100%;
-      padding: var(--space-4) 0;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--color-border);
+      padding: 0.85rem var(--space-4);
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(232,224,208,0.12);
+      border-radius: 6px;
       color: var(--color-white);
       font-family: var(--font-body);
       font-size: var(--text-body);
       outline: none;
-      border-radius: 0;
-      transition: border-color var(--dur-fast) var(--ease-out);
+      transition: border-color var(--dur-fast) var(--ease-out),
+                  background var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-fast) var(--ease-out);
       appearance: none;
       -webkit-appearance: none;
     }
     .form-field input::placeholder,
-    .form-field textarea::placeholder { color: var(--color-muted-light); }
+    .form-field textarea::placeholder { color: rgba(232,224,208,0.28); }
     .form-field input:focus,
-    .form-field select:focus,
     .form-field textarea:focus {
-      border-color: var(--color-amber);
+      border-color: rgba(200,169,110,0.55);
+      background: rgba(200,169,110,0.03);
+      box-shadow: 0 0 0 3px rgba(200,169,110,0.08);
     }
-    .form-field textarea { resize: vertical; min-height: 120px; padding-top: var(--space-4); }
-    .form-field select { cursor: none; }
-    .form-field select option { background: var(--color-surface); color: var(--color-white); }
+    .form-field textarea { resize: vertical; min-height: 130px; }
+    /* Native select — hidden, replaced by custom dropdown */
+    .form-field select { display: none; }
 
-    /* Select arrow */
-    .form-field--select { position: relative; }
-    .form-field--select::after {
-      content: '↓';
-      position: absolute;
-      right: 0;
-      bottom: var(--space-4);
+    /* ── Custom Select Dropdown ───────────────────────────── */
+    .custom-select { position: relative; width: 100%; }
+    .custom-select__trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding: 0.85rem var(--space-4);
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(232,224,208,0.12);
+      border-radius: 6px;
+      color: rgba(232,224,208,0.28);
+      font-family: var(--font-body);
+      font-size: var(--text-body);
+      cursor: none;
+      text-align: left;
+      transition: border-color var(--dur-fast) var(--ease-out),
+                  background var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-fast) var(--ease-out);
+    }
+    .custom-select__trigger.has-value { color: var(--color-white); }
+    .custom-select.is-open .custom-select__trigger,
+    .custom-select__trigger:focus {
+      border-color: rgba(200,169,110,0.55);
+      background: rgba(200,169,110,0.03);
+      box-shadow: 0 0 0 3px rgba(200,169,110,0.08);
+      outline: none;
+    }
+    .custom-select__arrow {
       color: var(--color-amber);
-      font-size: var(--text-sm);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      display: inline-block;
+      transition: transform var(--dur-base) var(--ease-out);
+    }
+    .custom-select.is-open .custom-select__arrow { transform: rotate(180deg); }
+    .custom-select__list {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0; right: 0;
+      background: #1c1c1c;
+      border: 1px solid rgba(232,224,208,0.14);
+      border-radius: 8px;
+      overflow: hidden;
+      z-index: 200;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.28s var(--ease-inout), opacity 0.18s var(--ease-out);
       pointer-events: none;
+    }
+    .custom-select.is-open .custom-select__list {
+      max-height: 300px;
+      opacity: 1;
+      pointer-events: all;
+      overflow-y: auto;
+    }
+    .custom-select__item {
+      padding: 0.75rem var(--space-4);
+      color: var(--color-muted);
+      font-family: var(--font-body);
+      font-size: var(--text-body);
+      border-bottom: 1px solid rgba(232,224,208,0.05);
+      transition: background var(--dur-fast) var(--ease-out),
+                  color var(--dur-fast) var(--ease-out),
+                  padding-left var(--dur-fast) var(--ease-out);
+      cursor: none;
+    }
+    .custom-select__item:last-child { border-bottom: none; }
+    .custom-select__item:hover,
+    .custom-select__item.is-selected {
+      background: rgba(200,169,110,0.08);
+      color: var(--color-amber);
+      padding-left: calc(var(--space-4) + 8px);
     }
 
     .form-submit {
@@ -144,6 +210,8 @@
       font-weight: var(--weight-light);
       color: var(--color-white);
       line-height: 1.4;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
     .contact-info-block__val a {
       transition: color var(--dur-fast) var(--ease-out);
@@ -380,31 +448,114 @@
   <script src="../js/core.js" defer></script>
   <script>
   (function(){
-    const form    = document.getElementById('contactForm');
-    const success = document.getElementById('formSuccess');
-    const btn     = document.getElementById('submitBtn');
+    /* ── Custom Select Dropdowns ─────────────────────────── */
+    function initCustomSelects() {
+      document.querySelectorAll('.form-field--select select').forEach(function(nativeSel) {
+        var field  = nativeSel.closest('.form-field--select');
+        var placeholder = Array.from(nativeSel.options).find(function(o){ return o.disabled && o.selected; });
+
+        /* Build wrapper */
+        var wrap = document.createElement('div');
+        wrap.className = 'custom-select';
+
+        /* Trigger button */
+        var trigger = document.createElement('button');
+        trigger.type = 'button';
+        trigger.className = 'custom-select__trigger';
+
+        var valSpan = document.createElement('span');
+        valSpan.className = 'custom-select__value';
+        valSpan.textContent = placeholder ? placeholder.text : 'Select';
+
+        var arrow = document.createElement('span');
+        arrow.className = 'custom-select__arrow';
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = '▾';
+
+        trigger.appendChild(valSpan);
+        trigger.appendChild(arrow);
+
+        /* Options list */
+        var list = document.createElement('ul');
+        list.className = 'custom-select__list';
+        list.setAttribute('role', 'listbox');
+
+        Array.from(nativeSel.options).forEach(function(opt) {
+          if (opt.disabled) return;
+          var item = document.createElement('li');
+          item.className = 'custom-select__item';
+          item.setAttribute('role', 'option');
+          item.dataset.value = opt.value;
+          item.textContent = opt.text;
+
+          item.addEventListener('click', function() {
+            nativeSel.value = opt.value;
+            nativeSel.dispatchEvent(new Event('change'));
+            valSpan.textContent = opt.text;
+            trigger.classList.add('has-value');
+            list.querySelectorAll('.custom-select__item').forEach(function(i){ i.classList.remove('is-selected'); });
+            item.classList.add('is-selected');
+            wrap.classList.remove('is-open');
+          });
+          list.appendChild(item);
+        });
+
+        /* Open / close */
+        trigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var isOpen = wrap.classList.contains('is-open');
+          document.querySelectorAll('.custom-select.is-open').forEach(function(s){ s.classList.remove('is-open'); });
+          if (!isOpen) wrap.classList.add('is-open');
+        });
+
+        wrap.appendChild(trigger);
+        wrap.appendChild(list);
+        field.insertBefore(wrap, nativeSel);
+      });
+
+      /* Close all on outside click */
+      document.addEventListener('click', function() {
+        document.querySelectorAll('.custom-select.is-open').forEach(function(s){ s.classList.remove('is-open'); });
+      });
+    }
+
+    /* ── Form Validation & Submission ───────────────────── */
+    var form    = document.getElementById('contactForm');
+    var success = document.getElementById('formSuccess');
+    var btn     = document.getElementById('submitBtn');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      /* Basic validation */
-      const required = form.querySelectorAll('[required]');
-      let valid = true;
-      required.forEach(field => {
+      /* Validate required text/textarea inputs */
+      var inputs = form.querySelectorAll('input[required], textarea[required]');
+      var valid  = true;
+      inputs.forEach(function(field) {
         if (!field.value.trim()) {
-          field.style.borderColor = '#c0392b';
+          field.style.borderColor = 'rgba(192,57,43,0.7)';
+          field.style.boxShadow   = '0 0 0 3px rgba(192,57,43,0.12)';
           valid = false;
         } else {
           field.style.borderColor = '';
+          field.style.boxShadow   = '';
         }
       });
+
+      /* Validate required native selects */
+      form.querySelectorAll('select[required]').forEach(function(sel) {
+        if (!sel.value) {
+          var trigger = sel.parentNode.querySelector('.custom-select__trigger');
+          if (trigger) { trigger.style.borderColor = 'rgba(192,57,43,0.7)'; trigger.style.boxShadow = '0 0 0 3px rgba(192,57,43,0.12)'; }
+          valid = false;
+        }
+      });
+
       if (!valid) return;
 
-      /* Simulate submission */
       btn.textContent = 'Sending…';
       btn.disabled = true;
 
-      setTimeout(() => {
+      setTimeout(function() {
         form.style.display = 'none';
         success.classList.add('is-visible');
         if (typeof gsap !== 'undefined') {
@@ -413,13 +564,14 @@
       }, 1200);
     });
 
-    /* Label float effect */
-    form.querySelectorAll('input, textarea, select').forEach(field => {
-      field.addEventListener('focus', () => field.closest('.form-field').classList.add('is-focused'));
-      field.addEventListener('blur',  () => field.closest('.form-field').classList.remove('is-focused'));
+    /* Focus states */
+    form.querySelectorAll('input, textarea').forEach(function(field) {
+      field.addEventListener('focus', function(){ field.closest('.form-field').classList.add('is-focused'); });
+      field.addEventListener('blur',  function(){ field.closest('.form-field').classList.remove('is-focused'); });
     });
 
     window.addEventListener('load', function() {
+      initCustomSelects();
       if (typeof gsap === 'undefined') return;
       gsap.from('.contact-sidebar .contact-info-block', {
         scrollTrigger: { trigger: '.contact-sidebar', start: 'top 80%' },
