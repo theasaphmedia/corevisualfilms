@@ -307,6 +307,78 @@
     }
   }
 
+  /* ── 12. Page Transitions — cinematic curtain wipe ─────────── */
+  function initPageTransitions() {
+    const curtain = document.getElementById('page-curtain');
+    if (!curtain || typeof gsap === 'undefined') return;
+
+    /* Reveal on load — curtain sweeps up from bottom */
+    gsap.set(curtain, { scaleY: 1, transformOrigin: 'top center' });
+    gsap.to(curtain, {
+      scaleY: 0,
+      duration: 0.9,
+      ease: 'power3.inOut',
+      delay: 0.05,
+      onComplete: () => { curtain.style.pointerEvents = 'none'; }
+    });
+
+    /* Exit — curtain sweeps in from bottom on internal link click */
+    document.addEventListener('click', e => {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      /* Only intercept internal, non-anchor links */
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') ||
+          href.startsWith('tel:') || href.startsWith('http') ||
+          link.target === '_blank') return;
+
+      e.preventDefault();
+      curtain.style.pointerEvents = 'all';
+      gsap.set(curtain, { transformOrigin: 'bottom center', scaleY: 0 });
+      gsap.to(curtain, {
+        scaleY: 1,
+        duration: 0.7,
+        ease: 'power3.inOut',
+        onComplete: () => { window.location.href = href; }
+      });
+    });
+  }
+
+  /* ── 13. Parallax — hero video + poster reel ─────────────── */
+  function initParallax() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    /* Hero reel-stage — video drifts up slower than scroll */
+    const reelStage = document.querySelector('.hero__reel-video');
+    if (reelStage) {
+      gsap.to(reelStage, {
+        yPercent: 12,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    }
+
+    /* Poster reel images — subtle upward drift */
+    const posterImgs = document.querySelectorAll('.poster-reel__img');
+    if (posterImgs.length) {
+      gsap.to(posterImgs, {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.poster-reel',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    }
+  }
+
   /* ── Init ────────────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', () => {
     initGrain();
@@ -315,6 +387,8 @@
     initMarquee();
     initReveal();
     initVideoAutoplay();
+    initPageTransitions();
+    initParallax();
     window.initCardTilt();
     if (document.getElementById('letterbox-top')) window.initLetterbox();
     if (document.getElementById('timecode'))       window.initTimecode();

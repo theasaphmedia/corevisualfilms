@@ -320,6 +320,29 @@
     .studio-intro__right {
       padding-top: clamp(0rem, 3vw, 3rem);
     }
+    .studio-intro__manifesto {
+      margin-top: var(--space-10);
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--color-border);
+      position: relative;
+    }
+    .studio-intro__manifesto-rule {
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--color-amber);
+      margin-bottom: var(--space-5);
+    }
+    .studio-intro__manifesto p {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      font-weight: var(--weight-light);
+      font-style: italic;
+      color: var(--color-off-white);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      max-width: 32ch;
+    }
 
     /* ── Featured Work ────────────────────────────────────── */
     .featured-work { padding-block: var(--section-pad-y); }
@@ -666,6 +689,7 @@
 
   <!-- Film grain -->
   <canvas id="grain" aria-hidden="true"></canvas>
+  <div id="page-curtain" aria-hidden="true"></div>
 
   <!-- Cinematic letterbox bars -->
   <div id="letterbox-top"    aria-hidden="true"></div>
@@ -804,6 +828,10 @@
             <p class="studio-intro__body studio-intro__body--sub">
               Our work spans six continents. Our standard never drops: if it's worth filming, it deserves to be filmed beautifully.
             </p>
+            <blockquote class="studio-intro__manifesto" aria-label="Brand philosophy">
+              <span class="studio-intro__manifesto-rule"></span>
+              <p>The essential truth, in pictures.<br>That's the only brief we accept.</p>
+            </blockquote>
             <a href="about/" class="btn btn--ghost" style="margin-top:var(--space-8)">About the Studio</a>
           </div>
         </div>

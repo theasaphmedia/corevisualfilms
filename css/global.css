@@ -174,7 +174,7 @@ input, textarea, select {
 }
 .nav__logo:hover { color: var(--color-amber); }
 
-/* Hamburger toggle */
+/* Hamburger toggle — ghost-thin, editorial */
 .nav__toggle {
   position: relative;
   z-index: 1;
@@ -183,9 +183,12 @@ input, textarea, select {
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
   cursor: none;
+  opacity: 0.7;
+  transition: opacity var(--dur-base) var(--ease-out);
 }
+.nav__toggle:hover { opacity: 1; }
 .nav__toggle-bar {
   display: block;
   height: 1px;
@@ -194,9 +197,9 @@ input, textarea, select {
               opacity var(--dur-base) var(--ease-inout),
               width var(--dur-base) var(--ease-inout);
 }
-.nav__toggle-bar:first-child { width: 28px; }
-.nav__toggle-bar:last-child  { width: 20px; }
-.nav__toggle:hover .nav__toggle-bar:last-child { width: 28px; }
+.nav__toggle-bar:first-child { width: 24px; }
+.nav__toggle-bar:last-child  { width: 14px; }
+.nav__toggle:hover .nav__toggle-bar:last-child { width: 24px; }
 
 /* Animated to X when open */
 .nav--open .nav__toggle-bar:first-child {
@@ -594,11 +597,11 @@ input, textarea, select {
 
 /* ── Page Hero Shared ─────────────────────────────────────── */
 .page-hero {
-  min-height: 42vh;
+  min-height: 52vh;
   display: flex;
   align-items: flex-end;
-  padding-bottom: var(--space-12);
-  padding-top: calc(var(--nav-height) + var(--space-12));
+  padding-bottom: var(--space-16);
+  padding-top: calc(var(--nav-height) + var(--space-16));
   border-bottom: 1px solid var(--color-border);
 }
 .page-hero__eyebrow {
@@ -643,6 +646,31 @@ input, textarea, select {
 }
 .aperture::before { width: 1px; height: 100%; }
 .aperture::after  { height: 1px; width: 100%; }
+
+/* ── Page Transition Curtain ──────────────────────────────── */
+#page-curtain {
+  position: fixed;
+  inset: 0;
+  background: var(--color-void);
+  z-index: 9500;
+  pointer-events: none;
+  transform: scaleY(0);
+  transform-origin: bottom center;
+}
+#page-curtain::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--color-amber) 40%,
+    var(--color-amber) 60%,
+    transparent 100%
+  );
+  opacity: 0.6;
+}
 
 /* ── Responsive ───────────────────────────────────────────── */
 @media (max-width: 1024px) {

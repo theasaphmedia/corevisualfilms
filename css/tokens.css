@@ -70,7 +70,7 @@
   --space-24:  11rem;     /* 176px */
 
   /* Fluid section padding */
-  --section-pad-y: clamp(4rem, 8vw, 8rem);
+  --section-pad-y: clamp(6rem, 12vw, 12rem);
 
   /* ── Layout ──────────────────────────────────────────────── */
   --max-width:   1440px;

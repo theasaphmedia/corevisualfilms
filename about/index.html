@@ -170,6 +170,44 @@
     }
     .value-card__desc { font-size: var(--text-sm); color: var(--color-muted); line-height: var(--leading-loose); }
 
+    /* Brand statement */
+    .brand-statement {
+      padding-block: clamp(6rem, 12vw, 14rem);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .brand-statement__inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      max-width: 900px;
+    }
+    .brand-statement__rule {
+      display: block;
+      width: 3rem;
+      height: 1px;
+      background: var(--color-amber);
+    }
+    .brand-statement__quote {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5.5vw, 5.5rem);
+      font-weight: var(--weight-light);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--color-white);
+    }
+    .brand-statement__quote em {
+      font-style: italic;
+      color: var(--color-amber);
+    }
+    .brand-statement__index {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+    }
+
     @media (max-width: 1024px) {
       .gear__grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -186,6 +224,7 @@
 </head>
 <body>
   <canvas id="grain" aria-hidden="true"></canvas>
+  <div id="page-curtain" aria-hidden="true"></div>
   <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div><span class="cursor__label">PLAY</span></div>
 
   <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
@@ -234,6 +273,20 @@
           <p>We started with weddings — the highest-stakes single day of most people's lives — and learned everything about light, timing, and the art of being invisible in the room while capturing everything. That discipline shaped every other kind of work we do.</p>
           <p>Today the studio produces across six disciplines, on six continents. The team is small by choice. Every project is handled by people who care about it personally. We don't have departments. We have collaborators.</p>
           <p>The name says it: <em style="color:var(--color-amber);">core visual</em>. The essential truth, in pictures. That's the only brief we accept.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brand Statement — full width editorial pull -->
+    <section class="brand-statement" aria-label="Brand philosophy">
+      <div class="container">
+        <div class="brand-statement__inner">
+          <span class="brand-statement__rule"></span>
+          <blockquote class="brand-statement__quote">
+            The essential truth,<br>in pictures.<br>
+            <em>That's the only brief we accept.</em>
+          </blockquote>
+          <span class="brand-statement__index">— Corevisualfilms</span>
         </div>
       </div>
     </section>
