@@ -73,7 +73,6 @@
       color: var(--color-amber);
       letter-spacing: var(--tracking-widest);
       text-transform: uppercase;
-      opacity: 0;
       display: flex;
       align-items: center;
       gap: var(--space-4);
@@ -96,7 +95,6 @@
       align-items: center;
       gap: var(--space-3);
       margin-top: var(--space-4);
-      opacity: 0;
     }
     .hero__headline {
       font-family: var(--font-display);
@@ -107,7 +105,7 @@
       letter-spacing: -0.03em;
     }
     .hero__line { display: block; overflow: hidden; }
-    .hero__line-inner { display: block; transform: translateY(110%); }
+    .hero__line-inner { display: block; }
     .hero__line--em {
       font-style: italic;
       color: var(--color-amber);
@@ -120,15 +118,12 @@
       text-transform: uppercase;
       line-height: 2.4;
       margin-bottom: var(--space-6);
-      opacity: 0;
     }
     .hero__actions {
       display: flex;
       align-items: center;
       gap: var(--space-4);
       flex-wrap: wrap;
-      opacity: 0;
-      transform: translateY(10px);
     }
     /* Timecode sits inside the editorial panel, bottom-right */
     .hero__timecode {
@@ -312,6 +307,7 @@
       color: var(--color-off-white);
       line-height: var(--leading-loose);
       max-width: 42ch;
+      text-align: justify;
     }
     .studio-intro__body--sub {
       margin-top: var(--space-4);
@@ -1072,6 +1068,14 @@
     function homeAnimations() {
       if (typeof gsap === 'undefined') return;
 
+      /* Set hero initial states via JS — text is visible without JS as fallback */
+      gsap.set('.hero__index',     { opacity: 0 });
+      gsap.set('.hero__eyebrow',   { opacity: 0 });
+      gsap.set('.hero__line-inner',{ y: '110%' });
+      gsap.set('.hero__descriptor',{ opacity: 0 });
+      gsap.set('.hero__actions',   { opacity: 0, y: 10 });
+      gsap.set('#heroScroll',      { opacity: 0 });
+
       /* Hero entrance — fires after letterbox */
       const heroTl = gsap.timeline({ delay: sessionStorage.getItem('cvf-seen') ? 0.1 : 1.6 });
 
@@ -1154,4 +1158,9 @@
     if (document.readyState === 'complete') {
       homeAnimations();
     } else {
-      window.addEventListener('load', homeAnima
+      window.addEventListener('load', homeAnimations);
+    }
+  })();
+  </script>
+</body>
+</html>

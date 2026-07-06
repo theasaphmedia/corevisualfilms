@@ -32,6 +32,14 @@ input, textarea, select { cursor: none; }
 ul, ol { list-style: none; }
 h1, h2, h3, h4, h5 { font-family: var(--font-display); font-weight: var(--weight-light); line-height: var(--leading-tight); color: var(--color-white); }
 p { max-width: 65ch; }
+/* Body copy — justify prose paragraphs sitewide */
+.studio-intro__body,
+.story__body p,
+.service-block__copy,
+.service-block__desc,
+.pkg-card__body p,
+.note-item__body,
+.value-card__desc { text-align: justify; hyphens: auto; }
 input, textarea, select {
   font-family: var(--font-body);
   font-size: var(--text-body);
