@@ -169,7 +169,7 @@ input, textarea, select {
   letter-spacing: var(--tracking-widest);
   color: var(--color-white);
   text-transform: uppercase;
-  z-index: 1;
+  z-index: 2;  /* above overlay (z-index:0) within nav's stacking context */
   transition: color var(--dur-base) var(--ease-out);
 }
 .nav__logo:hover { color: var(--color-amber); }
@@ -177,7 +177,7 @@ input, textarea, select {
 /* Hamburger toggle — ghost-thin, editorial */
 .nav__toggle {
   position: relative;
-  z-index: 1;
+  z-index: 2;  /* above overlay (z-index:0) within nav's stacking context */
   width: 2.5rem; height: 2.5rem;
   display: flex;
   flex-direction: column;
@@ -201,8 +201,8 @@ input, textarea, select {
               width var(--dur-base) var(--ease-inout),
               height var(--dur-base) var(--ease-inout);
 }
-.nav__toggle-bar:first-child { width: 24px; }
-.nav__toggle-bar:last-child  { width: 14px; }
+.nav__toggle-bar:nth-child(2) { width: 24px; }  /* close-label is :first-child, bars are 2nd & 3rd */
+.nav__toggle-bar:last-child   { width: 14px; }
 .nav__toggle:hover .nav__toggle-bar:last-child { width: 24px; }
 
 /* Animated to X when open — bars thicken & cross precisely */
@@ -211,26 +211,45 @@ input, textarea, select {
   width: 26px;
   background: var(--color-white);
 }
-.nav--open .nav__toggle-bar:first-child {
-  transform: translateY(4.75px) rotate(45deg);
+.nav--open .nav__toggle-bar:nth-child(2) {
+  transform: translateY(4.5px) rotate(45deg);
 }
 .nav--open .nav__toggle-bar:last-child {
-  transform: translateY(-4.75px) rotate(-45deg);
+  transform: translateY(-4.5px) rotate(-45deg);
 }
 
-/* Nav bar gets a solid background when overlay is open
-   so the X is always readable */
+/* Nav bar: solid bg + amber underline when overlay is open */
 .nav--open {
   background: var(--color-void) !important;
-  border-bottom: 1px solid rgba(200,169,110,0.1);
+  border-bottom: 1px solid rgba(200,169,110,0.3) !important;
+  transition: none;
 }
+
+/* CLOSE label — floats LEFT of the X when menu is open.
+   position:absolute removes it from flex flow so it never
+   pushes the bars around.                                 */
+.nav__close-label {
+  position: absolute;
+  right: calc(100% + 0.75rem);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: var(--tracking-widest);
+  color: rgba(232,224,208,0);  /* invisible but space-stable */
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.nav--open .nav__close-label { color: rgba(232,224,208,0.45); }
 
 /* Full-screen overlay menu */
 .nav__overlay {
   position: fixed;
   inset: 0;
   background: var(--color-void);
-  z-index: calc(var(--z-nav) - 1);
+  z-index: 0;  /* LOW within nav's stacking context — logo/toggle (z-index:2) stay above it */
   display: flex;
   flex-direction: column;
   padding: var(--nav-height) var(--gutter) var(--space-10);
@@ -666,7 +685,7 @@ input, textarea, select {
   position: fixed;
   inset: 0;
   background: var(--color-void);
-  z-index: 9500;
+  z-index: 9600;  /* above everything */
   pointer-events: none;
   transform: scaleY(0);
   transform-origin: bottom center;

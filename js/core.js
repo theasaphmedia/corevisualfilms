@@ -124,6 +124,12 @@
 
     function openMenu() {
       isOpen = true;
+      /* Force CSS stagger animation to restart on each open */
+      overlay.querySelectorAll('.nav__link-item').forEach(item => {
+        item.style.animation = 'none';
+        item.offsetHeight; /* trigger reflow */
+        item.style.animation = '';
+      });
       nav.classList.add('nav--open');
       overlay.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');

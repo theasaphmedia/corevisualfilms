@@ -106,10 +106,10 @@
 
   /* ── Z-index stack ───────────────────────────────────────── */
   --z-grain:     9000;
-  --z-cursor:    9100;
   --z-nav:       9200;
-  --z-letterbox: 9300;
-  --z-overlay:   9400;
+  --z-cursor:    9300;  /* above nav overlay (9199) */
+  --z-letterbox: 9400;
+  --z-overlay:   9500;
 
 }
 
