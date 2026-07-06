@@ -440,110 +440,162 @@
     }
 
     /* ══════════════════════════════════════════════════════
-       ANIMATION LAYER
+       ANIMATION LAYER — DRAMATIC, FELT, LUXURY STAGGER
     ══════════════════════════════════════════════════════ */
 
     /* ── Keyframes ───────────────────────────────────────── */
-    @keyframes pkg-slide-up {
-      from { opacity: 0; transform: translateY(56px); }
+
+    /* Cards rise 120px — unmissable travel distance */
+    @keyframes pkg-arrive {
+      from { opacity: 0; transform: translateY(120px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    @keyframes pkg-tier-in {
-      from { opacity: 0; letter-spacing: 0.05em; }
-      to   { opacity: 1; letter-spacing: -0.01em; }
+    /* Content elements drift 36px from below */
+    @keyframes pkg-drift-up {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    @keyframes pkg-fade-in {
+    /* Tier name: letter-spacing compresses AND slides up */
+    @keyframes pkg-tier-stamp {
+      from { opacity: 0; letter-spacing: 0.12em; transform: translateY(22px); }
+      to   { opacity: 1; letter-spacing: -0.01em; transform: translateY(0); }
+    }
+    /* Price pops in with a scale */
+    @keyframes pkg-price-pop {
+      from { opacity: 0; transform: translateY(14px) scale(0.82); }
+      to   { opacity: 1; transform: translateY(0)   scale(1); }
+    }
+    /* Simple opacity */
+    @keyframes pkg-fade {
       from { opacity: 0; }
       to   { opacity: 1; }
     }
+    /* Evolution breathes amber */
     @keyframes featured-breath {
       0%, 100% {
         border-color: rgba(200,169,110,0.28);
         box-shadow: none;
       }
       50% {
-        border-color: rgba(200,169,110,0.55);
-        box-shadow: 0 0 55px rgba(200,169,110,0.07), 0 8px 48px rgba(0,0,0,0.18);
+        border-color: rgba(200,169,110,0.65);
+        box-shadow: 0 0 70px rgba(200,169,110,0.12), 0 20px 70px rgba(0,0,0,0.25);
       }
     }
-    @keyframes badge-glow {
-      0%, 100% { box-shadow: none; }
-      50%       { box-shadow: 0 0 16px rgba(200,169,110,0.32); }
+    /* Badge glows */
+    @keyframes badge-pulse {
+      0%, 100% { opacity: 0.75; }
+      50%       { opacity: 1; box-shadow: 0 0 20px rgba(200,169,110,0.4); }
     }
 
-    /* ── Card entrance stagger ───────────────────────────── */
-    /* fill-mode: backwards → from-state during delay, CSS default after */
+    /* ── Card entrances — 0.35s stagger, 1.5s rise ───────── */
+    /* fill-mode: backwards → hidden during delay, CSS default after → hover works */
     .pkg-card:nth-child(1) {
-      animation: pkg-slide-up 1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s backwards;
+      animation: pkg-arrive 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s backwards;
     }
     .pkg-card:nth-child(2) {
       animation:
-        pkg-slide-up 1s cubic-bezier(0.22, 1, 0.36, 1) 0.6s backwards,
-        featured-breath 3.5s ease-in-out 1.8s infinite;
+        pkg-arrive        1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s  backwards,
+        featured-breath   4.5s ease-in-out                    2.4s  infinite;
     }
     .pkg-card:nth-child(3) {
-      animation: pkg-slide-up 1s cubic-bezier(0.22, 1, 0.36, 1) 0.75s backwards;
+      animation: pkg-arrive 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.85s backwards;
     }
 
-    /* ── Sequential content reveal inside each card ──────── */
-    /* Card rises as a shell → tier name types in → tagline → price → body */
-    .pkg-card:nth-child(1) .pkg-card__tier       { animation: pkg-tier-in  0.65s cubic-bezier(0.22,1,0.36,1) 0.95s  backwards; }
-    .pkg-card:nth-child(2) .pkg-card__tier       { animation: pkg-tier-in  0.65s cubic-bezier(0.22,1,0.36,1) 1.1s   backwards; }
-    .pkg-card:nth-child(3) .pkg-card__tier       { animation: pkg-tier-in  0.65s cubic-bezier(0.22,1,0.36,1) 1.25s  backwards; }
+    /* ── Content sequence — card settles, then content populates ── */
 
-    .pkg-card:nth-child(1) .pkg-card__why        { animation: pkg-fade-in  0.55s ease 1.1s  backwards; }
-    .pkg-card:nth-child(2) .pkg-card__why        { animation: pkg-fade-in  0.55s ease 1.25s backwards; }
-    .pkg-card:nth-child(3) .pkg-card__why        { animation: pkg-fade-in  0.55s ease 1.4s  backwards; }
+    /* Tier name stamps in */
+    .pkg-card:nth-child(1) .pkg-card__tier {
+      animation: pkg-tier-stamp 0.8s cubic-bezier(0.16,1,0.3,1) 1.2s backwards;
+    }
+    .pkg-card:nth-child(2) .pkg-card__tier {
+      animation: pkg-tier-stamp 0.8s cubic-bezier(0.16,1,0.3,1) 1.55s backwards;
+    }
+    .pkg-card:nth-child(3) .pkg-card__tier {
+      animation: pkg-tier-stamp 0.8s cubic-bezier(0.16,1,0.3,1) 1.9s backwards;
+    }
 
-    .pkg-card:nth-child(1) .pkg-card__investment { animation: pkg-fade-in  0.55s ease 1.2s  backwards; }
-    .pkg-card:nth-child(2) .pkg-card__investment { animation: pkg-fade-in  0.55s ease 1.35s backwards; }
-    .pkg-card:nth-child(3) .pkg-card__investment { animation: pkg-fade-in  0.55s ease 1.5s  backwards; }
+    /* Tagline drifts up */
+    .pkg-card:nth-child(1) .pkg-card__why {
+      animation: pkg-drift-up 0.7s cubic-bezier(0.16,1,0.3,1) 1.5s backwards;
+    }
+    .pkg-card:nth-child(2) .pkg-card__why {
+      animation: pkg-drift-up 0.7s cubic-bezier(0.16,1,0.3,1) 1.85s backwards;
+    }
+    .pkg-card:nth-child(3) .pkg-card__why {
+      animation: pkg-drift-up 0.7s cubic-bezier(0.16,1,0.3,1) 2.2s backwards;
+    }
 
-    .pkg-card:nth-child(1) .pkg-card__body       { animation: pkg-fade-in  0.5s  ease 1.3s  backwards; }
-    .pkg-card:nth-child(2) .pkg-card__body       { animation: pkg-fade-in  0.5s  ease 1.45s backwards; }
-    .pkg-card:nth-child(3) .pkg-card__body       { animation: pkg-fade-in  0.5s  ease 1.6s  backwards; }
+    /* Price pops in with scale */
+    .pkg-card:nth-child(1) .pkg-card__investment {
+      animation: pkg-price-pop 0.7s cubic-bezier(0.16,1,0.3,1) 1.75s backwards;
+    }
+    .pkg-card:nth-child(2) .pkg-card__investment {
+      animation: pkg-price-pop 0.7s cubic-bezier(0.16,1,0.3,1) 2.1s backwards;
+    }
+    .pkg-card:nth-child(3) .pkg-card__investment {
+      animation: pkg-price-pop 0.7s cubic-bezier(0.16,1,0.3,1) 2.45s backwards;
+    }
 
-    .pkg-card:nth-child(1) .pkg-card__foot       { animation: pkg-fade-in  0.5s  ease 1.4s  backwards; }
-    .pkg-card:nth-child(2) .pkg-card__foot       { animation: pkg-fade-in  0.5s  ease 1.55s backwards; }
-    .pkg-card:nth-child(3) .pkg-card__foot       { animation: pkg-fade-in  0.5s  ease 1.7s  backwards; }
+    /* Body sections fade in */
+    .pkg-card:nth-child(1) .pkg-card__body {
+      animation: pkg-fade 0.65s ease 1.95s backwards;
+    }
+    .pkg-card:nth-child(2) .pkg-card__body {
+      animation: pkg-fade 0.65s ease 2.3s backwards;
+    }
+    .pkg-card:nth-child(3) .pkg-card__body {
+      animation: pkg-fade 0.65s ease 2.65s backwards;
+    }
 
-    /* ── Badge pulse ─────────────────────────────────────── */
-    .pkg-badge { animation: badge-glow 2.5s ease-in-out 2.6s infinite; }
+    /* CTA button drifts up last */
+    .pkg-card:nth-child(1) .pkg-card__foot {
+      animation: pkg-drift-up 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s backwards;
+    }
+    .pkg-card:nth-child(2) .pkg-card__foot {
+      animation: pkg-drift-up 0.6s cubic-bezier(0.16,1,0.3,1) 2.45s backwards;
+    }
+    .pkg-card:nth-child(3) .pkg-card__foot {
+      animation: pkg-drift-up 0.6s cubic-bezier(0.16,1,0.3,1) 2.8s backwards;
+    }
 
-    /* ── Card hover lift (desktop, outside focus-mode) ───── */
+    /* Badge pulses after everything settles */
+    .pkg-badge { animation: badge-pulse 2.8s ease-in-out 3.2s infinite; }
+
+    /* ── Hover lift — 10px rise, desktop only ────────────── */
     @media (min-width: 1101px) {
       .packages-grid:not(.has-focus) .pkg-card:hover {
-        transform: translateY(-8px);
-        border-color: rgba(232,224,208,0.22);
+        transform: translateY(-10px);
+        border-color: rgba(232,224,208,0.28);
         box-shadow:
-          0 28px 65px rgba(0,0,0,0.32),
-          0 0 0 1px rgba(200,169,110,0.07),
-          inset 0 1px 0 rgba(255,255,255,0.035);
+          0 36px 80px rgba(0,0,0,0.4),
+          0 0 0 1px rgba(200,169,110,0.1),
+          inset 0 1px 0 rgba(255,255,255,0.05);
       }
     }
 
-    /* ── Price glow on hover ─────────────────────────────── */
-    .pkg-card__price { transition: text-shadow 0.45s ease; }
+    /* ── Price amber glow on hover ───────────────────────── */
+    .pkg-card__price { transition: text-shadow 0.5s ease; }
     .pkg-card:hover .pkg-card__price {
-      text-shadow: 0 0 30px rgba(200,169,110,0.6);
+      text-shadow: 0 0 36px rgba(200,169,110,0.7);
     }
 
-    /* ── List item stagger on section expand ─────────────── */
+    /* ── List items slide in from left on expand ─────────── */
+    /* 60ms gap between each item — clearly felt */
     .pkg-list li {
       opacity: 0;
-      transform: translateX(-14px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translateX(-18px);
+      transition: opacity 0.38s ease, transform 0.38s ease;
     }
-    .pkg-section.is-expanded .pkg-list li             { opacity: 1; transform: translateX(0); }
-    .pkg-section.is-expanded .pkg-list li:nth-child(1) { transition-delay: 0.04s; }
-    .pkg-section.is-expanded .pkg-list li:nth-child(2) { transition-delay: 0.09s; }
-    .pkg-section.is-expanded .pkg-list li:nth-child(3) { transition-delay: 0.14s; }
-    .pkg-section.is-expanded .pkg-list li:nth-child(4) { transition-delay: 0.19s; }
-    .pkg-section.is-expanded .pkg-list li:nth-child(5) { transition-delay: 0.24s; }
-    .pkg-section.is-expanded .pkg-list li:nth-child(6) { transition-delay: 0.29s; }
-    .pkg-section.is-expanded .pkg-list li:nth-child(7) { transition-delay: 0.34s; }
+    .pkg-section.is-expanded .pkg-list li              { opacity: 1; transform: translateX(0); }
+    .pkg-section.is-expanded .pkg-list li:nth-child(1) { transition-delay: 0.06s; }
+    .pkg-section.is-expanded .pkg-list li:nth-child(2) { transition-delay: 0.13s; }
+    .pkg-section.is-expanded .pkg-list li:nth-child(3) { transition-delay: 0.20s; }
+    .pkg-section.is-expanded .pkg-list li:nth-child(4) { transition-delay: 0.27s; }
+    .pkg-section.is-expanded .pkg-list li:nth-child(5) { transition-delay: 0.34s; }
+    .pkg-section.is-expanded .pkg-list li:nth-child(6) { transition-delay: 0.41s; }
+    .pkg-section.is-expanded .pkg-list li:nth-child(7) { transition-delay: 0.48s; }
 
-    /* ── Respect reduce-motion preference ────────────────── */
+    /* ── Reduce-motion: skip all ─────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       .pkg-card,
       .pkg-card .pkg-card__tier,
@@ -1001,7 +1053,7 @@
       </div><!-- /packages-grid -->
 
       <!-- ── Trust Notes ───────────────────────────────── -->
-      <div class="packages-note reveal">
+      <div class="packages-note">
         <div class="packages-note__grid">
           <div class="note-item">
             <span class="note-item__num">01</span>
@@ -1088,6 +1140,7 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
   <script src="../js/core.js" defer></script>
 

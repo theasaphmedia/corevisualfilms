@@ -357,6 +357,72 @@
     });
   }
 
+  /* ── 13b. Subpage hero entrance ────────────────────────────── */
+  function initHeroEntrance() {
+    if (typeof gsap === 'undefined') return;
+    const title   = document.querySelector('.page-hero__title');
+    const eyebrow = document.querySelector('.page-hero__eyebrow');
+    const sub     = document.querySelector('.page-hero__sub');
+    if (!title) return; /* home page or no subpage hero */
+    const delay = sessionStorage.getItem('cvf-seen') ? 0.15 : 0.25;
+    const tl = gsap.timeline({ delay });
+    if (eyebrow) tl.from(eyebrow, { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out', clearProps: 'all' });
+    tl.from(title, { opacity: 0, y: 52, duration: 1.0, ease: 'power3.out', clearProps: 'all' }, eyebrow ? '-=0.45' : 0);
+    if (sub) tl.from(sub, { opacity: 0, y: 28, duration: 0.75, ease: 'power3.out', clearProps: 'all' }, '-=0.55');
+  }
+
+  /* ── 14. Sitewide GSAP stagger animations ───────────────────── */
+  function initStaggerAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    function stagger(sel, trig, cfg) {
+      const els = document.querySelectorAll(sel);
+      if (!els.length) return;
+      const c = cfg || {};
+      const trigEl = trig
+        ? document.querySelector(trig)
+        : els[0].parentElement;
+      if (!trigEl) return;
+      gsap.from(els, {
+        opacity:    0,
+        y:          c.y  !== undefined ? c.y : 65,
+        x:          c.x  || 0,
+        scale:      c.sc || 1,
+        duration:   c.d  || 1.1,
+        ease:       'power3.out',
+        stagger:    c.s  || 0.15,
+        clearProps: 'all',
+        scrollTrigger: { trigger: trigEl, start: 'top 85%', once: true }
+      });
+    }
+
+    /* ── About (team/gear/values handled by page inline script) */
+    stagger('.story__body > p',            '.story__body',        { s: 0.1,  y: 30 });
+
+    /* ── Services ───────────────────────────────────────────── */
+    stagger('.includes-list li',           null,                  { s: 0.07, y: 20, x: -14 });
+
+    /* ── Process (steps handled by page inline; FAQ is ours) ─ */
+    stagger('.faq__item',                  '.faq__list',          { s: 0.10, y: 35 });
+
+    /* ── Work ───────────────────────────────────────────────── */
+    stagger('.portfolio-card',             '.portfolio__grid',    { s: 0.09, y: 70 });
+
+    /* ── Reel ───────────────────────────────────────────────── */
+    stagger('.reel-meta-item',             '.reel-info__meta',    { s: 0.14, y: 35 });
+
+    /* ── Contact ────────────────────────────────────────────── */
+    stagger('.contact-info-block',         '.contact-sidebar',    { s: 0.14, y: 50 });
+    stagger('.form-field',                 '.contact-form',       { s: 0.08, y: 30 });
+
+    /* ── Packages ───────────────────────────────────────────── */
+    stagger('.note-item',                  '.packages-note__grid',{ s: 0.16, y: 45 });
+
+    /* ── Global ─────────────────────────────────────────────── */
+    stagger('.manifesto__fact',            null,                  { s: 0.12, y: 45 });
+    stagger('.footer__grid > div',         '.footer__grid',       { s: 0.10, y: 30 });
+  }
+
   /* ── 13. Parallax — hero video + poster reel ─────────────── */
   function initParallax() {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
@@ -398,7 +464,9 @@
     initCursor();
     initNav();
     initMarquee();
-    initReveal();
+    initHeroEntrance();        /* subpage hero — before reveal so GSAP controls these */
+    initStaggerAnimations();   /* group stagger — before reveal so GSAP handles groups */
+    initReveal();              /* remaining .reveal elements (lone items) */
     initVideoAutoplay();
     initPageTransitions();
     initParallax();

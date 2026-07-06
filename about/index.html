@@ -296,19 +296,19 @@
       <p class="section-label">The People</p>
       <h2 id="team-heading" style="font-size:var(--text-h2);font-weight:var(--weight-light);color:var(--color-white);">The Team</h2>
       <div class="team__grid">
-        <div class="team-card reveal">
+        <div class="team-card reveal" data-tilt>
           <div class="team-photo-placeholder" aria-label="Director of Photography">
             <div class="team-photo-placeholder__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
           </div>
           <p class="team-card__role">Founder · Director of Photography</p>
         </div>
-        <div class="team-card reveal">
+        <div class="team-card reveal" data-tilt>
           <div class="team-photo-placeholder" aria-label="Lead Editor">
             <div class="team-photo-placeholder__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
           </div>
           <p class="team-card__role">Lead Editor · Colourist</p>
         </div>
-        <div class="team-card reveal">
+        <div class="team-card reveal" data-tilt>
           <div class="team-photo-placeholder" aria-label="Creative Director">
             <div class="team-photo-placeholder__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
           </div>
@@ -422,13 +422,18 @@
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
   <script src="../js/core.js" defer></script>
   <script>
+  /* Hero entrance handled by core.js initHeroEntrance().
+     Per-page: team, gear, value stagger + story pull-quote. */
   window.addEventListener('load', function() {
-    if (typeof gsap === 'undefined') return;
-    gsap.from('.about-hero__content > *', { opacity: 0, y: 30, stagger: 0.15, duration: 0.9, ease: 'power3.out', delay: 0.3 });
-    gsap.from('.story__pull-quote', { scrollTrigger: { trigger: '.story', start: 'top 78%' }, opacity: 0, y: 40, duration: 1, ease: 'power3.out' });
-    gsap.from('.team-card', { scrollTrigger: { trigger: '.team__grid', start: 'top 80%' }, opacity: 0, y: 40, stagger: 0.15, duration: 0.8, ease: 'power3.out' });
-    gsap.from('.gear-cat',  { scrollTrigger: { trigger: '.gear__grid',  start: 'top 80%' }, opacity: 0, y: 30, stagger: 0.1,  duration: 0.7, ease: 'power3.out' });
-    gsap.from('.value-card',{ scrollTrigger: { trigger: '.values__grid',start: 'top 80%' }, opacity: 0, y: 30, stagger: 0.12, duration: 0.8, ease: 'power3.out' });
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    /* Story pull-quote */
+    gsap.from('.story__pull-quote', { scrollTrigger: { trigger: '.story', start: 'top 78%', once: true }, opacity: 0, y: 50, duration: 1.1, ease: 'power3.out', clearProps: 'all' });
+    /* Team cards — dramatic stagger */
+    gsap.from('.team-card', { scrollTrigger: { trigger: '.team__grid', start: 'top 82%', once: true }, opacity: 0, y: 80, stagger: 0.18, duration: 1.1, ease: 'power3.out', clearProps: 'all' });
+    /* Gear categories */
+    gsap.from('.gear-cat',  { scrollTrigger: { trigger: '.gear__grid',  start: 'top 82%', once: true }, opacity: 0, y: 55, stagger: 0.13, duration: 1.0, ease: 'power3.out', clearProps: 'all' });
+    /* Value cards */
+    gsap.from('.value-card',{ scrollTrigger: { trigger: '.values__grid',start: 'top 82%', once: true }, opacity: 0, y: 65, stagger: 0.15, duration: 1.1, ease: 'power3.out', clearProps: 'all' });
   });
   </script>
 </body>

@@ -347,13 +347,19 @@
       });
     });
 
-    /* Process steps animate in */
+    /* Process steps — dramatic sequential reveal */
     window.addEventListener('load', function() {
-      if (typeof gsap === 'undefined') return;
-      document.querySelectorAll('.process-step-full').forEach((step, i) => {
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+      document.querySelectorAll('.process-step-full').forEach((step) => {
         gsap.from(step, {
-          scrollTrigger: { trigger: step, start: 'top 82%', once: true },
-          opacity: 0, y: 40, duration: 0.9, ease: 'power3.out', delay: 0.1 * i
+          scrollTrigger: { trigger: step, start: 'top 84%', once: true },
+          opacity: 0, y: 80, duration: 1.2, ease: 'power3.out', clearProps: 'all'
+        });
+        /* Number stamps in separately */
+        const num = step.querySelector('.process-step-full__num');
+        if (num) gsap.from(num, {
+          scrollTrigger: { trigger: step, start: 'top 84%', once: true },
+          opacity: 0, x: -30, duration: 0.8, ease: 'power3.out', delay: 0.1, clearProps: 'all'
         });
       });
     });
