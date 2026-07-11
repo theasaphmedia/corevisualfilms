@@ -851,6 +851,7 @@
       background: var(--color-void);
       border-top: 1px solid var(--color-border);
       position: relative;
+      z-index: 5; /* must be above hero positioned elements (z-index:1) when GSAP pins */
     }
     .horizontal-work__header {
       position: absolute;
