@@ -189,18 +189,26 @@
 
       const speed     = parseFloat(track.dataset.speed || '0.35');
       const direction = track.dataset.dir === 'right' ? 1 : -1;
-      let xPercent    = 0;
-      let velocity    = 0;
-      let lastY       = window.scrollY;
+      let x        = 0;
+      let velocity = 0;
+      let lastY    = window.scrollY;
+      let W        = inner.scrollWidth || 1;
+
+      /* Re-measure on resize so the cycle width stays accurate */
+      window.addEventListener('resize', () => { W = inner.scrollWidth || 1; }, { passive: true });
 
       gsap.ticker.add(() => {
         const delta = window.scrollY - lastY;
         lastY = window.scrollY;
         /* Low sensitivity — scrolling should nudge, not rocket */
         velocity += (delta * 0.006 - velocity) * 0.06;
-        xPercent += direction * (speed + Math.abs(velocity) * 0.03);
-        if (Math.abs(xPercent) >= 50) xPercent = 0;
-        gsap.set([inner, clone], { xPercent });
+        x += direction * (speed + Math.abs(velocity) * 0.03);
+        /* Pixel-based seamless loop: both elements share the same x offset.
+           inner is naturally at 0, clone is naturally at W (right after inner).
+           At looped = W → inner is fully off-left, clone fills position 0. Wrap = invisible. */
+        const looped = ((x % W) + W) % W;
+        gsap.set(inner, { x: -looped });
+        gsap.set(clone, { x: -looped });
       });
     });
   }
