@@ -741,6 +741,112 @@
     }
 
     /* ═══════════════════════════════════════════════════════
+       TOUCH / MOBILE EXPERIENCE LAYER
+       ═══════════════════════════════════════════════════════ */
+
+    /* ── Touch: work card info always visible, no hover-only ── */
+    @media (hover: none) {
+      /* Home work cards */
+      .work-card__tag  { transform: translateY(0) !important; opacity: 1 !important; }
+      .work-card__desc { transform: translateY(0) !important; opacity: 1 !important; }
+      .work-card:active  { transform: scale(0.985); transition: transform 0.15s ease; }
+
+      /* H-cards in horizontal reel */
+      .h-card__info    { opacity: 1 !important; transform: none !important; }
+      .h-card:active   { transform: scale(0.97); transition: transform 0.15s ease; }
+
+      /* Buttons */
+      .btn:active { transform: scale(0.96) !important; }
+    }
+
+    /* ── Horizontal reel mobile — swipe UX ────────────────── */
+    @media (max-width: 767px) {
+      /* Hide scrollbar but keep swipe-able */
+      #horizontal-track {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      #horizontal-track::-webkit-scrollbar { display: none; }
+
+      /* Swap hint text to "Swipe to explore" */
+      .horizontal-work__hint { font-size: 0; }
+      .horizontal-work__hint::before {
+        content: 'Swipe  →';
+        font-size: 0.55rem;
+        letter-spacing: var(--tracking-widest);
+        color: var(--color-amber);
+        text-transform: uppercase;
+        font-family: var(--font-mono);
+      }
+      /* suppress the desktop ::after arrow on mobile (replaced above) */
+      .horizontal-work__hint::after { display: none; }
+
+      /* Animated swipe-hint dots below the reel */
+      #horizontal-work::after {
+        content: '';
+        display: block;
+        width: 32px;
+        height: 4px;
+        border-radius: 2px;
+        background: linear-gradient(to right, var(--color-amber), rgba(200,169,110,0.2));
+        margin: var(--space-4) auto var(--space-6);
+        animation: swipePulse 2s ease-in-out infinite;
+      }
+      @keyframes swipePulse {
+        0%, 100% { transform: scaleX(1); opacity: 0.5; }
+        50%       { transform: scaleX(1.4); opacity: 1; }
+      }
+
+      /* Better touch card padding on very small screens */
+      .h-card {
+        width: min(82vw, 340px);
+      }
+    }
+
+    /* ── Section flow-in animation (mobile feel) ──────────── */
+    @keyframes flowUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 768px) {
+      /* Override reveal with a snappier, mobile-tuned animation */
+      .reveal.is-visible {
+        animation: flowUp 0.55s cubic-bezier(0.16,1,0.3,1) both;
+      }
+      /* Stagger siblings naturally */
+      .featured-work__row .reveal.is-visible:nth-child(2) { animation-delay: 0.08s; }
+      .studio-intro__grid .reveal.is-visible:nth-child(2) { animation-delay: 0.06s; }
+
+      /* Work cards on mobile — full bleed, no column gap awkwardness */
+      .featured-work__row {
+        grid-template-columns: 1fr;
+      }
+      .work-card--wide .work-card__media { aspect-ratio: 16/9; }
+
+      /* Manifesto quote tighter on small screens */
+      .manifesto__quote-text { font-size: clamp(1.5rem, 6vw, 2.4rem); }
+
+      /* Section title wraps naturally */
+      .featured-work__title,
+      .studio-intro__headline {
+        white-space: normal;
+        word-break: normal;
+        overflow-wrap: break-word;
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* Hero headline smaller on very small screens */
+      .hero__headline { font-size: clamp(2.2rem, 11vw, 3.2rem); }
+
+      /* Stats band — 2 column grid on small mobile */
+      .stats-band__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-6);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════
        CREATIVE LAYER — added by creative.js companion CSS
        ═══════════════════════════════════════════════════════ */
 
@@ -1305,7 +1411,7 @@
     <section id="horizontal-work" aria-label="Extended portfolio reel">
       <div class="horizontal-work__header">
         <span class="horizontal-work__label" data-scramble="Extended Reel">Extended Reel</span>
-        <span class="horizontal-work__hint">Scroll to explore</span>
+        <span class="horizontal-work__hint" data-hint-desktop="Scroll to explore" data-hint-mobile="Swipe to explore">Scroll to explore</span>
       </div>
       <div id="horizontal-track">
 

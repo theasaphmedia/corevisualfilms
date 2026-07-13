@@ -8,14 +8,17 @@
   'use strict';
 
   /* ── 1. Lenis smooth scroll ─────────────────────────────── */
+  /* Skip Lenis on touch devices — native iOS/Android momentum
+     scroll is far better than any JS approximation.           */
+  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
   let lenis;
-  if (typeof Lenis !== 'undefined') {
+  if (typeof Lenis !== 'undefined' && !isTouch) {
     lenis = new Lenis({
       duration: 1.2,
       easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 0.85,
-      touchMultiplier: 1.2,
+      touchMultiplier: 1,
     });
 
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
