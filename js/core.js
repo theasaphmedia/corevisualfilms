@@ -205,7 +205,9 @@
         lastY = window.scrollY;
         /* Low sensitivity — scrolling should nudge, not rocket */
         velocity += (delta * 0.006 - velocity) * 0.06;
-        x += direction * (speed + Math.abs(velocity) * 0.03);
+        /* Scale by W/100 so `speed` behaves like the old xPercent value —
+           identical visual rate regardless of element width.              */
+        x += direction * (W / 100) * (speed + Math.abs(velocity) * 0.03);
         /* Pixel-based seamless loop: both elements share the same x offset.
            inner is naturally at 0, clone is naturally at W (right after inner).
            At looped = W → inner is fully off-left, clone fills position 0. Wrap = invisible. */
