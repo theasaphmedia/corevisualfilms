@@ -28,82 +28,76 @@
   <link rel="stylesheet" href="css/global.css">
 
   <style>
-    /* ── Hero — Split Editorial ──────────────────────────── */
+    /* ── Hero — Centered Immersive Full-Bleed ──────────────── */
     .hero {
+      position: relative;
       height: 100svh;
       min-height: 600px;
-      display: grid;
-      grid-template-columns: 42fr 58fr;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding-top: var(--nav-height);
       overflow: hidden;
     }
 
-    /* ── Left: Editorial identity panel ───────────────────── */
-    .hero__editorial {
-      background: var(--color-void);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: clamp(2rem, 3.5vw, 4rem) var(--gutter);
-      position: relative;
-      border-right: 1px solid rgba(200,169,110,0.12);
-      overflow: hidden;
-    }
-    /* Atmospheric ghost number — architectural depth */
-    .hero__editorial::after {
-      content: '01';
+    /* Full-bleed background video */
+    .hero__bg-video {
       position: absolute;
-      bottom: -0.12em;
-      left: -0.04em;
-      font-family: var(--font-display);
-      font-size: clamp(12rem, 22vw, 22rem);
-      font-weight: var(--weight-light);
-      color: rgba(200,169,110,0.035);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
       z-index: 0;
     }
-    .hero__editorial-top,
-    .hero__editorial-mid,
-    .hero__editorial-bottom { position: relative; z-index: 1; }
 
-    .hero__index {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--color-amber);
-      letter-spacing: var(--tracking-widest);
-      text-transform: uppercase;
+    /* Cinematic overlay — heavier at top & bottom for text contrast */
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(4,4,4,0.72) 0%,
+          rgba(4,4,4,0.25) 30%,
+          rgba(4,4,4,0.25) 65%,
+          rgba(4,4,4,0.80) 100%);
+      z-index: 1;
+    }
+
+    /* Centered content stack */
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: var(--space-4);
+      gap: var(--space-8);
+      padding: 0 var(--gutter);
+      width: 100%;
+      max-width: 1200px;
     }
-    .hero__index::before {
-      content: '';
-      display: block;
-      width: 2rem;
-      height: 1px;
-      background: var(--color-amber);
-      flex-shrink: 0;
-    }
+
     .hero__eyebrow {
       font-family: var(--font-mono);
       font-size: var(--text-xs);
-      color: rgba(232,224,208,0.45);
+      color: rgba(232,224,208,0.55);
       letter-spacing: var(--tracking-widest);
       text-transform: uppercase;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: var(--space-3);
-      margin-top: var(--space-4);
     }
+
     .hero__headline {
       font-family: var(--font-display);
-      font-size: clamp(3.8rem, 6.5vw, 9rem);
+      font-size: clamp(4.5rem, 9vw, 11rem);
       font-weight: var(--weight-light);
       line-height: 0.87;
       color: var(--color-white);
       letter-spacing: -0.03em;
+      text-align: center;
     }
     .hero__line { display: block; overflow: hidden; }
     .hero__line-inner { display: block; }
@@ -111,69 +105,49 @@
       font-style: italic;
       color: var(--color-amber);
     }
+
     .hero__descriptor {
       font-family: var(--font-mono);
       font-size: 0.62rem;
       color: rgba(232,224,208,0.38);
       letter-spacing: var(--tracking-widest);
       text-transform: uppercase;
-      line-height: 2.4;
-      margin-bottom: var(--space-6);
+      line-height: 1.8;
     }
+
     .hero__actions {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: var(--space-4);
       flex-wrap: wrap;
     }
-    /* Timecode sits inside the editorial panel, bottom-right */
+
+    /* Timecode — bottom-left ambient detail */
     .hero__timecode {
       position: absolute;
-      bottom: clamp(1rem, 1.5vw, 1.5rem);
-      right: var(--space-5);
+      bottom: clamp(1.5rem, 3vw, 2.5rem);
+      left: var(--gutter);
+      z-index: 2;
       font-family: var(--font-mono);
       font-size: 0.58rem;
-      color: rgba(200,169,110,0.28);
+      color: rgba(200,169,110,0.38);
       letter-spacing: 0.08em;
       display: flex;
       align-items: center;
       gap: var(--space-2);
       pointer-events: none;
-      z-index: 1;
     }
     .hero__timecode-label {
       font-size: 0.52rem;
       letter-spacing: var(--tracking-widest);
-      color: rgba(200,169,110,0.16);
+      color: rgba(200,169,110,0.22);
     }
 
-    /* ── Right: Video panel ─────────────────────────────── */
-    .hero__reel-stage {
-      position: relative;
-      overflow: hidden;
-      background: #000;
-    }
-    .hero__reel-video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;   /* show full frame — no cropping */
-      object-position: center center;
-      display: block;
-    }
-    /* Left edge blends into editorial panel; subtle top/bottom feathers */
-    .hero__reel-vignette {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to right, rgba(8,8,8,0.55) 0%, transparent 22%),
-        linear-gradient(to bottom, rgba(8,8,8,0.18) 0%, transparent 14%, transparent 86%, rgba(8,8,8,0.45) 100%);
-      pointer-events: none;
-      z-index: 1;
-    }
-    /* Broadcast tag — top-right corner of video */
+    /* Broadcast tag — top-right */
     .hero__reel-tag {
       position: absolute;
-      top: var(--space-5);
+      top: calc(var(--nav-height) + var(--space-5));
       right: var(--gutter);
       z-index: 2;
       display: flex;
@@ -194,6 +168,8 @@
       0%, 45% { opacity: 1; }
       55%, 100% { opacity: 0.08; }
     }
+
+    /* Scroll indicator — bottom-right */
     .hero__scroll {
       position: absolute;
       bottom: clamp(1.5rem, 3vw, 3rem);
@@ -225,7 +201,7 @@
       writing-mode: vertical-rl;
     }
 
-    /* ── Location Pulse dot ───────────────────────────────── */
+    /* Location pulse dot */
     .location-pulse {
       display: inline-block;
       width: 6px;
@@ -718,30 +694,12 @@
       .featured-work__header { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: 1fr;
-        grid-template-rows: 55svh auto;
-        min-height: 100svh;
-      }
-      .hero__reel-stage { order: -1; }
-      .hero__editorial {
-        padding: var(--space-6) var(--gutter) var(--space-8);
-        border-right: none;
-        border-top: 1px solid rgba(200,169,110,0.12);
-        justify-content: flex-start;
-        gap: var(--space-6);
-      }
-      .hero__editorial::after { display: none; }
-      .hero__editorial { overflow: hidden; }
-      .hero__headline { font-size: clamp(2.8rem, 10vw, 4rem); }
+      .hero__headline { font-size: clamp(3rem, 11vw, 5rem); }
+      .hero__content { gap: var(--space-6); }
       .hero__timecode { display: none; }
-      .hero__scroll { display: none; }
-      /* Pair words side-by-side on mobile */
-      .hero__line-pair { display: block; white-space: nowrap; }
-      .hero__line-pair .hero__line { display: inline-block; overflow: hidden; vertical-align: top; }
-      .hero__line-pair .hero__line + .hero__line { margin-left: 0.2em; }
     }
     @media (max-width: 480px) {
+      .hero__headline { font-size: clamp(2.6rem, 12vw, 4rem); }
       .hero__actions { flex-wrap: wrap; gap: var(--space-3); }
       .poster-reel__img { height: 110px; }
     }
@@ -842,8 +800,7 @@
     }
 
     @media (max-width: 480px) {
-      /* Hero headline smaller on very small screens */
-      .hero__headline { font-size: clamp(2.2rem, 11vw, 3.2rem); }
+      /* Hero headline handled in the 480px block above */
 
       /* Stats band — 2 column grid on small mobile */
       .stats-band__grid {
@@ -1193,65 +1150,53 @@
 
   <main id="main">
 
-    <!-- ── Hero — Split Editorial ───────────────────────── -->
+    <!-- ── Hero — Centered Immersive ───────────────────────── -->
     <section class="hero" id="hero" aria-label="Hero">
 
-      <!-- LEFT: Studio identity — architectural type, never touches the video -->
-      <div class="hero__editorial">
-        <canvas id="heroGrain" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:1;"></canvas>
-        <div class="hero__editorial-top">
-          <p class="hero__index" aria-hidden="true">Full-Spectrum Visual Production</p>
-          <p class="hero__eyebrow">
-            <span class="location-pulse"></span>
-            Lagos, Nigeria
-          </p>
-        </div>
+      <!-- Full-bleed background reel -->
+      <canvas id="heroGrain" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:1;"></canvas>
+      <video autoplay muted loop playsinline preload="metadata"
+             poster="assets/posters/instanlabe.jpg"
+             class="hero__bg-video">
+        <source src="assets/videos/showreel.mp4" type="video/mp4">
+      </video>
+      <div class="hero__overlay" aria-hidden="true"></div>
 
-        <div class="hero__editorial-mid">
-          <h1 class="hero__headline" aria-label="Where Vision Becomes Legacy">
-            <span class="hero__line-pair">
-              <span class="hero__line"><span class="hero__line-inner">Where</span></span>
-              <span class="hero__line"><span class="hero__line-inner">Vision</span></span>
-            </span>
-            <span class="hero__line-pair">
-              <em class="hero__line hero__line--em"><span class="hero__line-inner">Becomes</span></em>
-              <span class="hero__line"><span class="hero__line-inner">Legacy</span></span>
-            </span>
-          </h1>
-        </div>
+      <!-- Centered content -->
+      <div class="hero__content">
+        <p class="hero__eyebrow">
+          <span class="location-pulse"></span>
+          Lagos, Nigeria
+        </p>
 
-        <div class="hero__editorial-bottom">
-          <p class="hero__descriptor">Weddings · Commercial · Music<br>Real Estate · Documentary · Corporate</p>
-          <div class="hero__actions">
-            <a href="work/"  class="btn btn--amber">See Our Work</a>
-            <a href="reel/"  class="btn btn--outline">Watch Reel</a>
-          </div>
-        </div>
+        <h1 class="hero__headline" aria-label="Where Vision Becomes Legacy">
+          <span class="hero__line"><span class="hero__line-inner">Where Vision</span></span>
+          <em class="hero__line hero__line--em"><span class="hero__line-inner">Becomes</span></em>
+          <span class="hero__line"><span class="hero__line-inner">Legacy</span></span>
+        </h1>
 
-        <div class="hero__timecode" aria-hidden="true">
-          <span class="hero__timecode-label">TC</span>
-          <span id="timecode">00:00:00:00</span>
+        <p class="hero__descriptor">Weddings · Commercial · Music · Real Estate · Documentary · Corporate</p>
+
+        <div class="hero__actions">
+          <a href="work/"  class="btn btn--amber">See Our Work</a>
+          <a href="reel/"  class="btn btn--outline">Watch Reel</a>
         </div>
       </div>
 
-      <!-- RIGHT: Showreel plays clean — video's own graphics run unobstructed -->
-      <div class="hero__reel-stage">
-        <video autoplay muted loop playsinline preload="metadata"
-               poster="assets/posters/instanlabe.jpg"
-               class="hero__reel-video">
-          <source src="assets/videos/showreel.mp4" type="video/mp4">
-        </video>
-        <div class="hero__reel-vignette" aria-hidden="true"></div>
+      <!-- Ambient broadcast details -->
+      <div class="hero__reel-tag" aria-hidden="true">
+        <span>SHOWREEL 2025</span>
+        <span class="hero__reel-rec">● REC</span>
+      </div>
 
-        <div class="hero__reel-tag" aria-hidden="true">
-          <span>SHOWREEL 2025</span>
-          <span class="hero__reel-rec">● REC</span>
-        </div>
+      <div class="hero__timecode" aria-hidden="true">
+        <span class="hero__timecode-label">TC</span>
+        <span id="timecode">00:00:00:00</span>
+      </div>
 
-        <div class="hero__scroll" id="heroScroll" aria-label="Scroll to explore">
-          <div class="hero__scroll-line"></div>
-          <span class="hero__scroll-text">Scroll</span>
-        </div>
+      <div class="hero__scroll" id="heroScroll" aria-label="Scroll to explore">
+        <div class="hero__scroll-line"></div>
+        <span class="hero__scroll-text">Scroll</span>
       </div>
 
     </section>
@@ -1676,8 +1621,7 @@
       if (typeof gsap === 'undefined') return;
 
       /* Set hero initial states via JS — text is visible without JS as fallback */
-      gsap.set('.hero__index',     { opacity: 0 });
-      gsap.set('.hero__eyebrow',   { opacity: 0 });
+      gsap.set('.hero__eyebrow',   { opacity: 0, y: 6 });
       gsap.set('.hero__line-inner',{ y: '110%' });
       gsap.set('.hero__descriptor',{ opacity: 0 });
       gsap.set('.hero__actions',   { opacity: 0, y: 10 });
@@ -1687,12 +1631,11 @@
       const heroTl = gsap.timeline({ delay: sessionStorage.getItem('cvf-seen') ? 0.1 : 1.6 });
 
       heroTl
-        .to('.hero__index',    { opacity: 1, duration: 0.5, ease: 'power3.out' })
-        .to('.hero__eyebrow',  { opacity: 1, duration: 0.5, ease: 'power3.out' }, '-=0.2')
+        .to('.hero__eyebrow',  { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
         .to('.hero__line-inner', {
           y: '0%', duration: 1.1, ease: 'power3.out',
           stagger: 0.1
-        }, '-=0.2')
+        }, '-=0.3')
         .to('.hero__descriptor', { opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.3')
         .to('.hero__actions',  { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
         .to('#heroScroll',     { opacity: 1, duration: 0.5 }, '-=0.2');
