@@ -46,6 +46,40 @@
     .story__pull-quote span { color: var(--color-amber); }
     .story__body { font-size: var(--text-body); color: var(--color-muted); line-height: var(--leading-loose); }
     .story__body p + p { margin-top: var(--space-5); }
+    .story__services-list {
+      list-style: none;
+      margin: var(--space-5) 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .story__services-list li {
+      padding-left: var(--space-5);
+      position: relative;
+      font-size: var(--text-body);
+      color: var(--color-muted);
+      line-height: var(--leading-loose);
+    }
+    .story__services-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--color-amber);
+      font-size: 1.4em;
+      line-height: 1.2;
+    }
+    .story__services-list strong {
+      color: rgba(232,224,208,0.75);
+      font-weight: var(--weight-medium);
+    }
+    .story__rc {
+      margin-top: var(--space-8);
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: rgba(232,224,208,0.25);
+    }
 
     /* ── Team ─────────────────────────────────────────────── */
     .team { padding-block: var(--section-pad-y); border-top: 1px solid var(--color-border); }
@@ -248,10 +282,10 @@
     <div class="nav__overlay" id="navOverlay" aria-hidden="true">
       <nav class="nav__overlay-inner">        <ul class="nav__links">
           <li class="nav__link-item"><a href="../"           class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
-          <li class="nav__link-item"><a href="../work/"      class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Work</span></a></li>
+          <li class="nav__link-item"><a href="../work/"      class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Projects</span></a></li>
           <li class="nav__link-item"><a href="../services/"  class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
-          <li class="nav__link-item"><a href="../packages/"  class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">Packages</span></a></li>
-          <li class="nav__link-item"><a href="../pricing/"   class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Pricing</span></a></li>
+          <li class="nav__link-item"><a href="../packages/"  class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">Brand &amp; Media Packages</span></a></li>
+          <li class="nav__link-item"><a href="../pricing/"   class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Video Production Packages</span></a></li>
           <li class="nav__link-item"><a href="../about/"     class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">About</span></a></li>
           <li class="nav__link-item"><a href="../reel/"      class="nav__link"><span class="nav__link-num">06</span><span class="nav__link-text">Reel</span></a></li>
           <li class="nav__link-item"><a href="../contact/"   class="nav__link"><span class="nav__link-num">07</span><span class="nav__link-text">Contact</span></a></li>
@@ -285,10 +319,18 @@
           </h2>
         </div>
         <div class="story__body">
-          <p>Corevisualmedia was founded on a simple conviction: that the most powerful thing a film can do is make someone feel less alone in their experience. That a frame, held long enough on the right face, can say what years of conversation never quite manage.</p>
-          <p>We started with weddings, the highest-stakes single day of most people's lives, and learned everything about light, timing, and the art of being invisible in the room while capturing everything. That discipline shaped every other kind of work we do.</p>
-          <p>Today the studio produces across six disciplines, on six continents. The team is small by choice. Every project is handled by people who care about it personally. We don't have departments. We have collaborators.</p>
-          <p>The name says it: <em style="color:var(--color-amber);">core visual</em>. The essential truth, in pictures. That's the only brief we accept.</p>
+          <p>Corevisual Media is a communications solution, Productions, Event Consortium, Commercials, Publishing and Brand Storytelling company.</p>
+          <p>It was founded on a simple conviction: that the most powerful thing a film can do is make someone feel less alone in their experience. That a frame, held long enough on the right face, can say what years of conversation never quite manage.</p>
+          <p>We started with weddings, the highest-stakes single day of most people's lives, and learned everything about light, timing, and the art of being invisible in the room while capturing everything. That discipline shaped every work we do.</p>
+          <p>And now we have metamorphosed into a full Media and Brand Communication company with core services in:</p>
+          <ul class="story__services-list">
+            <li><strong>Public Relations (PR):</strong> Crisis management, media relations, and reputation control.</li>
+            <li><strong>Brand Strategy:</strong> Identity building, market research, and targeted campaigns.</li>
+            <li><strong>Digital &amp; Media:</strong> Social media management, content creation, and ad buying.</li>
+          </ul>
+          <p>Today we have functioned across six disciplines, and every project is handled by people who care about it personally. We don't have departments. We have collaborators.</p>
+          <p>The name says it: <em style="color:var(--color-amber);">"Corevisual"</em>, the essential truth, in pictures. That's the only brief we accept.</p>
+          <p class="story__rc">RC: 3706265</p>
         </div>
       </div>
     </section>
@@ -403,7 +445,7 @@
           <p class="footer__brand-desc">Full-spectrum visual production studio based in Lagos, Nigeria. Cinematic stories across weddings, commercial, music, real estate, documentary, and corporate work.</p>
         </div>
         <div>
-          <p class="footer__col-title">Work</p>
+          <p class="footer__col-title">Projects</p>
           <ul class="footer__links">
             <li><a href="../work/?cat=weddings">Weddings &amp; Events</a></li>
             <li><a href="../work/?cat=commercial">Commercial</a></li>
