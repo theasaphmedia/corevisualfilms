@@ -156,7 +156,8 @@
     .hero__reel-video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;   /* show full frame — no cropping */
+      object-position: center center;
       display: block;
     }
     /* Left edge blends into editorial panel; subtle top/bottom feathers */
