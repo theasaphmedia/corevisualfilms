@@ -18,6 +18,8 @@
 | `--color-off-white` | `#E8E0D0` | Body text — warm, not stark |
 | `--color-muted` | `#6B6B6B` | Metadata, secondary copy |
 | `--color-muted-light` | `#4A4A4A` | Borders, very subtle text |
+| `--color-warm-off-white` | `#F5F0E8` | Light-flip section backgrounds (testimonials, contrast bands) |
+| `--color-amber-text-on-light` | `#6E5834` | AA-safe amber (5.96:1) for text on `--color-warm-off-white` |
 
 **Rationale:** The amber accent (#C8A96E) is the cinematic differentiator. It evokes tungsten light, film grain warmth, and golden hour — all core to the emotional register of premium videography. Every competitor uses cold blues or neutral greys. This palette is immediately identifiable.
 

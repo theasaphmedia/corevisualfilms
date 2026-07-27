@@ -22,6 +22,9 @@
   --color-muted:       #6B6B6B;   /* Metadata, captions */
   --color-muted-light: #4A4A4A;
 
+  --color-warm-off-white:      #F5F0E8;  /* Light-flip section bg (testimonials, contrast bands) */
+  --color-amber-text-on-light: #6E5834;  /* AA-safe amber (5.96:1) for small text on warm-off-white */
+
   /* ── Typography ──────────────────────────────────────────── */
   --font-display: 'Cormorant Garamond', 'Georgia', serif;
   --font-body:    'DM Sans', 'system-ui', sans-serif;
