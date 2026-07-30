@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Corevisualmedia</title>
   <meta name="description" content="Meet the team behind Corevisual Media, a communications solution. Productions, Event Consortium, Commercials, Publishing and Brand Storytelling company based in Lagos, Nigeria.">
-  <link rel="canonical" href="https://corevisualmedia.com/about/">
+  <link rel="canonical" href="https://corevisualfilms.vercel.app/about/">
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/global.css">
   <style>
@@ -270,6 +270,32 @@
       .gear__grid { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Corevisual Films",
+    "description": "Meet the team behind Corevisual Films — a communications solution for Productions, Events, Commercials, Publishing and Brand Storytelling based in Lagos, Nigeria.",
+    "url": "https://corevisualfilms.vercel.app/about/",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Corevisual Films",
+      "url": "https://corevisualfilms.vercel.app/"
+    }
+  }
+  </script>
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-XXXXXXXXXX");
+  </script>
 </head>
 <body>
   <canvas id="grain" aria-hidden="true"></canvas>
@@ -395,7 +421,7 @@
           <p class="team-card__role">Cinematographer</p>
         </div>
         <div class="team-card reveal" data-tilt>
-          <img src="../assets/images/Chukwuma Eke - official Portrait - BRANDING SPECIALIST.png"
+          <img src="../assets/images/Chukwuma Eke - official Portrait - BRANDING SPECIALIST.jpeg"
                alt="Chukwuma Eke"
                class="team-photo"
                loading="lazy">
@@ -500,6 +526,9 @@
       </div>
       <div class="footer__bottom">
         <p class="footer__legal">&copy; 2026 Corevisualmedia. All rights reserved. Lagos, Nigeria.</p>
+        <nav class="footer__legal-links" aria-label="Legal">
+          <a href="/privacy/" style="color:var(--color-muted);font-size:var(--text-xs);text-decoration:none;letter-spacing:var(--tracking-widest);text-transform:uppercase;font-family:var(--font-mono);">Privacy Policy</a>
+        </nav>
         <p class="footer__tagline">Where Vision Becomes Legacy</p>
       </div>
     </div>

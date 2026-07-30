@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Showreel — Corevisualmedia</title>
   <meta name="description" content="Watch the Corevisual Media showreel, Productions, Event Consortium, Commercials, Publishing and Brand Storytelling. Based in Lagos, Nigeria.">
-  <link rel="canonical" href="https://corevisualmedia.com/reel/">
+  <link rel="canonical" href="https://corevisualfilms.vercel.app/reel/">
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/global.css">
   <style>
@@ -109,6 +109,33 @@
       letter-spacing: var(--tracking-widest);
     }
   </style>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Corevisual Films Showreel 2026",
+    "description": "Official 2026 showreel showcasing productions by Corevisual Films — commercials, brand films, music videos, and events.",
+    "thumbnailUrl": "https://corevisualfilms.vercel.app/assets/posters/instanlabe.jpg",
+    "uploadDate": "2026-01-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Corevisual Films",
+      "url": "https://corevisualfilms.vercel.app/"
+    }
+  }
+  </script>
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-XXXXXXXXXX");
+  </script>
 </head>
 <body class="reel-page">
   <canvas id="grain" aria-hidden="true"></canvas>
@@ -265,6 +292,9 @@
       </div>
       <div class="footer__bottom">
         <p class="footer__legal">&copy; 2026 Corevisualmedia. All rights reserved. Lagos, Nigeria.</p>
+        <nav class="footer__legal-links" aria-label="Legal">
+          <a href="/privacy/" style="color:var(--color-muted);font-size:var(--text-xs);text-decoration:none;letter-spacing:var(--tracking-widest);text-transform:uppercase;font-family:var(--font-mono);">Privacy Policy</a>
+        </nav>
         <p class="footer__tagline">Where Vision Becomes Legacy</p>
       </div>
     </div>

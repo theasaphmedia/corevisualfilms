@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found · Corevisual Films</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Return to Corevisual Films.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .error-page {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-16) var(--gutter);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .error-page__code {
+      font-family: var(--font-display);
+      font-size: clamp(8rem, 20vw, 18rem);
+      font-weight: var(--weight-light);
+      line-height: 0.85;
+      color: rgba(232,224,208,0.06);
+      letter-spacing: -0.04em;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .error-page__content {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+    }
+
+    .error-page__eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-amber);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      margin-bottom: var(--space-6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+
+    .error-page__eyebrow::before,
+    .error-page__eyebrow::after {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--color-amber);
+      opacity: 0.4;
+    }
+
+    .error-page__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: var(--weight-light);
+      color: var(--color-white);
+      line-height: 1.1;
+      margin-bottom: var(--space-6);
+      letter-spacing: -0.02em;
+    }
+
+    .error-page__title em {
+      font-style: italic;
+      color: var(--color-amber);
+    }
+
+    .error-page__body {
+      font-size: var(--text-body);
+      color: var(--color-muted);
+      line-height: var(--leading-loose);
+      margin-bottom: var(--space-10);
+    }
+
+    .error-page__actions {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .error-page__links {
+      margin-top: var(--space-12);
+      padding-top: var(--space-10);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      gap: var(--space-8);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .error-page__links a {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-muted);
+      text-decoration: none;
+      transition: color var(--dur-base) var(--ease-out);
+    }
+
+    .error-page__links a:hover { color: var(--color-amber); }
+
+    .error-page__timecode {
+      position: absolute;
+      bottom: var(--space-8);
+      left: var(--gutter);
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: rgba(200,169,110,0.25);
+      letter-spacing: 0.08em;
+    }
+  </style>
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-XXXXXXXXXX");
+  </script>
+</head>
+<body>
+  <canvas id="grain" aria-hidden="true"></canvas>
+  <div id="page-curtain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div><span class="cursor__label">PLAY</span></div>
+
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="/" class="nav__logo">COREVISUALMEDIA</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navOverlay"><span class="nav__close-label">Close</span><span class="nav__toggle-bar"></span><span class="nav__toggle-bar"></span></button>
+    <div class="nav__overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav__overlay-inner">
+        <ul class="nav__links">
+          <li class="nav__link-item"><a href="/"           class="nav__link"><span class="nav__link-num">00</span><span class="nav__link-text">Home</span></a></li>
+          <li class="nav__link-item"><a href="/work/"      class="nav__link"><span class="nav__link-num">01</span><span class="nav__link-text">Projects</span></a></li>
+          <li class="nav__link-item"><a href="/services/"  class="nav__link"><span class="nav__link-num">02</span><span class="nav__link-text">Services</span></a></li>
+          <li class="nav__link-item"><a href="/packages/"  class="nav__link"><span class="nav__link-num">03</span><span class="nav__link-text">Brand &amp; Media Packages</span></a></li>
+          <li class="nav__link-item"><a href="/pricing/"   class="nav__link"><span class="nav__link-num">04</span><span class="nav__link-text">Video Production Packages</span></a></li>
+          <li class="nav__link-item"><a href="/about/"     class="nav__link"><span class="nav__link-num">05</span><span class="nav__link-text">About</span></a></li>
+          <li class="nav__link-item"><a href="/reel/"      class="nav__link"><span class="nav__link-num">06</span><span class="nav__link-text">Reel</span></a></li>
+          <li class="nav__link-item"><a href="/contact/"   class="nav__link"><span class="nav__link-num">07</span><span class="nav__link-text">Contact</span></a></li>
+        </ul>
+      </nav>
+      <div class="nav__overlay-footer"><div class="nav__contact-info"><p>hello@corevisualmedia.com</p><p>+234 706 275 9706</p></div><div class="nav__social"><a href="https://instagram.com/Corevisualmedia" target="_blank" rel="noopener noreferrer">Instagram</a></div></div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="error-page">
+      <span class="error-page__code" aria-hidden="true">404</span>
+
+      <div class="error-page__content">
+        <p class="error-page__eyebrow">Error 404</p>
+        <h1 class="error-page__title">This frame<br>is <em>missing</em></h1>
+        <p class="error-page__body">The page you're looking for has been moved, deleted, or never existed. Let's get you back to something real.</p>
+        <div class="error-page__actions">
+          <a href="/" class="btn btn--amber">Go Home</a>
+          <a href="/work/" class="btn btn--outline">View Our Work</a>
+        </div>
+
+        <nav class="error-page__links" aria-label="Quick links">
+          <a href="/about/">About</a>
+          <a href="/services/">Services</a>
+          <a href="/packages/">Packages</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/reel/">Showreel</a>
+          <a href="/contact/">Contact</a>
+        </nav>
+      </div>
+
+      <p class="error-page__timecode" aria-hidden="true">COREVISUALFILMS · FRAME NOT FOUND</p>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <p class="footer__logo">COREVISUALMEDIA</p>
+          <p class="footer__tagline">Where Vision Becomes Legacy</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; <span id="footerYear"></span> Corevisual Films. All rights reserved.</p>
+        <nav class="footer__legal" aria-label="Legal links">
+          <a href="/privacy/">Privacy Policy</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/global.js" defer></script>
+  <script>
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

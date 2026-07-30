@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — Corevisualmedia</title>
   <meta name="description" content="Start a conversation with Corevisualmedia. Tell us about your project — we respond within 24 hours.">
-  <link rel="canonical" href="https://corevisualmedia.com/contact/">
+  <link rel="canonical" href="https://corevisualfilms.vercel.app/contact/">
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/global.css">
   <style>
@@ -135,6 +135,19 @@
       cursor: none;
     }
     .custom-select__item:last-child { border-bottom: none; }
+    .custom-select__group-label {
+      padding: var(--space-3) var(--space-5) var(--space-2);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: rgba(200,169,110,0.45);
+      border-bottom: 1px solid var(--color-border-dim);
+      margin-top: var(--space-2);
+      pointer-events: none;
+      user-select: none;
+    }
+    .custom-select__group-label:first-child { margin-top: 0; }
     .custom-select__item:hover,
     .custom-select__item.is-selected {
       background: rgba(200,169,110,0.08);
@@ -283,6 +296,32 @@
       .form-row { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Corevisual Films",
+    "description": "Get in touch with Corevisual Films to discuss your next production — commercials, brand stories, events, or music videos.",
+    "url": "https://corevisualfilms.vercel.app/contact/",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Corevisual Films",
+      "url": "https://corevisualfilms.vercel.app/"
+    }
+  }
+  </script>
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-XXXXXXXXXX");
+  </script>
 </head>
 <body>
   <canvas id="grain" aria-hidden="true"></canvas>
@@ -332,6 +371,13 @@
           </div>
 
           <form class="contact-form" id="contactForm" novalidate aria-label="Contact inquiry form">
+            <!-- Web3Forms config -->
+            <input type="hidden" name="access_key" value="REPLACE_WITH_YOUR_WEB3FORMS_KEY">
+            <input type="hidden" name="subject" value="New Inquiry — Corevisual Films Website">
+            <input type="hidden" name="from_name" value="Corevisual Films Website">
+            <input type="hidden" name="redirect" value="false">
+            <!-- Honeypot — bots fill this, humans don't -->
+            <input type="text" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
             <div class="form-row">
               <div class="form-field">
                 <label for="name">Full Name<span class="req" aria-label="required">*</span></label>
@@ -493,6 +539,9 @@
       </div>
       <div class="footer__bottom">
         <p class="footer__legal">&copy; 2026 Corevisualmedia. All rights reserved. Lagos, Nigeria.</p>
+        <nav class="footer__legal-links" aria-label="Legal">
+          <a href="/privacy/" style="color:var(--color-muted);font-size:var(--text-xs);text-decoration:none;letter-spacing:var(--tracking-widest);text-transform:uppercase;font-family:var(--font-mono);">Privacy Policy</a>
+        </nav>
         <p class="footer__tagline">Where Vision Becomes Legacy</p>
       </div>
     </div>
@@ -532,15 +581,34 @@
         list.className = 'custom-select__list';
         list.setAttribute('role', 'listbox');
 
-        /* Build list items from options (skip disabled placeholder) */
-        Array.from(sel.options).forEach(function (opt) {
-          if (opt.disabled) return;
-          var li = document.createElement('li');
-          li.className = 'custom-select__item';
-          li.setAttribute('role', 'option');
-          li.dataset.value = opt.value;
-          li.textContent = opt.text;
-          list.appendChild(li);
+        /* Build list items — walk children to capture optgroup labels */
+        Array.from(sel.children).forEach(function (child) {
+          if (child.tagName === 'OPTGROUP') {
+            /* Group header — not selectable */
+            var header = document.createElement('li');
+            header.className = 'custom-select__group-label';
+            header.setAttribute('role', 'presentation');
+            header.setAttribute('aria-hidden', 'true');
+            header.textContent = child.label;
+            list.appendChild(header);
+            /* Options inside the group */
+            Array.from(child.options).forEach(function (opt) {
+              var li = document.createElement('li');
+              li.className = 'custom-select__item';
+              li.setAttribute('role', 'option');
+              li.dataset.value = opt.value;
+              li.textContent = opt.text;
+              list.appendChild(li);
+            });
+          } else if (child.tagName === 'OPTION') {
+            if (child.disabled) return;
+            var li = document.createElement('li');
+            li.className = 'custom-select__item';
+            li.setAttribute('role', 'option');
+            li.dataset.value = child.value;
+            li.textContent = child.text;
+            list.appendChild(li);
+          }
         });
 
         wrapper.appendChild(trigger);
@@ -610,11 +678,27 @@
 
         if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
 
-        /* Show success (replace with real endpoint when ready) */
-        setTimeout(function () {
-          if (form)    form.style.display    = 'none';
-          if (success) success.classList.add('is-visible');
-        }, 800);
+        /* Submit to Web3Forms */
+        var data = new FormData(form);
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: data
+        })
+        .then(function (res) { return res.json(); })
+        .then(function (json) {
+          if (json.success) {
+            if (form)    form.style.display    = 'none';
+            if (success) success.classList.add('is-visible');
+          } else {
+            /* Server-side error */
+            if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
+            alert('Something went wrong. Please email us directly at hello@corevisualmedia.com');
+          }
+        })
+        .catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
+          alert('Network error. Please email us directly at hello@corevisualmedia.com');
+        });
       });
 
       /* Clear red border on input */
